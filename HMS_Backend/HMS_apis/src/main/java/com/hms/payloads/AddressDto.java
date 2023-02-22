@@ -43,5 +43,4 @@ public class AddressDto {
 	
 	private int pincode;
 	
-	//private UserDto user;
 }

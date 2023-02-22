@@ -17,7 +17,7 @@ public class AddressServiceImpl implements AddressService {
 
 	@Autowired
 	private AddressRepo addressRepo;
-	
+
 	@Autowired
 	private UserRepo userRepo;
 
@@ -25,7 +25,7 @@ public class AddressServiceImpl implements AddressService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public AddressDto createAddress(AddressDto addressDto,Integer userId) {
+	public AddressDto createAddress(AddressDto addressDto, Integer userId) {
 		User user = this.userRepo.findById(userId)
 				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
 		Address address = this.modelMapper.map(addressDto, Address.class);
@@ -36,11 +36,10 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public AddressDto updateAddress(AddressDto addressDto, Integer Id) {
-		//User user=this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User ", "User id", userId));
-		
-		Address address = this.addressRepo.findById(Id).orElseThrow(() -> new ResourceNotFoundException("Address ", "address Id", Id));
-		//Address address =new Address();
-		
+
+		Address address = this.addressRepo.findById(Id)
+				.orElseThrow(() -> new ResourceNotFoundException("Address ", "address Id", Id));
+
 		address.setPlotNo(addressDto.getPlotNo());
 		address.setBuildingName(addressDto.getBuildingName());
 		address.setAreaName(addressDto.getAreaName());
@@ -48,10 +47,9 @@ public class AddressServiceImpl implements AddressService {
 		address.setState(addressDto.getState());
 		address.setCountry(addressDto.getCountry());
 		address.setPincode(addressDto.getPincode());
-		//user.setAddress(address);
-		
+
 		Address updatedAddress = this.addressRepo.save(address);
-		
+
 		return this.modelMapper.map(updatedAddress, AddressDto.class);
 	}
 

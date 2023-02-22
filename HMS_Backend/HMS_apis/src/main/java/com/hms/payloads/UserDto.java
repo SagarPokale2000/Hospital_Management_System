@@ -51,13 +51,11 @@ public class UserDto {
 	private String bloodGroup;
 
 	private LocalDate dob;
-	
-	 private AddressDto address;
+
+	private AddressDto address;
+
+	private EmployeeDto employee;
 	/*
-	 * private AddressDto address;
-	 * 
-	 * private EmployeeDto employee;
-	 * 
-	 * private PatientDto patient;
+ private PatientDto patient;
 	 */
 }

@@ -25,17 +25,15 @@ public class EmployeeDto {
 	@NotEmpty
 	private String qualificaton;
 
-	private int salary;
+	private double salary;
 	
-	@NotEmpty
 	private LocalDate Hiredate;
 
-	@NotEmpty
 	private boolean status;
 	
-	private UserDto user;
+	//private UserDto user;
 	
-	private DoctorDto doctor;
+	//private DoctorDto doctor;
 
 	public boolean getStatus() {
 		return status;

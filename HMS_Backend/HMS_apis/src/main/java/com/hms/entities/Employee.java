@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,11 +36,13 @@ public class Employee {
 
 	private String qualificaton;
 
-	private int salary;
+	private double salary;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "hire_date")
 	private LocalDate hiredate;
 
+	@Column(columnDefinition="boolean default false")
 	private boolean status;
 
 	@OneToOne()
