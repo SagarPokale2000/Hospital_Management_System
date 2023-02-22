@@ -22,22 +22,22 @@ import com.hms.payloads.PatientResponse;
 import com.hms.services.PatientService;
 
 @RestController
-@RequestMapping("/api/patients/")
+@RequestMapping("/api/")
 public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
-//	create
-
-	@PostMapping("/doctor/{doctorId}/ward/{wardId}/patient")
-	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer doctorId,
+	
+	//	create
+	@PostMapping("/user/{userId}/doctor/{doctorId}/ward/{wardId}/patients")
+	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer userId, @PathVariable Integer doctorId,
 			@PathVariable Integer wardId) {
-		PatientDto createPatient = this.patientService.createPatient(patientDto, doctorId, wardId);
+		PatientDto createPatient = this.patientService.createPatient(patientDto,userId, doctorId, wardId);
 		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
 	}
 
 	// get by user
-	@GetMapping("/doctor/{doctorId}/patient")
+	@GetMapping("/doctor/{doctorId}/patients")
 	public ResponseEntity<List<PatientDto>> getPatientsByDoctor(@PathVariable Integer doctorId) {
 
 		List<PatientDto> patients = this.patientService.getPatientsByDoctor(doctorId);
@@ -53,7 +53,7 @@ public class PatientController {
 
 	}
 
-	@GetMapping("/posts")
+	@GetMapping("/patients")
 	public ResponseEntity<PatientResponse> getAllPatient(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
@@ -84,7 +84,6 @@ public class PatientController {
 
 		PatientDto updatePatient = this.patientService.updatePatient(patientDto, patientId);
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
-
 	}
 
 	// search

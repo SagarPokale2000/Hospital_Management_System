@@ -26,7 +26,6 @@ public class PatientDto {
 	@Size(min=5,message="firstname must be min of 5 characters")
 	private String symptoms;
 	
-	@NotEmpty
 	private LocalTime appointmentTime;
 	
 	private Boolean admitStatus;
@@ -34,7 +33,9 @@ public class PatientDto {
 	private Boolean currentStatus;
 	
 	private Boolean action;
-	
+	/*
+	private UserDto user;
+	*/
 	private DoctorDto doctor;
 	
 	private WardDto ward;

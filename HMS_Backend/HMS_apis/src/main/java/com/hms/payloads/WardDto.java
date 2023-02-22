@@ -23,5 +23,5 @@ public class WardDto {
 	
 	private Double wardCharges;
 	
-	private Set<PatientDto> patients= new HashSet();
+	//private Set<PatientDto> patients= new HashSet();
 }

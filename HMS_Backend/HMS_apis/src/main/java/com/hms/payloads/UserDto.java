@@ -55,7 +55,6 @@ public class UserDto {
 	private AddressDto address;
 
 	private EmployeeDto employee;
-	/*
- private PatientDto patient;
-	 */
+	
+	private PatientDto patient;
 }
