@@ -50,13 +50,11 @@ public class Health_History {
 	@Column(name = "prescription_instruction",length=1000)
 	private String  prescriptionInstruction;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "discharge_date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dischargeDate;
 	
 	@CreationTimestamp
-	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "payment_date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate paymentDate;

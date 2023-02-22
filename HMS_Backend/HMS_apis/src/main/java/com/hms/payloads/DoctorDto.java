@@ -21,6 +21,4 @@ public class DoctorDto {
 	private LocalTime endTime;
 	
 	//private List<PatientDto> patients= new ArrayList<>();
-	
-	//private EmployeeDto employee;
 }
