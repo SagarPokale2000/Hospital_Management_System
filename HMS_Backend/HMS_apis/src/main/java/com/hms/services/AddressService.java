@@ -4,13 +4,10 @@ import com.hms.payloads.AddressDto;
 
 public interface AddressService {
 	// create
-	AddressDto createAddress(AddressDto addressDto);
+	AddressDto createAddress(AddressDto addressDto,Integer userId);
 
 	// update
 	AddressDto updateAddress(AddressDto addressDto, Integer Id);
-
-	// delete
-	void deleteAddress(Integer Id);
 
 	// get
 	AddressDto getAddress(Integer Id);

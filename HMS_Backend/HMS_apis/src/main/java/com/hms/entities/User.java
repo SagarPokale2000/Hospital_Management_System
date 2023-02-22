@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.hms.payloads.AddressDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,6 +50,7 @@ public class User {
 	@Column(name = "blood_group", length = 10)
 	private String bloodGroup;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
 	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
@@ -56,11 +58,8 @@ public class User {
 	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
 	private Employee employee;
-	
-	@OneToOne()
-	@JoinColumn(name = "address_Id", nullable = false)
+
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
 	private Address address;
-	
-	
-	
 }
