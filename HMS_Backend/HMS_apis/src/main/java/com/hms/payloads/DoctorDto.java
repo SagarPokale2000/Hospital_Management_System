@@ -1,6 +1,5 @@
 package com.hms.payloads;
 
-
 import java.time.LocalTime;
 
 import javax.validation.constraints.NotBlank;
@@ -10,10 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DoctorDto {
 	private int doctorId;
 	
