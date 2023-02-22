@@ -52,11 +52,13 @@ public class Health_History {
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "discharge_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dischargeDate;
 	
 	@CreationTimestamp
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "payment_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate paymentDate;
 	
 	@ManyToOne

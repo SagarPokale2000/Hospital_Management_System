@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hms.entities.Doctor;
+import com.hms.entities.Employee;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.DoctorDto;
 import com.hms.repository.DoctorRepo;
+import com.hms.repository.EmployeeRepo;
 import com.hms.services.DoctorService;
 
 @Service
@@ -18,13 +20,22 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Autowired
 	private DoctorRepo doctorRepo;
+	
+	@Autowired
+	private EmployeeRepo employeeRepo;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
-	public DoctorDto createDoctor(DoctorDto doctorDto) {
+	public DoctorDto createDoctor(DoctorDto doctorDto,Integer empId) {
+		Employee emp = this.employeeRepo.findById(empId)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
+		
 		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
+		
+		doc.setEmployee(emp);
+		
 		Doctor addedDoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 	}

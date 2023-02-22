@@ -44,6 +44,7 @@ public class Patient {
 	
 	@CreationTimestamp
 	@Column(name = "appointment_time")
+	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime appointmentTime;
 	
 	@Column(name = "admit_status",columnDefinition="boolean default false")

@@ -21,21 +21,21 @@ import com.hms.payloads.DoctorDto;
 import com.hms.services.DoctorService;
 
 @RestController
-@RequestMapping("/api/doctors")
+@RequestMapping("/api")
 public class DoctorController {
 
 	@Autowired
 	private DoctorService doctorService;
 
 	// create
-	@PostMapping("/")
-	public ResponseEntity<DoctorDto> createDoctor(@Valid @RequestBody DoctorDto doctorDto) {
-		DoctorDto createDoctor = this.doctorService.createDoctor(doctorDto);
+	@PostMapping("/employee/{empId}/doctor")
+	public ResponseEntity<DoctorDto> createDoctor(@Valid @RequestBody DoctorDto doctorDto,@PathVariable Integer empId) {
+		DoctorDto createDoctor = this.doctorService.createDoctor(doctorDto,empId);
 		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
 	}
 
 	// update
-	@PutMapping("/{docId}")
+	@PutMapping("/doctor/{docId}")
 	public ResponseEntity<DoctorDto> updateDoctor(@Valid @RequestBody DoctorDto doctorDto,
 			@PathVariable Integer docId) {
 		DoctorDto updatedDoctor = this.doctorService.updateDoctor(doctorDto, docId);
@@ -43,7 +43,7 @@ public class DoctorController {
 	}
 
 	// delete
-	@DeleteMapping("/{docId}")
+	@DeleteMapping("/doctor/{docId}")
 	public ResponseEntity<ApiResponse> deleteDoctor(@PathVariable Integer docId) {
 		this.doctorService.deleteDoctor(docId);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("doctor is deleted successfully !!", true),
@@ -51,14 +51,14 @@ public class DoctorController {
 	}
 
 	// get
-	@GetMapping("/{docId}")
+	@GetMapping("/doctor/{docId}")
 	public ResponseEntity<DoctorDto> getDoctor(@PathVariable Integer docId) {
 		DoctorDto doctorDto = this.doctorService.getDoctor(docId);
 		return new ResponseEntity<DoctorDto>(doctorDto, HttpStatus.OK);
 	}
 
 	// get all
-	@GetMapping("/")
+	@GetMapping("/doctor")
 	public ResponseEntity<List<DoctorDto>> getDoctor() {
 		List<DoctorDto> doctor = this.doctorService.getDoctor();
 		return ResponseEntity.ok(doctor);

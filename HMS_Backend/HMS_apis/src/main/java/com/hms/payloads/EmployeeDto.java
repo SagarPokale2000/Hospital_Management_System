@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.hms.entities.Doctor;
-import com.hms.entities.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +28,7 @@ public class EmployeeDto {
 
 	private boolean status;
 	
-	//private UserDto user;
-	
-	//private DoctorDto doctor;
+	private DoctorDto doctor;
 
 	public boolean getStatus() {
 		return status;
