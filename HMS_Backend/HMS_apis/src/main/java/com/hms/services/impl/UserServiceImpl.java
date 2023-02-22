@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(userDto.getPassword());
 		user.setGender(userDto.getGender());
 		user.setMobileNo(userDto.getMobileNo());
-		user.setDOB(userDto.getDOB());
+		user.setDob(userDto.getDob());
 		user.setBloodGroup(userDto.getBloodGroup());
 		
 		User updatedUser = this.userRepo.save(user);

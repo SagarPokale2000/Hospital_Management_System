@@ -1,41 +1,44 @@
 package com.hms.payloads;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class AddressDto {
 	
-	private int Id;
+	private int id;
 	
-	@NotEmpty
+	@NotBlank
 	private String plotNo;
 	
-	@NotEmpty
+	@NotBlank
 	@Size(min=2,message="buildingName must be min of 2 characters")
 	private String buildingName;
 	
-	@NotEmpty
+	@NotBlank
 	@Size(min=2,message="areaName must be min of 5 characters")
 	private String areaName;
 	
-	@NotEmpty
+	@NotBlank
 	private String city;
 	
-	@NotEmpty
+	@NotBlank
 	private String state;
 	
-	@NotEmpty
+	@NotBlank
 	private String country;
 	
-	@NotEmpty
 	private int pincode;
+	
+	//private UserDto user;
 }

@@ -22,7 +22,7 @@ public class Resources {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "resource_Id")
-	private int Id;
+	private int id;
 	
 	@Column(name = "resource_name", length = 45)
 	private String resourceName;

@@ -26,7 +26,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_Id")
-	private int Id;
+	private int id;
 	@Column(name = "plot_no", length = 45)
 	private String plotNo;
 	@Column(name = "building_name", length = 45)

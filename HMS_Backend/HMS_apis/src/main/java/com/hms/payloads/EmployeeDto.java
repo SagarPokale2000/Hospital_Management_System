@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EmployeeDto {
 	
-	private Integer Id;
+	private Integer id;
 	
 	@NotEmpty
 	private String role;
@@ -32,6 +32,10 @@ public class EmployeeDto {
 
 	@NotEmpty
 	private boolean status;
+	
+	private UserDto user;
+	
+	private DoctorDto doctor;
 
 	public boolean getStatus() {
 		return status;

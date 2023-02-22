@@ -32,7 +32,7 @@ public class Health_History {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "health_history_Id")
-	private Integer Id;
+	private Integer id;
 	
 	@Column(length = 300, nullable= false)
 	private String diseases;
