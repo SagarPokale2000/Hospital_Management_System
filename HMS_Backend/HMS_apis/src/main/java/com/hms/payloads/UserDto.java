@@ -38,11 +38,6 @@ public class UserDto {
 	@NotEmpty
 	private String gender;
 	
-	@NotEmpty
-	private String securityQue;
-	@NotEmpty
-	private String securityAns;
-	
 	@NotBlank
 	@Size(min=8,max=15,message="Mobile No must be min of 8 characters and max of 15 characters")
 	private String mobileNo;

@@ -23,7 +23,6 @@ public class DoctorServiceImpl implements DoctorService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	
 	@Override
 	public DoctorDto createDoctor(DoctorDto doctorDto) {
 		Doctor doc = this.modelMapper.map(doctorDto,Doctor.class);
@@ -35,14 +34,10 @@ public class DoctorServiceImpl implements DoctorService {
 	public DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId) {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
-
 		doc.setDoctorFee(doctorDto.getDoctorFee());
 		doc.setStartTime(doctorDto.getStartTime());
 		doc.setEndTime(doctorDto.getEndTime());
-		
-
 		Doctor updateddoc = this.doctorRepo.save(doc);
-
 		return this.modelMapper.map(updateddoc, DoctorDto.class);
 	}
 
@@ -51,14 +46,12 @@ public class DoctorServiceImpl implements DoctorService {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "doctor id", doctorId));
 		this.doctorRepo.delete(doc);
-
 	}
 
 	@Override
 	public DoctorDto getDoctor(Integer doctorId) {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", doctorId));
-
 		return this.modelMapper.map(doc, DoctorDto.class);
 	}
 
@@ -67,7 +60,6 @@ public class DoctorServiceImpl implements DoctorService {
 		List<Doctor> doctors = this.doctorRepo.findAll();
 		List<DoctorDto> docDtos = doctors.stream().map((doc) -> this.modelMapper.map(doc, DoctorDto.class))
 				.collect(Collectors.toList());
-
 		return docDtos;
 	}
 
