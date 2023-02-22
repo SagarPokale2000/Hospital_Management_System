@@ -5,13 +5,14 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hms.entities.Employee;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.EmployeeDto;
 import com.hms.repository.EmployeeRepo;
 import com.hms.services.EmployeeService;
-
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Autowired
