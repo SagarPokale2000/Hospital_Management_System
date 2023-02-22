@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.hms.entities.Doctor;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.DoctorDto;
@@ -19,13 +18,13 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Autowired
 	private DoctorRepo doctorRepo;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Override
 	public DoctorDto createDoctor(DoctorDto doctorDto) {
-		Doctor doc = this.modelMapper.map(doctorDto,Doctor.class);
+		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
 		Doctor addedDoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 	}
