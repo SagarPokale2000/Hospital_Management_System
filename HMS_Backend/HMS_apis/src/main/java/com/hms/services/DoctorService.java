@@ -8,7 +8,7 @@ import com.hms.payloads.DoctorDto;
 
 public interface DoctorService {
 	// create
-		DoctorDto createDoctor(DoctorDto doctorDto);
+		DoctorDto createDoctor(DoctorDto doctorDto,Integer empId);
 
 		// update
 		DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId);
@@ -20,6 +20,5 @@ public interface DoctorService {
 		DoctorDto getDoctor(Integer doctorId);
 
 		// get All
-
 		List<DoctorDto> getDoctor();
 }

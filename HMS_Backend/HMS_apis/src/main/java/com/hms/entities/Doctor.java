@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,9 +39,11 @@ public class Doctor {
 	private double doctorFee;
 	
 	@Column(name = "scheduled_start_time")
+	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime startTime;
 	
 	@Column(name = "scheduled_end_time")
+	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime endTime;
 	
 	@OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)

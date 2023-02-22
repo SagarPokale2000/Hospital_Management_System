@@ -19,6 +19,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +44,7 @@ public class Patient {
 	
 	@CreationTimestamp
 	@Column(name = "appointment_time")
+	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime appointmentTime;
 	
 	@Column(name = "admit_status")

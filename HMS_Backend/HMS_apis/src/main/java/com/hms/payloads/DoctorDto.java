@@ -1,10 +1,6 @@
 package com.hms.payloads;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,16 +14,13 @@ import lombok.Setter;
 public class DoctorDto {
 	private int doctorId;
 	
-	@NotBlank
 	private double doctorFee;
 	
-	@NotBlank
 	private LocalTime startTime;
 	
-	@NotBlank
 	private LocalTime endTime;
 	
-	private List<PatientDto> patients= new ArrayList<>();
+	//private List<PatientDto> patients= new ArrayList<>();
 	
-	private EmployeeDto employee;
+	//private EmployeeDto employee;
 }

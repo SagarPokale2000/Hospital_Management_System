@@ -31,9 +31,7 @@ public class EmployeeDto {
 
 	private boolean status;
 	
-	//private UserDto user;
-	
-	//private DoctorDto doctor;
+	private DoctorDto doctor;
 
 	public boolean getStatus() {
 		return status;
