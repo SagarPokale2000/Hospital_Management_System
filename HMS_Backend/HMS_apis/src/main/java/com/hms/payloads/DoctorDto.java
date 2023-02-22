@@ -1,6 +1,8 @@
 package com.hms.payloads;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,4 +26,8 @@ public class DoctorDto {
 	
 	@NotBlank
 	private LocalTime endTime;
+	
+	private List<PatientDto> patients= new ArrayList<>();
+	
+	private EmployeeDto employee;
 }

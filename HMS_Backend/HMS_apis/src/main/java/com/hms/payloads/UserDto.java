@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-	private int Id;
+	private int id;
 	
 	@NotEmpty
 	@Size(min=2,message="firstname must be min of 2 characters")
@@ -42,7 +42,14 @@ public class UserDto {
 	@Size(min=8,max=15,message="Mobile No must be min of 8 characters and max of 15 characters")
 	private String mobileNo;
 	
-	private String BloodGroup;
+	private String bloodGroup;
 	
-	private LocalDate DOB;
+	private LocalDate dob;
+	
+	private AddressDto address;
+	/*
+	private EmployeeDto employee;
+	
+	private PatientDto patient;
+	*/
 }

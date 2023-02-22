@@ -18,6 +18,4 @@ public class PatientResponse {
 	private long totalElements;
 	private int totalPages;	
 	private boolean lastPage;
-	
-	
 }

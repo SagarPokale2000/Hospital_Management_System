@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;	
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.payloads.AddressDto;
@@ -28,30 +28,31 @@ public class AddressController {
 	// create
 	@PostMapping("/")
 	public ResponseEntity<AddressDto> createAddress(@Valid @RequestBody AddressDto addressDto) {
+		System.out.println("address added : "+addressDto.getBuildingName());
 		AddressDto createAddress = this.addressService.createAddress(addressDto);
 		return new ResponseEntity<AddressDto>(createAddress, HttpStatus.CREATED);
 	}
 
 	// update
-	@PutMapping("/{Id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<AddressDto> updateAddress(@Valid @RequestBody AddressDto addressDto,
-			@PathVariable Integer Id) {
-		AddressDto updatedAddress = this.addressService.updateAddress(addressDto, Id);
+			@PathVariable Integer id) {
+		AddressDto updatedAddress = this.addressService.updateAddress(addressDto, id);
 		return new ResponseEntity<AddressDto>(updatedAddress, HttpStatus.OK);
 	}
 
 	// delete
-	@DeleteMapping("/{Id}")
-	public ResponseEntity<ApiResponse> deleteAddress(@PathVariable Integer Id) {
-		this.addressService.deleteAddress(Id);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<ApiResponse> deleteAddress(@PathVariable Integer id) {
+		this.addressService.deleteAddress(id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Address is deleted successfully !!", true),
 				HttpStatus.OK);
 	}
 
 	// get
-	@GetMapping("/{Id}")
-	public ResponseEntity<AddressDto> getAddress(@PathVariable Integer Id) {
-		AddressDto addressDto = this.addressService.getAddress(Id);
+	@GetMapping("/{id}")
+	public ResponseEntity<AddressDto> getAddress(@PathVariable Integer id) {
+		AddressDto addressDto = this.addressService.getAddress(id);
 		return new ResponseEntity<AddressDto>(addressDto, HttpStatus.OK);
 	}
 }

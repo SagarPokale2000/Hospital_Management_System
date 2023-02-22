@@ -27,7 +27,7 @@ public class Ward {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ward_Id")
-	private int Id;
+	private int id;
 	@Column(name = "ward_type",length = 45)
 	private String wardType;
 	@Column(name = "allocated_bed",length = 45)

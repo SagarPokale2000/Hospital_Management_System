@@ -37,7 +37,7 @@ public class Patient {
 	@Column(name = "patient_Id")
 	private Integer patientId;
 	
-	@Column(name="Symptoms",length = 100, nullable= false)
+	@Column(name="symptoms",length = 100, nullable= false)
 	private String symptoms;
 	
 	@CreationTimestamp
@@ -53,7 +53,7 @@ public class Patient {
 	private Boolean action;
 	
 	@OneToOne()
-	@JoinColumn(name = "User_Id", nullable = false)
+	@JoinColumn(name = "user_Id", nullable = false)
 	private User user;
 	
 	@ManyToOne

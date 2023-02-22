@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.hms.payloads.AddressDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +28,8 @@ import lombok.Setter;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "User_Id")
-	private int Id;
+	@Column(name = "user_Id")
+	private int id;
 	@Column(name = "first_name", length = 45)
 	private String firstName;
 	@Column(name = "last_name", length = 45)
@@ -45,18 +47,20 @@ public class User {
 	@Column(name = "mobile_no", length = 15)
 	private String mobileNo;
 	@Column(name = "blood_group", length = 10)
-	private String BloodGroup;
-	@Column(name = "dob")
-	private LocalDate DOB;
+	private String bloodGroup;
+	
+	private LocalDate dob;
 	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-	private Patient patient ;
+	private Patient patient;
 	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-	private Employee employee ;
+	private Employee employee;
 	
 	@OneToOne()
 	@JoinColumn(name = "address_Id", nullable = false)
 	private Address address;
+	
+	
 	
 }

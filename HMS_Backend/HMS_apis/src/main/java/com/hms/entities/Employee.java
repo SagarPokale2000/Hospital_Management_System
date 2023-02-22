@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "employee")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,7 +28,7 @@ public class Employee {
 	@Id
 	@Column(name = "employee_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
+	private Integer id;
 
 	private String role;
 
@@ -37,12 +37,12 @@ public class Employee {
 	private int salary;
 
 	@Column(name = "hire_date")
-	private LocalDate Hiredate;
+	private LocalDate hiredate;
 
 	private boolean status;
 
 	@OneToOne()
-	@JoinColumn(name = "User_Id", nullable = false)
+	@JoinColumn(name = "user_Id", nullable = false)
 	private User user;
 	
 	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
