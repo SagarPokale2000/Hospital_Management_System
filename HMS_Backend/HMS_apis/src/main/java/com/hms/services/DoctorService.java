@@ -21,5 +21,5 @@ public interface DoctorService {
 
 		// get All
 
-		List<DoctorDto> getDoctors();
+		List<DoctorDto> getDoctor();
 }

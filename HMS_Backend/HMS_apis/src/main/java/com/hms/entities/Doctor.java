@@ -1,6 +1,7 @@
 package com.hms.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +38,10 @@ public class Doctor {
 	private double doctorFee;
 	
 	@Column(name = "scheduled_start_time")
-	private LocalDate startTime;
+	private LocalTime startTime;
 	
 	@Column(name = "scheduled_end_time")
-	private LocalDate endTime;
+	private LocalTime endTime;
 	
 	@OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Patient> patients= new ArrayList<>();
