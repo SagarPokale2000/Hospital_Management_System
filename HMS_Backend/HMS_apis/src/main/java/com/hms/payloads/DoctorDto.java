@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DoctorDto {
-	private int Id;
+	private int doctorId;
 	
 	@NotBlank
 	private double doctorFee;

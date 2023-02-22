@@ -35,7 +35,7 @@ public class Employee {
 	private String qualificaton;
 
 	private int salary;
-	
+
 	@Column(name = "hire_date")
 	private LocalDate Hiredate;
 
