@@ -1,6 +1,7 @@
 package com.hms.entities;
 
-import java.time.LocalDate;
+
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class Patient {
 	
 	@CreationTimestamp
 	@Column(name = "appointment_time")
-	private LocalDate appointmentTime;
+	private LocalTime appointmentTime;
 	
 	@Column(name = "admit_status")
 	private Boolean admitStatus;

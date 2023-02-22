@@ -1,9 +1,13 @@
 package com.hms.payloads;
 
-import java.time.LocalDate;
+
+import java.time.LocalTime;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import com.hms.entities.Doctor;
+import com.hms.entities.Ward;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,11 +27,15 @@ public class PatientDto {
 	private String symptoms;
 	
 	@NotEmpty
-	private LocalDate appointmentTime;
+	private LocalTime appointmentTime;
 	
 	private Boolean admitStatus;
 	
 	private Boolean currentStatus;
 	
 	private Boolean action;
+	
+	private DoctorDto doctor;
+	
+	private WardDto ward;
 }
