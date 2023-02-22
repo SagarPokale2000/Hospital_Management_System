@@ -1,0 +1,40 @@
+package com.hms.services;
+
+import java.util.List;
+
+import com.hms.payloads.HealthHistoryDto;
+import com.hms.payloads.HealthHistoryResponse;
+import com.hms.payloads.MedicineDto;
+import com.hms.payloads.MedicineResponse;
+
+public interface HealthHistoryService {
+	//create 
+/*
+			//HealthHistoryDto createMedicine(HealthHistoryDto healthDto,Integer patientId);
+
+			//update 
+
+			//HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
+
+			// delete
+
+			void deleteHealthHistory(Integer healthId);
+			
+			//get all medicine
+			
+			HealthHistoryResponse getAllHealthHistory(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
+			
+			//get single medicine
+			
+			HealthHistoryDto getHealthHistoryById(Integer healthId);
+			
+			//get all medicine ofhealth history
+			
+			//List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
+			
+			
+			
+			//search posts
+			List<HealthHistoryDto> searchHealthHistory(String keyword);*/
+
+}

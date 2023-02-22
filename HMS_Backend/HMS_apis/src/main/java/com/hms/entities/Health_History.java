@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,18 +40,22 @@ public class Health_History {
 	private String diseases;
 	
 	@Column(name = "appointment_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate appointmentDate;
 	
 	@Column(name = "admit_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate admitDate;
 	
 	@Column(name = "prescription_instruction",length=1000)
 	private String  prescriptionInstruction;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "discharge_date")
 	private LocalDate dischargeDate;
 	
 	@CreationTimestamp
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "payment_date")
 	private LocalDate paymentDate;
 	

@@ -19,6 +19,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,12 +46,13 @@ public class Patient {
 	@Column(name = "appointment_time")
 	private LocalTime appointmentTime;
 	
-	@Column(name = "admit_status")
+	@Column(name = "admit_status",columnDefinition="boolean default false")
 	private Boolean admitStatus;
 	
-	@Column(name = "current_status")
+	@Column(name = "current_status",columnDefinition="boolean default false")
 	private Boolean currentStatus;
 	
+	@Column(columnDefinition="boolean default false")
 	private Boolean action;
 	
 	@OneToOne()
