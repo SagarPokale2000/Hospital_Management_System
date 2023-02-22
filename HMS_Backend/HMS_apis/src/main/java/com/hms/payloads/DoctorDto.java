@@ -1,6 +1,9 @@
 package com.hms.payloads;
 
-import java.time.LocalDate;
+
+import java.time.LocalTime;
+
+import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +15,13 @@ import lombok.Setter;
 @Getter
 public class DoctorDto {
 	private int Id;
+	
+	@NotBlank
 	private double doctorFee;
-	private LocalDate startTime;
-	private LocalDate endTime;
+	
+	@NotBlank
+	private LocalTime startTime;
+	
+	@NotBlank
+	private LocalTime endTime;
 }

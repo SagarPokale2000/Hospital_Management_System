@@ -63,7 +63,7 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public List<DoctorDto> getDoctors() {
+	public List<DoctorDto> getDoctor() {
 		List<Doctor> doctors = this.doctorRepo.findAll();
 		List<DoctorDto> docDtos = doctors.stream().map((doc) -> this.modelMapper.map(doc, DoctorDto.class))
 				.collect(Collectors.toList());
