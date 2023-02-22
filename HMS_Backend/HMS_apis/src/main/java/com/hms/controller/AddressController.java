@@ -19,40 +19,31 @@ import com.hms.payloads.ApiResponse;
 import com.hms.services.AddressService;
 
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping("/api")
 public class AddressController {
 
 	@Autowired
 	private AddressService addressService;
 
-	// create
-	@PostMapping("/")
-	public ResponseEntity<AddressDto> createAddress(@Valid @RequestBody AddressDto addressDto) {
-		System.out.println("address added : "+addressDto.getBuildingName());
-		AddressDto createAddress = this.addressService.createAddress(addressDto);
+	// create address by user id
+	@PostMapping("/user/{userId}/address")
+	public ResponseEntity<AddressDto> createAddress(@Valid @RequestBody AddressDto addressDto,@PathVariable Integer userId) {
+		AddressDto createAddress = this.addressService.createAddress(addressDto,userId);
 		return new ResponseEntity<AddressDto>(createAddress, HttpStatus.CREATED);
 	}
 
-	// update
-	@PutMapping("/{id}")
+	// update address by user id
+	@PutMapping("/address/{Id}")
 	public ResponseEntity<AddressDto> updateAddress(@Valid @RequestBody AddressDto addressDto,
-			@PathVariable Integer id) {
-		AddressDto updatedAddress = this.addressService.updateAddress(addressDto, id);
+			@PathVariable Integer Id) {
+		AddressDto updatedAddress = this.addressService.updateAddress(addressDto, Id);
 		return new ResponseEntity<AddressDto>(updatedAddress, HttpStatus.OK);
 	}
 
-	// delete
-	@DeleteMapping("/{id}")
-	public ResponseEntity<ApiResponse> deleteAddress(@PathVariable Integer id) {
-		this.addressService.deleteAddress(id);
-		return new ResponseEntity<ApiResponse>(new ApiResponse("Address is deleted successfully !!", true),
-				HttpStatus.OK);
-	}
-
-	// get
-	@GetMapping("/{id}")
-	public ResponseEntity<AddressDto> getAddress(@PathVariable Integer id) {
-		AddressDto addressDto = this.addressService.getAddress(id);
+	// get address by user id
+	@GetMapping("/address/{Id}")
+	public ResponseEntity<AddressDto> getAddress(@PathVariable Integer Id) {
+		AddressDto addressDto = this.addressService.getAddress(Id);
 		return new ResponseEntity<AddressDto>(addressDto, HttpStatus.OK);
 	}
 }

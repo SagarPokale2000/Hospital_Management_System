@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hms.entities.Address;
+import com.hms.entities.User;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.AddressDto;
 import com.hms.repository.AddressRepo;
+import com.hms.repository.UserRepo;
 import com.hms.services.AddressService;
 
 @Service
@@ -15,22 +17,30 @@ public class AddressServiceImpl implements AddressService {
 
 	@Autowired
 	private AddressRepo addressRepo;
+	
+	@Autowired
+	private UserRepo userRepo;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
-	public AddressDto createAddress(AddressDto addressDto) {
+	public AddressDto createAddress(AddressDto addressDto,Integer userId) {
+		User user = this.userRepo.findById(userId)
+				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
 		Address address = this.modelMapper.map(addressDto, Address.class);
+		address.setUser(user);
 		Address addedAddress = this.addressRepo.save(address);
 		return this.modelMapper.map(addedAddress, AddressDto.class);
 	}
 
 	@Override
 	public AddressDto updateAddress(AddressDto addressDto, Integer Id) {
-		Address address = this.addressRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("Address ", "address Id", Id));
-
+		//User user=this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User ", "User id", userId));
+		
+		Address address = this.addressRepo.findById(Id).orElseThrow(() -> new ResourceNotFoundException("Address ", "address Id", Id));
+		//Address address =new Address();
+		
 		address.setPlotNo(addressDto.getPlotNo());
 		address.setBuildingName(addressDto.getBuildingName());
 		address.setAreaName(addressDto.getAreaName());
@@ -38,16 +48,11 @@ public class AddressServiceImpl implements AddressService {
 		address.setState(addressDto.getState());
 		address.setCountry(addressDto.getCountry());
 		address.setPincode(addressDto.getPincode());
-
+		//user.setAddress(address);
+		
 		Address updatedAddress = this.addressRepo.save(address);
+		
 		return this.modelMapper.map(updatedAddress, AddressDto.class);
-	}
-
-	@Override
-	public void deleteAddress(Integer Id) {
-		Address address = this.addressRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("Address ", "address id", Id));
-		this.addressRepo.delete(address);
 	}
 
 	@Override
