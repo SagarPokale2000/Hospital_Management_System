@@ -10,7 +10,7 @@ import com.hms.payloads.MedicineResponse;
 public interface HealthHistoryService {
 	//create 
 
-			HealthHistoryDto createHealthHistory(HealthHistoryDto healthDto,Integer patientId, Integer userId);
+			HealthHistoryDto createHealthHistory(HealthHistoryDto healthDto,Integer patientId);
 
 			//update 
 
@@ -32,9 +32,6 @@ public interface HealthHistoryService {
 			
 			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
 			
-			
-			
 			//search posts
 			List<HealthHistoryDto> searchHealthHistory(String keyword);
-
 }

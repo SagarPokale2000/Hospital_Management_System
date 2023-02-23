@@ -11,7 +11,7 @@ public interface MedicineService {
 
 	//create 
 
-		MedicineDto createMedicine(MedicineDto medicineDto,Integer healthId, Integer userId);
+		MedicineDto createMedicine(MedicineDto medicineDto,Integer healthId);
 
 		//update 
 //

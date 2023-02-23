@@ -34,7 +34,7 @@ public class Health_History {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "health_history_Id")
-	private Integer id;
+	private Integer healthId;
 	
 	@Column(length = 300, nullable= false)
 	private String diseases;
@@ -61,7 +61,7 @@ public class Health_History {
 	
 	@ManyToOne
 	@JoinColumn(name = "patient_Id", nullable = false)
-	private Patient patients;
+	private Patient patient;
 	
 	@OneToMany(mappedBy = "healthHistory", cascade = CascadeType.ALL)
 	private List<Medicine> medicines= new ArrayList<>();

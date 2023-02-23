@@ -64,8 +64,8 @@ public class Patient {
 	@JoinColumn( name = "doctor_Id")
 	private Doctor doctor;
 	
-	@OneToMany(mappedBy = "patients", cascade = CascadeType.ALL)
-	private Set<Health_History> health_history= new HashSet();
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+	private Set<Health_History> health_history= new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn( name = "ward_Id")

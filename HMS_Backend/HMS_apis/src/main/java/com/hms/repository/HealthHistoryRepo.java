@@ -10,8 +10,8 @@ import com.hms.entities.Health_History;
 import com.hms.entities.Patient;
 
 public interface HealthHistoryRepo extends JpaRepository<Health_History, Integer>{
-//	List<Health_History> findByPatient(Patient patients);
-	/*
-	@Query("select h from HealthHistory h where h.healthId like :key")
-	List<Health_History> searchByHealthId(@Param("key") String healthId);*/
+	List<Health_History> findByPatient(Patient patient);
+	
+	@Query("select h from Health_History h where h.id like :key")
+	List<Health_History> searchByHealthId(@Param("key") String healthId);
 }
