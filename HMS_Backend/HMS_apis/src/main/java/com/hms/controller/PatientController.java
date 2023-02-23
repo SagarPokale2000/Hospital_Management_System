@@ -20,7 +20,7 @@ import com.hms.payloads.PatientResponse;
 import com.hms.services.PatientService;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class PatientController {
 
 	@Autowired
