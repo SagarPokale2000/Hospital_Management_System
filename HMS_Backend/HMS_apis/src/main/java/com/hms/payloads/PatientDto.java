@@ -6,10 +6,6 @@ import java.time.LocalTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.hms.entities.Doctor;
-import com.hms.entities.Ward;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class PatientDto {
 
 	private Integer patientId;
@@ -26,7 +21,6 @@ public class PatientDto {
 	@Size(min=5,message="firstname must be min of 5 characters")
 	private String symptoms;
 	
-	@NotEmpty
 	private LocalTime appointmentTime;
 	
 	private Boolean admitStatus;
@@ -34,6 +28,8 @@ public class PatientDto {
 	private Boolean currentStatus;
 	
 	private Boolean action;
+	
+	private UserDto user;
 	
 	private DoctorDto doctor;
 	

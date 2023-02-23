@@ -1,6 +1,5 @@
 package com.hms.services.impl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,12 +13,14 @@ import org.springframework.stereotype.Service;
 
 import com.hms.entities.Doctor;
 import com.hms.entities.Patient;
+import com.hms.entities.User;
 import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.PatientDto;
 import com.hms.payloads.PatientResponse;
 import com.hms.repository.DoctorRepo;
 import com.hms.repository.PatientRepo;
+import com.hms.repository.UserRepo;
 import com.hms.repository.WardRepo;
 import com.hms.services.PatientService;
 
@@ -31,6 +32,9 @@ public class PatientServiceImpl implements PatientService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private UserRepo userRepo;
 
 	@Autowired
 	private DoctorRepo doctorRepo;
@@ -39,7 +43,10 @@ public class PatientServiceImpl implements PatientService {
 	private WardRepo wardRepo;
 
 	@Override
-	public PatientDto createPatient(PatientDto patientDto, Integer doctorId, Integer wardId,Integer userId) {
+	public PatientDto createPatient(PatientDto patientDto,Integer userId, Integer doctorId, Integer wardId) {
+		User user = this.userRepo.findById(userId)
+				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
+
 		Doctor doctor = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor id", doctorId));
 
@@ -48,6 +55,7 @@ public class PatientServiceImpl implements PatientService {
 
 		Patient patient = this.modelMapper.map(patientDto, Patient.class);
 
+		patient.setUser(user);
 		patient.setDoctor(doctor);
 		patient.setWard(ward);
 
@@ -60,9 +68,9 @@ public class PatientServiceImpl implements PatientService {
 	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
 
 		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Post ", "post id", patientId));
+				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
 
-		Doctor doctor = this.doctorRepo.findById(patientDto.getDoctor().getDoctorId()).get();
+		//Doctor doctor = this.doctorRepo.findById(patientDto.getDoctor().getDoctorId()).get();
 
 		patient.setSymptoms(patientDto.getSymptoms());
 		patient.setAppointmentTime(patientDto.getAppointmentTime());
@@ -70,20 +78,11 @@ public class PatientServiceImpl implements PatientService {
 		patient.setCurrentStatus(patientDto.getCurrentStatus());
 		patient.setAction(patientDto.getAction());
 
-		patient.setDoctor(doctor);
+		//patient.setDoctor(doctor);
 //        patient.setWard(ward);
 
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
-	}
-
-	@Override
-	public void deletePatient(Integer patientId) {
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "patient id", patientId));
-
-		this.patientRepo.delete(patient);
-
 	}
 
 	@Override

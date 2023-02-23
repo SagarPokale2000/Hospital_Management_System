@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 public class PatientResponse {
 
-	
 	private List<PatientDto> content;
 	private int pageNumber;
 	private int pageSize;
