@@ -9,12 +9,12 @@ import com.hms.payloads.MedicineResponse;
 
 public interface HealthHistoryService {
 	//create 
-/*
-			//HealthHistoryDto createMedicine(HealthHistoryDto healthDto,Integer patientId);
+
+			HealthHistoryDto createHealthHistory(HealthHistoryDto healthDto,Integer patientId, Integer userId);
 
 			//update 
 
-			//HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
+			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
 
 			// delete
 
@@ -30,11 +30,11 @@ public interface HealthHistoryService {
 			
 			//get all medicine ofhealth history
 			
-			//List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
+			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
 			
 			
 			
 			//search posts
-			List<HealthHistoryDto> searchHealthHistory(String keyword);*/
+			List<HealthHistoryDto> searchHealthHistory(String keyword);
 
 }

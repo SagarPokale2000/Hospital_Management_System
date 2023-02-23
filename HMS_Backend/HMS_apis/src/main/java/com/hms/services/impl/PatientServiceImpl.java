@@ -39,7 +39,7 @@ public class PatientServiceImpl implements PatientService {
 	private WardRepo wardRepo;
 
 	@Override
-	public PatientDto createPatient(PatientDto patientDto, Integer doctorId, Integer wardId) {
+	public PatientDto createPatient(PatientDto patientDto, Integer doctorId, Integer wardId,Integer userId) {
 		Doctor doctor = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor id", doctorId));
 

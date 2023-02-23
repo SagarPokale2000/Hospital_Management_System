@@ -7,7 +7,7 @@ import com.hms.payloads.PatientResponse;
 
 public interface PatientService {
 	// create
-	PatientDto createPatient(PatientDto patientDto, Integer doctorId, Integer wardId);
+	PatientDto createPatient(PatientDto patientDto, Integer doctorId, Integer wardId, Integer userId);
 
 	// update
 	PatientDto updatePatient(PatientDto patientDto, Integer patientId);
