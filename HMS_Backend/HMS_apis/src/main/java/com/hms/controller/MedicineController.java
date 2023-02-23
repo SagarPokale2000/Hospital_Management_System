@@ -30,12 +30,11 @@ public class MedicineController {
 	@Autowired
 	private MedicineService medicineService;
 	
-//	create
-
-	@PostMapping("/user/{userId}/healthhistory/{healthId}/medicine")
-	public ResponseEntity<MedicineDto> createMedicine(@RequestBody MedicineDto medicineDto, @PathVariable Integer healthId, @PathVariable Integer userId
+	//	create
+	@PostMapping("/healthhistory/{healthId}/medicine")
+	public ResponseEntity<MedicineDto> createMedicine(@RequestBody MedicineDto medicineDto, @PathVariable Integer healthId
 			) {
-		MedicineDto createMedicine = this.medicineService.createMedicine(medicineDto,  healthId,userId);
+		MedicineDto createMedicine = this.medicineService.createMedicine(medicineDto,  healthId);
 		return new ResponseEntity<MedicineDto>(createMedicine, HttpStatus.CREATED);
 	}
 	

@@ -9,8 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-
-
 public class HealthHistoryResponse {
 
 	private List<HealthHistoryDto> content;
@@ -19,8 +17,4 @@ public class HealthHistoryResponse {
 		private long totalElements;
 		private int totalPages;	
 		private boolean lastPage;
-		
-		
-	
-
 }
