@@ -11,12 +11,10 @@ import com.hms.entities.Patient;
 
 import com.hms.entities.Ward;
 
-
-
-public interface PatientRepo extends JpaRepository<Patient, Integer>{
+public interface PatientRepo extends JpaRepository<Patient, Integer> {
 	List<Patient> findByDoctor(Doctor doctor);
-	List<Patient> findByWard(Ward ward);	
-	
+	List<Patient> findByWard(Ward ward);
+
 	@Query("select p from Patient p where p.patientId like :key")
 	List<Patient> searchByPatientId(@Param("key") String patientId);
 }

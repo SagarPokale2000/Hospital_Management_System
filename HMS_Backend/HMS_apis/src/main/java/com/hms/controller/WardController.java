@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.hms.payloads.ApiResponse;
 import com.hms.payloads.WardDto;
 import com.hms.services.WardService;
@@ -27,51 +26,42 @@ public class WardController {
 
 	@Autowired
 	private WardService wardService;
-	
+
 	// create
+	@PostMapping("/")
+	public ResponseEntity<WardDto> createWard(@Valid @RequestBody WardDto wardDto) {
+		WardDto createWard = this.wardService.createWard(wardDto);
+		return new ResponseEntity<WardDto>(createWard, HttpStatus.CREATED);
+	}
 
-		@PostMapping("/")
-		public ResponseEntity<WardDto> createWard(@Valid @RequestBody WardDto wardDto) {
-			WardDto createWard = this.wardService.createWard(wardDto);
-			return new ResponseEntity<WardDto>(createWard, HttpStatus.CREATED);
-		}
-		
-		// update
+	// update
+	@PutMapping("/{wardId}")
+	public ResponseEntity<WardDto> updateWard(@Valid @RequestBody WardDto wardDto, @PathVariable Integer wardId) {
+		WardDto updatedWard = this.wardService.updateWard(wardDto, wardId);
+		return new ResponseEntity<WardDto>(updatedWard, HttpStatus.OK);
+	}
 
-		@PutMapping("/{wardId}")
-		public ResponseEntity<WardDto> updateWard(@Valid @RequestBody WardDto wardDto,
-				@PathVariable Integer wardId) {
-			WardDto updatedWard = this.wardService.updateWard(wardDto, wardId);
-			return new ResponseEntity<WardDto>(updatedWard, HttpStatus.OK);
-		}
-		
-		// delete
+	// delete
+	@DeleteMapping("/{wardId}")
+	public ResponseEntity<ApiResponse> deleteWard(@PathVariable Integer wardId) {
+		this.wardService.deleteWard(wardId);
+		return new ResponseEntity<ApiResponse>(new ApiResponse("ward is deleted successfully !!", true), HttpStatus.OK);
+	}
 
-		@DeleteMapping("/{wardId}")
-		public ResponseEntity<ApiResponse> deleteWard(@PathVariable Integer wardId) {
-			this.wardService.deleteWard(wardId);
-			return new ResponseEntity<ApiResponse>(new ApiResponse("ward is deleted successfully !!", true),
-					HttpStatus.OK);
-		}
-		
-		
-		// get
+	// get
+	@GetMapping("/{wardId}")
+	public ResponseEntity<WardDto> getWard(@PathVariable Integer wardId) {
 
-		@GetMapping("/{wardId}")
-		public ResponseEntity<WardDto> getWard(@PathVariable Integer wardId) {
+		WardDto wardDto = this.wardService.getWard(wardId);
 
-			WardDto wardDto = this.wardService.getWard(wardId);
+		return new ResponseEntity<WardDto>(wardDto, HttpStatus.OK);
 
-			return new ResponseEntity<WardDto>(wardDto, HttpStatus.OK);
+	}
 
-		}
-		
-		// get all
-		@GetMapping("/")
-		public ResponseEntity<List<WardDto>> getWard() {
-			List<WardDto> wards = this.wardService.getward();
-			return ResponseEntity.ok(wards);
-		}
-
-
+	// get all
+	@GetMapping("/")
+	public ResponseEntity<List<WardDto>> getWard() {
+		List<WardDto> wards = this.wardService.getward();
+		return ResponseEntity.ok(wards);
+	}
 }

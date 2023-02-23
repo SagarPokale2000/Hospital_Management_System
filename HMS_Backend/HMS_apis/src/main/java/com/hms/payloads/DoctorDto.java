@@ -1,10 +1,7 @@
 package com.hms.payloads;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class DoctorDto {
 	private int doctorId;
 	
@@ -21,6 +17,8 @@ public class DoctorDto {
 	private LocalTime startTime;
 	
 	private LocalTime endTime;
+	
+	private EmployeeDto employee;
 	
 	//private List<PatientDto> patients= new ArrayList<>();
 }
