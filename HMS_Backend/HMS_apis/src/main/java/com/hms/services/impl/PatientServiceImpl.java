@@ -1,6 +1,5 @@
 package com.hms.services.impl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +68,7 @@ public class PatientServiceImpl implements PatientService {
 	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
 
 		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Post ", "post id", patientId));
+				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
 
 		//Doctor doctor = this.doctorRepo.findById(patientDto.getDoctor().getDoctorId()).get();
 
@@ -84,15 +83,6 @@ public class PatientServiceImpl implements PatientService {
 
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
-	}
-
-	@Override
-	public void deletePatient(Integer patientId) {
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "patient id", patientId));
-
-		this.patientRepo.delete(patient);
-
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class EmployeeDto {
 
 	private boolean status;
 	
-	private DoctorDto doctor;
+	private UserDto user;
 
 	public boolean getStatus() {
 		return status;

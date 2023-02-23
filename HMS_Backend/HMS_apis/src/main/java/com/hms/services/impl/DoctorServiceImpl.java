@@ -52,13 +52,6 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public void deleteDoctor(Integer doctorId) {
-		Doctor doc = this.doctorRepo.findById(doctorId)
-				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "doctor id", doctorId));
-		this.doctorRepo.delete(doc);
-	}
-
-	@Override
 	public DoctorDto getDoctor(Integer doctorId) {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", doctorId));
@@ -72,5 +65,4 @@ public class DoctorServiceImpl implements DoctorService {
 				.collect(Collectors.toList());
 		return docDtos;
 	}
-
 }

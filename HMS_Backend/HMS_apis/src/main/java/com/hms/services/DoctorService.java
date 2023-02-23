@@ -13,9 +13,6 @@ public interface DoctorService {
 		// update
 		DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId);
 
-		// delete
-		void deleteDoctor(Integer doctorId);
-
 		// get
 		DoctorDto getDoctor(Integer doctorId);
 

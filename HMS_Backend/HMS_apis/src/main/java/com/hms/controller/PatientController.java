@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.config.AppConstants;
-import com.hms.payloads.ApiResponse;
 import com.hms.payloads.PatientDto;
 import com.hms.payloads.PatientResponse;
 import com.hms.services.PatientService;
@@ -27,30 +25,26 @@ public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
-	
-	//	create
+
+	// create
 	@PostMapping("/user/{userId}/doctor/{doctorId}/ward/{wardId}/patients")
-	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer userId, @PathVariable Integer doctorId,
-			@PathVariable Integer wardId) {
-		PatientDto createPatient = this.patientService.createPatient(patientDto,userId, doctorId, wardId);
+	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer userId,
+			@PathVariable Integer doctorId, @PathVariable Integer wardId) {
+		PatientDto createPatient = this.patientService.createPatient(patientDto, userId, doctorId, wardId);
 		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
 	}
 
-	// get by user
+	// get by doctor
 	@GetMapping("/doctor/{doctorId}/patients")
 	public ResponseEntity<List<PatientDto>> getPatientsByDoctor(@PathVariable Integer doctorId) {
-
 		List<PatientDto> patients = this.patientService.getPatientsByDoctor(doctorId);
 		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/ward/{wardId}/patients")
 	public ResponseEntity<List<PatientDto>> getPatientsByWard(@PathVariable Integer wardId) {
-
 		List<PatientDto> patients = this.patientService.getPatientsByWard(wardId);
 		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/patients")
@@ -70,12 +64,6 @@ public class PatientController {
 		PatientDto patientDto = this.patientService.getPatientById(patientId);
 		return new ResponseEntity<PatientDto>(patientDto, HttpStatus.OK);
 
-	}
-
-	@DeleteMapping("/patients/{patientId}")
-	public ApiResponse deletePatient(@PathVariable Integer patientId) {
-		this.patientService.deletePatient(patientId);
-		return new ApiResponse("Post is successfully deleted !!", true);
 	}
 
 	@PutMapping("/patients/{patientId}")

@@ -6,10 +6,6 @@ import java.time.LocalTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.hms.entities.Doctor;
-import com.hms.entities.Ward;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class PatientDto {
 
 	private Integer patientId;
@@ -33,9 +28,9 @@ public class PatientDto {
 	private Boolean currentStatus;
 	
 	private Boolean action;
-	/*
+	
 	private UserDto user;
-	*/
+	
 	private DoctorDto doctor;
 	
 	private WardDto ward;

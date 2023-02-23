@@ -16,7 +16,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserDto {
 	private int id;
 
@@ -53,8 +52,4 @@ public class UserDto {
 	private LocalDate dob;
 
 	private AddressDto address;
-
-	private EmployeeDto employee;
-	
-	private PatientDto patient;
 }

@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hms.payloads.ApiResponse;
 import com.hms.payloads.DoctorDto;
 import com.hms.services.DoctorService;
 
@@ -40,14 +38,6 @@ public class DoctorController {
 			@PathVariable Integer docId) {
 		DoctorDto updatedDoctor = this.doctorService.updateDoctor(doctorDto, docId);
 		return new ResponseEntity<DoctorDto>(updatedDoctor, HttpStatus.OK);
-	}
-
-	// delete
-	@DeleteMapping("/doctor/{docId}")
-	public ResponseEntity<ApiResponse> deleteDoctor(@PathVariable Integer docId) {
-		this.doctorService.deleteDoctor(docId);
-		return new ResponseEntity<ApiResponse>(new ApiResponse("doctor is deleted successfully !!", true),
-				HttpStatus.OK);
 	}
 
 	// get
