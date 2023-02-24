@@ -21,8 +21,6 @@ public class WardDto {
 	
 	private String wardType;
 	
-	private String allocatedBed;
-	
 	private Double wardCharges;
 	
 	@JsonIgnoreProperties(value = "ward")

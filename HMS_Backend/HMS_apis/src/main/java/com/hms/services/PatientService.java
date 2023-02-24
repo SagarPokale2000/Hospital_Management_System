@@ -7,11 +7,17 @@ import com.hms.payloads.PatientResponse;
 
 public interface PatientService {
 	// create patient
-	PatientDto createPatient(PatientDto patientDto,Integer userId, Integer doctorId, Integer wardId);
+	PatientDto createPatient(PatientDto patientDto, Integer userId);
 
-	// update patient
+	// update patient details
 	PatientDto updatePatient(PatientDto patientDto, Integer patientId);
-	
+
+	// update patient Doctor
+	PatientDto updatePatientDoctor(PatientDto patientDto, Integer patientId, Integer doctorId);
+
+	// update patient Ward
+	PatientDto updatePatientWard(PatientDto patientDto, Integer patientId, Integer wardId);
+
 	// get all patients
 	PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 

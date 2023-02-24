@@ -19,8 +19,6 @@ import com.hms.config.AppConstants;
 import com.hms.payloads.ApiResponse;
 import com.hms.payloads.MedicineDto;
 import com.hms.payloads.MedicineResponse;
-import com.hms.payloads.PatientDto;
-import com.hms.payloads.PatientResponse;
 import com.hms.services.MedicineService;
 
 @RestController
@@ -29,64 +27,62 @@ public class MedicineController {
 
 	@Autowired
 	private MedicineService medicineService;
-	
-	//	create
+
+	// create
 	@PostMapping("/healthhistory/{healthId}/medicine")
-	public ResponseEntity<MedicineDto> createMedicine(@RequestBody MedicineDto medicineDto, @PathVariable Integer healthId
-			) {
-		MedicineDto createMedicine = this.medicineService.createMedicine(medicineDto,  healthId);
+	public ResponseEntity<MedicineDto> createMedicine(@RequestBody MedicineDto medicineDto,
+			@PathVariable Integer healthId) {
+		MedicineDto createMedicine = this.medicineService.createMedicine(medicineDto, healthId);
 		return new ResponseEntity<MedicineDto>(createMedicine, HttpStatus.CREATED);
 	}
-	
-	// get medicine  by health history
-		@GetMapping("/healthhistory/{healthId}/medicine")
-		public ResponseEntity<List<MedicineDto>> getMedicineByHealthHistory(@PathVariable Integer healthId) {
 
-			List<MedicineDto> medicine = this.medicineService.getMedicineByHealthHistory(healthId);
-			return new ResponseEntity<List<MedicineDto>>(medicine, HttpStatus.OK);
+	// get medicine by health history
+	@GetMapping("/healthhistory/{healthId}/medicine")
+	public ResponseEntity<List<MedicineDto>> getMedicineByHealthHistory(@PathVariable Integer healthId) {
 
-		}
-	
-		@GetMapping("/medicine")
-		public ResponseEntity<MedicineResponse> getAllMedicine(
-				@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
-				@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
-				@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
-				@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+		List<MedicineDto> medicine = this.medicineService.getMedicineByHealthHistory(healthId);
+		return new ResponseEntity<List<MedicineDto>>(medicine, HttpStatus.OK);
 
-			MedicineResponse medicineResponse = this.medicineService.getAllMedicine(pageNumber, pageSize, sortBy, sortDir);
-			return new ResponseEntity<MedicineResponse>(medicineResponse, HttpStatus.OK);
-		}
-	
-	
-		@GetMapping("/medicine/{medicineId}")
-		public ResponseEntity<MedicineDto> getMedicineById(@PathVariable Integer medicineId) {
+	}
 
-			MedicineDto medicineDto = this.medicineService.getMedicineById(medicineId);
-			return new ResponseEntity<MedicineDto>(medicineDto, HttpStatus.OK);
+	@GetMapping("/medicine")
+	public ResponseEntity<MedicineResponse> getAllMedicine(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
 
-		}
-		
-		
-		@DeleteMapping("/medicine/{medicineId}")
-		public ApiResponse deleteMedicine(@PathVariable Integer medicineId) {
-			this.medicineService.deleteMedicine(medicineId);
-			return new ApiResponse("medicine is successfully deleted !!", true);
-		}
-		
-		@PutMapping("/medicine/{medicineId}")
-		public ResponseEntity<MedicineDto> updateMedicine(@RequestBody MedicineDto medicineDto,
-				@PathVariable Integer patientId) {
+		MedicineResponse medicineResponse = this.medicineService.getAllMedicine(pageNumber, pageSize, sortBy, sortDir);
+		return new ResponseEntity<MedicineResponse>(medicineResponse, HttpStatus.OK);
+	}
 
-			MedicineDto updateMedicine = this.medicineService.updateMedicine(medicineDto, patientId);
-			return new ResponseEntity<MedicineDto>(updateMedicine, HttpStatus.OK);
+	@GetMapping("/medicine/{medicineId}")
+	public ResponseEntity<MedicineDto> getMedicineById(@PathVariable Integer medicineId) {
 
-		}
-		
-		// search
-		@GetMapping("/healthhistory/search/{keywords}")
-		public ResponseEntity<List<MedicineDto>> searchMedicine(@PathVariable("keywords") String keywords) {
-			List<MedicineDto> result = this.medicineService.searchMedicine(keywords);
-			return new ResponseEntity<List<MedicineDto>>(result, HttpStatus.OK);
-		}
+		MedicineDto medicineDto = this.medicineService.getMedicineById(medicineId);
+		return new ResponseEntity<MedicineDto>(medicineDto, HttpStatus.OK);
+
+	}
+
+	@DeleteMapping("/medicine/{medicineId}")
+	public ApiResponse deleteMedicine(@PathVariable Integer medicineId) {
+		this.medicineService.deleteMedicine(medicineId);
+		return new ApiResponse("medicine is successfully deleted !!", true);
+	}
+
+	@PutMapping("/medicine/{medicineId}")
+	public ResponseEntity<MedicineDto> updateMedicine(@RequestBody MedicineDto medicineDto,
+			@PathVariable Integer patientId) {
+
+		MedicineDto updateMedicine = this.medicineService.updateMedicine(medicineDto, patientId);
+		return new ResponseEntity<MedicineDto>(updateMedicine, HttpStatus.OK);
+
+	}
+
+	// search
+	@GetMapping("/healthhistory/search/{keywords}")
+	public ResponseEntity<List<MedicineDto>> searchMedicine(@PathVariable("keywords") String keywords) {
+		List<MedicineDto> result = this.medicineService.searchMedicine(keywords);
+		return new ResponseEntity<List<MedicineDto>>(result, HttpStatus.OK);
+	}
 }

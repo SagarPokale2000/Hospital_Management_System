@@ -27,11 +27,24 @@ public class PatientController {
 	private PatientService patientService;
 
 	// create
-	@PostMapping("/user/{userId}/doctor/{doctorId}/ward/{wardId}/patients")
-	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer userId,
-			@PathVariable Integer doctorId, @PathVariable Integer wardId) {
-		PatientDto createPatient = this.patientService.createPatient(patientDto, userId, doctorId, wardId);
+	@PostMapping("/user/{userId}/patients")
+	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer userId) {
+		PatientDto createPatient = this.patientService.createPatient(patientDto, userId);
 		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/patients/{patientId}/doctor/{doctorId}")
+	public ResponseEntity<PatientDto> updatePatientDoctor(@RequestBody PatientDto patientDto,
+			@PathVariable Integer patientId,@PathVariable Integer doctorId) {
+		PatientDto updatePatient = this.patientService.updatePatientDoctor(patientDto, patientId,doctorId);
+		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
+	}
+	
+	@PutMapping("/patients/{patientId}/ward/{wardId}")
+	public ResponseEntity<PatientDto> updatePatientWard(@RequestBody PatientDto patientDto,
+			@PathVariable Integer patientId,@PathVariable Integer wardId) {
+		PatientDto updatePatient = this.patientService.updatePatientWard(patientDto, patientId,wardId);
+		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
 
 	// get by doctor

@@ -5,15 +5,20 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hms.config.AppConstants;
+import com.hms.payloads.ApiResponse;
 import com.hms.payloads.EmployeeDto;
+import com.hms.payloads.EmployeeResponse;
 import com.hms.services.EmployeeService;
 
 @RestController
@@ -24,14 +29,16 @@ public class EmployeeController {
 
 	// create
 	@PostMapping("/user/{userId}/employee")
-	public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto,@PathVariable Integer userId) {
-		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto,userId);
+	public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto,
+			@PathVariable Integer userId) {
+		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto, userId);
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 
 	// update
 	@PutMapping("/employee/{Id}")
-	public ResponseEntity<EmployeeDto> updateEmployee(@Valid @RequestBody EmployeeDto employeeDto, @PathVariable Integer Id) {
+	public ResponseEntity<EmployeeDto> updateEmployee(@Valid @RequestBody EmployeeDto employeeDto,
+			@PathVariable Integer Id) {
 		EmployeeDto updatedEmp = this.employeeService.updateEmployee(employeeDto, Id);
 		return new ResponseEntity<EmployeeDto>(updatedEmp, HttpStatus.OK);
 	}
@@ -41,5 +48,24 @@ public class EmployeeController {
 	public ResponseEntity<EmployeeDto> getUser(@PathVariable Integer Id) {
 		EmployeeDto employeeDto = this.employeeService.getEmployee(Id);
 		return new ResponseEntity<EmployeeDto>(employeeDto, HttpStatus.OK);
+	}
+
+	// delete
+	@DeleteMapping("/employee/{Id}")
+	public ResponseEntity<ApiResponse> deleteEmployee(@PathVariable Integer Id) {
+		this.employeeService.deleteEmployee(Id);
+		return new ResponseEntity<ApiResponse>(new ApiResponse("Employee is deleted successfully !!", true), HttpStatus.OK);
+	}
+	
+	//get all - pagination
+	@GetMapping("/employee")
+	public ResponseEntity<EmployeeResponse> getAllEmployees(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+
+		EmployeeResponse employeeResponse = this.employeeService.getAllEmployees(pageNumber, pageSize, sortBy, sortDir);
+		return new ResponseEntity<EmployeeResponse>(employeeResponse, HttpStatus.OK);
 	}
 }

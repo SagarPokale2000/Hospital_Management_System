@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.hms.payloads.HealthHistoryDto;
 import com.hms.payloads.HealthHistoryResponse;
-import com.hms.payloads.MedicineDto;
-import com.hms.payloads.MedicineResponse;
 
 public interface HealthHistoryService {
 	//create 
