@@ -1,13 +1,21 @@
 package com.hms.services.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.hms.entities.Employee;
 import com.hms.entities.User;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.EmployeeDto;
+import com.hms.payloads.EmployeeResponse;
 import com.hms.repository.EmployeeRepo;
 import com.hms.repository.UserRepo;
 import com.hms.services.EmployeeService;
@@ -54,7 +62,43 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeDto getEmployee(Integer Id) {
 		Employee emp = this.employeeRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", Id));
+				.orElseThrow(() -> new ResourceNotFoundException("Employee", "employee id", Id));
 		return this.modelMapper.map(emp, EmployeeDto.class);
+	}
+
+	@Override
+	public void deleteEmployee(Integer Id) {
+		Employee emp = this.employeeRepo.findById(Id)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee", "employee id", Id));
+
+		User user = emp.getUser();
+
+		this.userRepo.delete(user);
+	}
+
+	@Override
+	public EmployeeResponse getAllEmployees(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+		Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+
+		Page<Employee> pageEmp = this.employeeRepo.findAll(p);
+
+		List<Employee> allEmps = pageEmp.getContent();
+
+		List<EmployeeDto> EmployeeDtos = allEmps.stream().map((emp) -> this.modelMapper.map(emp, EmployeeDto.class))
+				.collect(Collectors.toList());
+
+		EmployeeResponse employeeResponse = new EmployeeResponse();
+
+		employeeResponse.setContent(EmployeeDtos);
+		employeeResponse.setPageNumber(pageEmp.getNumber());
+		employeeResponse.setPageSize(pageEmp.getSize());
+		employeeResponse.setTotalElements(pageEmp.getTotalElements());
+
+		employeeResponse.setTotalPages(pageEmp.getTotalPages());
+		employeeResponse.setLastPage(pageEmp.isLast());
+
+		return employeeResponse;
 	}
 }

@@ -30,11 +30,9 @@ public class Ward {
 	private int id;
 	@Column(name = "ward_type",length = 45)
 	private String wardType;
-	@Column(name = "allocated_bed",length = 45)
-	private String allocatedBed;
 	@Column(name = "ward_charges")
 	private double wardCharges;
 	
 	@OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
-	private Set<Patient> patients= new HashSet();
+	private Set<Patient> patients= new HashSet<>();
 }

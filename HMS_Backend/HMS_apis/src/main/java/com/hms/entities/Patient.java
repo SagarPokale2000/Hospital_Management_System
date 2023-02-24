@@ -1,6 +1,5 @@
 package com.hms.entities;
 
-
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -42,7 +39,6 @@ public class Patient {
 	@Column(name="symptoms",length = 100, nullable= false)
 	private String symptoms;
 	
-	@CreationTimestamp
 	@Column(name = "appointment_time")
 	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime appointmentTime;
@@ -55,6 +51,9 @@ public class Patient {
 	
 	@Column(columnDefinition="boolean default false")
 	private Boolean action;
+
+	@Column(name = "allocated_bed",length = 45)
+	private String allocatedBed;
 	
 	@OneToOne()
 	@JoinColumn(name = "user_Id", nullable = false)

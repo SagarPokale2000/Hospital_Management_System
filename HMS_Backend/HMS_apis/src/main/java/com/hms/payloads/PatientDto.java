@@ -37,6 +37,8 @@ public class PatientDto {
 	
 	private Boolean action;
 	
+	private String allocatedBed;
+	
 	private UserDto user;
 	
 	@JsonIgnoreProperties(value = "patients")

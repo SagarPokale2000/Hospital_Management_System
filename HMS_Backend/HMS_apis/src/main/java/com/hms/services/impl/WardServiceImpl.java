@@ -37,7 +37,6 @@ public class WardServiceImpl implements WardService {
 				.orElseThrow(() -> new ResourceNotFoundException("Ward ", "Ward Id", wardId));
 
 		ward.setWardType(wardDto.getWardType());
-		ward.setAllocatedBed(wardDto.getAllocatedBed());
 		ward.setWardCharges(wardDto.getWardCharges());
 
 		Ward updatedward = this.wardRepo.save(ward);

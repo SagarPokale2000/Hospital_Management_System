@@ -48,12 +48,12 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 	@Override
 	public HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId) {
-		return healthDto;
-		/*
+		
+		
 		Health_History healths = this.healthRepo.findById(healthId)
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
 
-		Patient patient = this.patientRepo.findById(healthDto.getPatient().getPatientId()).get();
+		//Patient patient = this.patientRepo.findById(healthDto.getPatient().getPatientId()).get();
 
 		healths.setDiseases(healthDto.getDiseases());
 		healths.setAppointmentDate(healthDto.getAppointmentDate());
@@ -65,10 +65,10 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		// patient.setPatient(patient);
 //	        patient.setWard(ward);
 
-		Patient updatedPatient = this.patientRepo.save(patient);
-		return this.modelMapper.map(updatedPatient, PatientDto.class);*/
+		Health_History updatedHealth = this.healthRepo.save(healths);
+		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
-
+	
 	@Override
 	public void deleteHealthHistory(Integer healthId) {
 		Health_History healths = this.healthRepo.findById(healthId)
