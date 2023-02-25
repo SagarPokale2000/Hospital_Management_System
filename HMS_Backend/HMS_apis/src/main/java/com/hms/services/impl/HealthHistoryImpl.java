@@ -47,18 +47,26 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		return this.modelMapper.map(newHealths, HealthHistoryDto.class);
 	}
 
+	//update HH
 	@Override
 	public HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId) {
 
 		Health_History healths = this.healthRepo.findById(healthId)
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
-
-		healths.setDiseases(healthDto.getDiseases());
+//appointment
+		healths.setSymptoms(healthDto.getSymptoms());
 		healths.setAppointmentDate(healthDto.getAppointmentDate());
 		healths.setAppointmentTime(healthDto.getAppointmentTime());
-		healths.setAdmitDate(healthDto.getAdmitDate());
+
+//updated by doctor
+		healths.setDiseases(healthDto.getDiseases());
 		healths.setPrescriptionInstruction(healthDto.getPrescriptionInstruction());
+
+//update by receptionist
+		healths.setAdmitDate(healthDto.getAdmitDate());
 		healths.setDischargeDate(healthDto.getDischargeDate());
+		
+//creation time stamp
 		healths.setPaymentDate(healthDto.getPaymentDate());
 
 		Health_History updatedHealth = this.healthRepo.save(healths);

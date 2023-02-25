@@ -31,7 +31,7 @@ public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "patient_Id")
-	private Integer patientId;
+	private Integer id;
 
 	@Column(name = "admit_status", columnDefinition = "boolean default false")
 	private Boolean admitStatus;

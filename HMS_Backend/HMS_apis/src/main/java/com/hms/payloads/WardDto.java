@@ -17,7 +17,7 @@ import lombok.Setter;
 @JsonInclude(value = Include.NON_NULL)
 public class WardDto {
 	
-	private Integer wardId;
+	private Integer id;
 	
 	private String wardType;
 	

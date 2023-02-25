@@ -42,7 +42,7 @@ public class PatientServiceImpl implements PatientService {
 	@Autowired
 	private WardRepo wardRepo;
 
-	//create new patient
+	// create new patient
 	@Override
 	public PatientDto createPatient(PatientDto patientDto, Integer userId) {
 		User user = this.userRepo.findById(userId)
@@ -53,7 +53,7 @@ public class PatientServiceImpl implements PatientService {
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}
 
-	//update patient details ( statuses )
+	// update patient details ( statuses )
 	@Override
 	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
 
@@ -67,8 +67,8 @@ public class PatientServiceImpl implements PatientService {
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}
-	
-	//appoint doctor to patient
+
+	// appoint doctor to patient
 	@Override
 	public PatientDto updatePatientDoctor(PatientDto patientDto, Integer patientId, Integer doctorId) {
 		Patient patient = this.patientRepo.findById(patientId)
@@ -76,25 +76,25 @@ public class PatientServiceImpl implements PatientService {
 
 		Doctor doctor = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor id", doctorId));
-		
+
 		patient.setDoctor(doctor);
-		
+
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}
 
-	//appoint ward to patient
+	// appoint ward to patient
 	@Override
 	public PatientDto updatePatientWard(PatientDto patientDto, Integer patientId, Integer wardId) {
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
-		
+
 		Ward ward = this.wardRepo.findById(wardId)
 				.orElseThrow(() -> new ResourceNotFoundException("Ward", "ward id ", wardId));
-		
+
 		patient.setWard(ward);
 		patient.setAllocatedBed(patientDto.getAllocatedBed());
-		
+
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}
@@ -106,7 +106,7 @@ public class PatientServiceImpl implements PatientService {
 		return this.modelMapper.map(patient, PatientDto.class);
 	}
 
-	//get all patients
+	// get all patients
 	@Override
 	public PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
 
@@ -164,5 +164,16 @@ public class PatientServiceImpl implements PatientService {
 		List<PatientDto> patientDtos = patients.stream()
 				.map((patient) -> this.modelMapper.map(patients, PatientDto.class)).collect(Collectors.toList());
 		return patientDtos;
+	}
+
+	// delete patient
+	@Override
+	public void deletePatient(Integer patientId) {
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
+
+		User user = patient.getUser();
+
+		this.userRepo.delete(user);
 	}
 }

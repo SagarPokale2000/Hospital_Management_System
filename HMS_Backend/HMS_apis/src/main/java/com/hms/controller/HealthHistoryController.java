@@ -37,15 +37,15 @@ public class HealthHistoryController {
 		return new ResponseEntity<HealthHistoryDto>(appointment, HttpStatus.OK);
 	}
 
-	@GetMapping("/healthhistory/{healthId}")
-	public ResponseEntity<HealthHistoryDto> getHealthHistoryById(@PathVariable Integer healthId) {
+	@GetMapping("/healthhistory/{Id}")
+	public ResponseEntity<HealthHistoryDto> getHealthHistoryById(@PathVariable Integer Id) {
 
-		HealthHistoryDto healthDto = this.healthservice.getHealthHistoryById(healthId);
+		HealthHistoryDto healthDto = this.healthservice.getHealthHistoryById(Id);
 		return new ResponseEntity<HealthHistoryDto>(healthDto, HttpStatus.OK);
 
 	}
 
-	// get all health history
+	// get all health history ( pagination )
 	@GetMapping("/healthhistory")
 	public ResponseEntity<HealthHistoryResponse> getAllHealthHistory(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
@@ -59,17 +59,17 @@ public class HealthHistoryController {
 	}
 
 	// delete history
-	@DeleteMapping("/healthhistory/{healthId}")
-	public ApiResponse deleteHealthHistory(@PathVariable Integer healthId) {
-		this.healthservice.deleteHealthHistory(healthId);
+	@DeleteMapping("/healthhistory/{Id}")
+	public ApiResponse deleteHealthHistory(@PathVariable Integer Id) {
+		this.healthservice.deleteHealthHistory(Id);
 		return new ApiResponse("health history is successfully deleted !!", true);
 	}
 
-	@PutMapping("/healthhistory/{healthId}")
+	@PutMapping("/healthhistory/{Id}")
 	public ResponseEntity<HealthHistoryDto> updateHealthHistory(@RequestBody HealthHistoryDto healthDto,
-			@PathVariable Integer healthId) {
+			@PathVariable Integer Id) {
 
-		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistory(healthDto, healthId);
+		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistory(healthDto, Id);
 		return new ResponseEntity<HealthHistoryDto>(updateHealthHistory, HttpStatus.OK);
 
 	}

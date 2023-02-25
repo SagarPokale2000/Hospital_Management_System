@@ -58,8 +58,4 @@ public class UserDto {
 	private LocalDate dob;
 
 	private AddressDto address;
-	/*
-	private EmployeeDto employee;
-	
-	private PatientDto patient;*/
 }

@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.hms.entities.Medicine;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +25,7 @@ import lombok.Setter;
 @JsonInclude(value = Include.NON_NULL)
 public class HealthHistoryDto {
 
-	private int healthId;
+	private int id;
 
 	private String diseases;
 
@@ -52,5 +51,5 @@ public class HealthHistoryDto {
 	private PatientDto patient;
 
 	@JsonIgnoreProperties(value = "healthHistory")
-	private List<Medicine> medicines = new ArrayList<>();
+	private List<MedicineDto> medicines = new ArrayList<>();
 }

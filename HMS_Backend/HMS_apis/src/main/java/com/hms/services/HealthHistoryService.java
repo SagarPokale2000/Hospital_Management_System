@@ -22,7 +22,7 @@ public interface HealthHistoryService {
 			//get single medicine
 			HealthHistoryDto getHealthHistoryById(Integer healthId);
 			
-			//get all medicine ofhealth history
+			//get all medicine of health history
 			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
 			
 			//search posts

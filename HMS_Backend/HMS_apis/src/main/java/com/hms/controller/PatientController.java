@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.config.AppConstants;
+import com.hms.payloads.ApiResponse;
 import com.hms.payloads.PatientDto;
 import com.hms.payloads.PatientResponse;
 import com.hms.services.PatientService;
@@ -40,7 +42,7 @@ public class PatientController {
 		PatientDto updatePatient = this.patientService.updatePatient(patientDto, patientId);
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
-	
+
 	// appoint doctor to patient
 	@PutMapping("/patients/{patientId}/doctor/{doctorId}")
 	public ResponseEntity<PatientDto> updatePatientDoctor(@RequestBody PatientDto patientDto,
@@ -88,6 +90,14 @@ public class PatientController {
 
 		PatientResponse patientResponse = this.patientService.getAllPatient(pageNumber, pageSize, sortBy, sortDir);
 		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
+	}
+
+	// delete patient
+	@DeleteMapping("/patients/{patientId}")
+	public ResponseEntity<ApiResponse> deletePatient(@PathVariable Integer patientId) {
+		this.patientService.deletePatient(patientId);
+		return new ResponseEntity<ApiResponse>(new ApiResponse("Patient is deleted successfully !!", true),
+				HttpStatus.OK);
 	}
 
 	// search

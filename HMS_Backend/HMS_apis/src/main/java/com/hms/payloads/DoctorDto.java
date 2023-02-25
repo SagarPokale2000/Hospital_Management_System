@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonInclude(value = Include.NON_NULL)
 public class DoctorDto {
-	private int doctorId;
+	private int id;
 
 	private double doctorFee;
 

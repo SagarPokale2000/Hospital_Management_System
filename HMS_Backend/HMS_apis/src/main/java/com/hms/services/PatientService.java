@@ -29,6 +29,8 @@ public interface PatientService {
 
 	// get all patients by ward Id
 	List<PatientDto> getPatientsByWard(Integer wardId);
+	
+	void deletePatient(Integer patientId);
 
 	// search patients
 	List<PatientDto> searchPatientById(String keyword);

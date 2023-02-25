@@ -6,7 +6,6 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.hms.entities.Health_History;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ import lombok.Setter;
 @JsonInclude(value = Include.NON_NULL)
 public class PatientDto {
 
-	private Integer patientId;
+	private Integer id;
 
 	private Boolean admitStatus;
 
@@ -37,5 +36,5 @@ public class PatientDto {
 	private WardDto ward;
 
 	@JsonIgnoreProperties(value = "patient")
-	private Set<Health_History> health_histories = new HashSet<>();
+	private Set<HealthHistoryDto> health_histories = new HashSet<>();
 }

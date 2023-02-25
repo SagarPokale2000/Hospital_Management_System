@@ -72,9 +72,9 @@ public class MedicineController {
 
 	@PutMapping("/medicine/{medicineId}")
 	public ResponseEntity<MedicineDto> updateMedicine(@RequestBody MedicineDto medicineDto,
-			@PathVariable Integer patientId) {
+			@PathVariable Integer medicineId) {
 
-		MedicineDto updateMedicine = this.medicineService.updateMedicine(medicineDto, patientId);
+		MedicineDto updateMedicine = this.medicineService.updateMedicine(medicineDto, medicineId);
 		return new ResponseEntity<MedicineDto>(updateMedicine, HttpStatus.OK);
 
 	}

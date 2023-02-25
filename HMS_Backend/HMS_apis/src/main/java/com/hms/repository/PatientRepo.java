@@ -15,6 +15,6 @@ public interface PatientRepo extends JpaRepository<Patient, Integer> {
 	List<Patient> findByDoctor(Doctor doctor);
 	List<Patient> findByWard(Ward ward);
 
-	@Query("select p from Patient p where p.patientId like :key")
+	@Query("select p from Patient p where p.id like :key")
 	List<Patient> searchByPatientId(@Param("key") String patientId);
 }
