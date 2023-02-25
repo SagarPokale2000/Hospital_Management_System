@@ -32,6 +32,7 @@ public class MedicineServiceImpl implements MedicineService {
 	@Autowired
 	private HealthHistoryRepo healthRepo;
 
+	//add medicine and other details manually by doctor to add to patients health history 
 	@Override
 	public MedicineDto createMedicine(MedicineDto medicineDto, Integer healthId) {
 		Health_History health = this.healthRepo.findById(healthId)
@@ -46,19 +47,20 @@ public class MedicineServiceImpl implements MedicineService {
 		return this.modelMapper.map(newMedicine, MedicineDto.class);
 	}
 
+	//update medicines ( not needed )
 	@Override
 	public MedicineDto updateMedicine(MedicineDto medicineDto, Integer medicineId) {
 		Medicine medicine = this.medicineRepo.findById(medicineId)
 				.orElseThrow(() -> new ResourceNotFoundException("Medicine ", "medicine id", medicineId));
 
-		Health_History health = this.healthRepo.findById(medicineDto.getHealthHistory().getHealthId()).get();
+		//Health_History health = this.healthRepo.findById(medicineDto.getHealthHistory().getHealthId()).get();
 
 		medicine.setMedicineName(medicineDto.getMedicineName());
 		medicine.setDuration(medicineDto.getDuration());
 		medicine.setQuantity(medicineDto.getQuantity());
 		medicine.setMedicineCharges(medicineDto.getMedicineCharges());
 
-		medicine.setHealthHistory(health);
+		//medicine.setHealthHistory(health);
 
 		Medicine updatedMedicine = this.medicineRepo.save(medicine);
 		return this.modelMapper.map(updatedMedicine, MedicineDto.class);

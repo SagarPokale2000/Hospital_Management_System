@@ -30,9 +30,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_Id")
 	private int id;
-	@Column(name = "first_name", length = 45)
+	@Column(name = "first_name", length = 45, nullable = false)
 	private String firstName;
-	@Column(name = "last_name", length = 45)
+	@Column(name = "last_name", length = 45, nullable = false)
 	private String lastName;
 	@Column(length = 45, unique = true)
 	private String email;
@@ -40,24 +40,24 @@ public class User {
 	private String password;
 	@Column(length = 20)
 	private String gender;
-	@Column(name = "security_que", length = 100)
+	@Column(name = "security_que", length = 100, nullable = false)
 	private String securityQue;
-	@Column(name = "security_ans", length = 100)
+	@Column(name = "security_ans", length = 100, nullable = false)
 	private String securityAns;
 	@Column(name = "mobile_no", length = 15)
 	private String mobileNo;
 	@Column(name = "blood_group", length = 10)
 	private String bloodGroup;
-	
+
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
-	
-	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Patient patient;
-	
-	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Employee employee;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Address address;
 }
