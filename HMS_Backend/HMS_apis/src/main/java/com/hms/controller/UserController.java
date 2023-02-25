@@ -49,14 +49,14 @@ public class UserController {
 		return new ResponseEntity<ApiResponse>(new ApiResponse("User is deleted successfully !!", true), HttpStatus.OK);
 	}
 
-	// get
+	// get ( not needed )
 	@GetMapping("/{Id}")
 	public ResponseEntity<UserDto> getUser(@PathVariable Integer Id) {
 		UserDto userDto = this.userService.getUser(Id);
 		return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
 	}
 
-	// get all
+	// get all ( not needed )
 	@GetMapping("/")
 	public ResponseEntity<List<UserDto>> getUsers() {
 		List<UserDto> users = this.userService.getUsers();

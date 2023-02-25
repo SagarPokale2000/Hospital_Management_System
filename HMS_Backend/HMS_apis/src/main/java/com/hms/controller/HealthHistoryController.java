@@ -26,15 +26,15 @@ import com.hms.services.HealthHistoryService;
 public class HealthHistoryController {
 
 	@Autowired
-	private HealthHistoryService healthservice;
+	private HealthHistoryService healthservice;	
 
-//	create
-
-	@PostMapping("/patient/{patientId}/healthHistory")
-	public ResponseEntity<HealthHistoryDto> createHealthHistory(@RequestBody HealthHistoryDto healthHistoryDto,
+	// add appointment ( create health history )
+	@PostMapping("/patients/{patientId}/healthHistory")
+	public ResponseEntity<HealthHistoryDto> addAppointment(@RequestBody HealthHistoryDto healthHistoryDto,
 			@PathVariable Integer patientId) {
-		HealthHistoryDto createHealthHistory = this.healthservice.createHealthHistory(healthHistoryDto, patientId);
-		return new ResponseEntity<HealthHistoryDto>(createHealthHistory, HttpStatus.CREATED);
+
+		HealthHistoryDto appointment = this.healthservice.addAppointment(healthHistoryDto, patientId);
+		return new ResponseEntity<HealthHistoryDto>(appointment, HttpStatus.OK);
 	}
 
 	@GetMapping("/healthhistory/{healthId}")
@@ -46,7 +46,6 @@ public class HealthHistoryController {
 	}
 
 	// get all health history
-
 	@GetMapping("/healthhistory")
 	public ResponseEntity<HealthHistoryResponse> getAllHealthHistory(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,

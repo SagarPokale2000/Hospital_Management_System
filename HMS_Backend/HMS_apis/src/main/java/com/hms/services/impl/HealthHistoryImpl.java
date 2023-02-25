@@ -31,9 +31,10 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 	@Autowired
 	private ModelMapper modelMapper;
-
+	 
+	//add patient appointment (create health history )
 	@Override
-	public HealthHistoryDto createHealthHistory(HealthHistoryDto healthDto, Integer patientId) {
+	public HealthHistoryDto addAppointment(HealthHistoryDto healthDto, Integer patientId) {
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
 
@@ -48,34 +49,41 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 	@Override
 	public HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId) {
-		
-		
+
 		Health_History healths = this.healthRepo.findById(healthId)
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
 
-		//Patient patient = this.patientRepo.findById(healthDto.getPatient().getPatientId()).get();
-
 		healths.setDiseases(healthDto.getDiseases());
 		healths.setAppointmentDate(healthDto.getAppointmentDate());
+		healths.setAppointmentTime(healthDto.getAppointmentTime());
 		healths.setAdmitDate(healthDto.getAdmitDate());
 		healths.setPrescriptionInstruction(healthDto.getPrescriptionInstruction());
 		healths.setDischargeDate(healthDto.getDischargeDate());
 		healths.setPaymentDate(healthDto.getPaymentDate());
 
-		// patient.setPatient(patient);
-//	        patient.setWard(ward);
-
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
-	
+
 	@Override
 	public void deleteHealthHistory(Integer healthId) {
-		Health_History healths = this.healthRepo.findById(healthId)
+		Health_History health = this.healthRepo.findById(healthId)
 				.orElseThrow(() -> new ResourceNotFoundException("Health_History ", "health id", healthId));
 
-		this.healthRepo.delete(healths);
+		this.healthRepo.delete(health);
+	}
 
+	// get health history by patient ( need pagination here )
+	@Override
+	public List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId) {
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
+		List<Health_History> healths = this.healthRepo.findByPatient(patient);
+
+		List<HealthHistoryDto> healthDtos = healths.stream()
+				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
+
+		return healthDtos;
 	}
 
 	@Override
@@ -113,23 +121,10 @@ public class HealthHistoryImpl implements HealthHistoryService {
 	}
 
 	@Override
-	public List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId) {
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
-		List<Health_History> healths = this.healthRepo.findByPatient(patient);
-
-		List<HealthHistoryDto> healthDtos = healths.stream()
-				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
-
-		return healthDtos;
-	}
-
-	@Override
 	public List<HealthHistoryDto> searchHealthHistory(String keyword) {
 		List<Health_History> healths = this.healthRepo.searchByHealthId("%" + keyword + "%");
 		List<HealthHistoryDto> healthDtos = healths.stream()
 				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
 		return healthDtos;
 	}
-
 }
