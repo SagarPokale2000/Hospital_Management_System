@@ -5,14 +5,22 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hms.entities.Address;
 import com.hms.entities.Doctor;
 import com.hms.entities.Employee;
+import com.hms.entities.User;
 import com.hms.exceptions.ResourceNotFoundException;
+import com.hms.payloads.AddressDto;
 import com.hms.payloads.DoctorDto;
+import com.hms.payloads.EmployeeDto;
+import com.hms.payloads.UserDto;
+import com.hms.repository.AddressRepo;
 import com.hms.repository.DoctorRepo;
 import com.hms.repository.EmployeeRepo;
+import com.hms.repository.UserRepo;
 import com.hms.services.DoctorService;
 
 @Service
@@ -20,22 +28,64 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Autowired
 	private DoctorRepo doctorRepo;
-	
+
 	@Autowired
 	private EmployeeRepo employeeRepo;
+
+	@Autowired
+	private UserRepo userRepo;
+
+	@Autowired
+	private AddressRepo addressRepo;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
-	public DoctorDto createDoctor(DoctorDto doctorDto,Integer empId) {
+	public DoctorDto createDoctor(DoctorDto doctorDto, Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
 		emp.getUser().setRole("ROLE_DOCTOR");
 		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
-		
+
 		doc.setEmployee(emp);
+
+		Doctor addedDoc = this.doctorRepo.save(doc);
+		return this.modelMapper.map(addedDoc, DoctorDto.class);
+	}
+
+	@Override
+	public DoctorDto createDoctorN(DoctorDto doctorDto) {
+		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
+
+		EmployeeDto employeeDto = doctorDto.getEmployee();
+
+		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
+
+		UserDto userDto = employeeDto.getUser();
+
+		AddressDto addressDto = userDto.getAddress();
+		Address address = this.modelMapper.map(addressDto, Address.class);
+
+		User user = this.modelMapper.map(userDto, User.class);
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		user.setRole("ROLE_RECEPTIONIST");
+		user.setAddress(null);
+		User addedUser = this.userRepo.save(user);
+
+		address.setUser(addedUser);
+		Address addedAddress = this.addressRepo.save(address);
+
+		User userAddedAddress = addedAddress.getUser();
 		
+		emp.setUser(userAddedAddress);
+		Employee addedEmp = this.employeeRepo.save(emp);
+		
+		doc.setEmployee(addedEmp);
+
 		Doctor addedDoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 	}
@@ -65,4 +115,5 @@ public class DoctorServiceImpl implements DoctorService {
 				.collect(Collectors.toList());
 		return docDtos;
 	}
+
 }

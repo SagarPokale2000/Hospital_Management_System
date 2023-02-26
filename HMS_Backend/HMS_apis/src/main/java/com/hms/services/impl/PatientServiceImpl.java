@@ -85,8 +85,10 @@ public class PatientServiceImpl implements PatientService {
 		
 		address.setUser(addedUser);
 		Address addedAddress = this.addressRepo.save(address);
+		
+		User userAddedAddress=addedAddress.getUser();
 	
-		patient.setUser(addedUser);
+		patient.setUser(userAddedAddress);
 		Patient newPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}
