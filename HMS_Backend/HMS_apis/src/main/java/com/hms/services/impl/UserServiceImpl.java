@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
 		user.setMobileNo(userDto.getMobileNo());
 		user.setDob(userDto.getDob());
 		user.setBloodGroup(userDto.getBloodGroup());
+		user.setRole(userDto.getRole());
 
 		User updatedUser = this.userRepo.save(user);
 		return this.modelMapper.map(updatedUser, UserDto.class);

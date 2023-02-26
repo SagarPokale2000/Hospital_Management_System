@@ -22,8 +22,6 @@ public class EmployeeDto {
 	private Integer id;
 	
 	@NotEmpty
-	private String role;
-	@NotEmpty
 	private String qualificaton;
 
 	private double salary;

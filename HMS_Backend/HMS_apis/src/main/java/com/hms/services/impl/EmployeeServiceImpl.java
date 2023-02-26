@@ -44,12 +44,35 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public EmployeeDto createReceptionist(EmployeeDto employeeDto, Integer userId) {
+		User user = this.userRepo.findById(userId)
+				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
+		user.setRole("ROLE_RECEPTIONIST");
+
+		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
+		emp.setUser(user);
+		Employee addedEmp = this.employeeRepo.save(emp);
+		return this.modelMapper.map(addedEmp, EmployeeDto.class);
+	}
+
+	@Override
+	public EmployeeDto createAccountant(EmployeeDto employeeDto, Integer userId) {
+		User user = this.userRepo.findById(userId)
+				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
+		user.setRole("ROLE_ACCOUNTANT");
+
+		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
+		emp.setUser(user);
+		Employee addedEmp = this.employeeRepo.save(emp);
+		return this.modelMapper.map(addedEmp, EmployeeDto.class);
+	}
+
+	@Override
 	public EmployeeDto updateEmployee(EmployeeDto employeeDto, Integer Id) {
 
 		Employee emp = this.employeeRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", Id));
 
-		emp.setRole(employeeDto.getRole());
 		emp.setQualificaton(employeeDto.getQualificaton());
 		emp.setSalary(employeeDto.getSalary());
 		emp.setHiredate(employeeDto.getHiredate());
@@ -101,4 +124,5 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return employeeResponse;
 	}
+
 }
