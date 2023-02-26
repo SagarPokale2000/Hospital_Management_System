@@ -6,6 +6,8 @@ public class AppConstants {
 	public static final String PAGE_SIZE = "10";
 	public static final String SORT_BY = "Id";
 	public static final String SORT_DIR = "asc";
-	//public static final Integer NORMAL_USER = 502;
-	//public static final Integer ADMIN_USER=501;
+	public static final Integer ROLE_DOCTOR=501;
+	public static final Integer ROLE_PATIENT= 502;
+	public static final Integer ROLE_RECEPTIONIST= 503;
+	public static final Integer ROLE_ACCOUNTANT = 504;
 }
