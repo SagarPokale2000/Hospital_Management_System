@@ -1,8 +1,3 @@
-/**
-*	@Developer : Sagar_Pokale
-*	@Date		 	   : 26-Feb-2023 12:09:27 PM
-*/
-
 package com.hms.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +25,4 @@ public class CustomUserDetailService implements UserDetailsService {
 
 		return user;
 	}
-
 }

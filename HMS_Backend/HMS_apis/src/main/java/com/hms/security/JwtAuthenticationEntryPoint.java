@@ -1,8 +1,3 @@
-/**
-*	@Developer : Sagar_Pokale
-*	@Date		 	   : 26-Feb-2023 11:21:51 AM
-*/
-
 package com.hms.security;
 
 import java.io.IOException;
@@ -24,8 +19,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
  		
- 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Access Denied !");
- 		  
+ 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Access Denied !");  
 	}
-
 }

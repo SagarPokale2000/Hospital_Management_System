@@ -1,12 +1,6 @@
-/**
-*	@Developer : Sagar_Pokale
-*	@Date		 	   : 26-Feb-2023 11:47:21 AM
-*/
-
 package com.hms.security;
 
 import java.io.IOException;
-
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -68,7 +62,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			System.out.println("Jwt token does not begin with Bearer");
 		}
 
-		
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 			UserDetails userDetails = this.userDetailService.loadUserByUsername(username);

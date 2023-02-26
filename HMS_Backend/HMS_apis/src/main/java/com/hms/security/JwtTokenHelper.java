@@ -1,9 +1,3 @@
-/**
-
-*	@Developer : Sagar_Pokale
-*	@Date		 	   : 26-Feb-2023 11:24:09 AM
-*/
-
 package com.hms.security;
 
 import java.util.Date;
