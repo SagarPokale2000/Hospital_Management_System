@@ -42,6 +42,8 @@ public class UserDto {
 
 	@NotEmpty
 	private String gender;
+	
+	private String role;
 
 	@NotEmpty
 	private String securityQue;
