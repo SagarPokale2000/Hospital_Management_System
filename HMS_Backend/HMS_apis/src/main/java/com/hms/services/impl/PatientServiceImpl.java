@@ -9,15 +9,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hms.entities.Address;
 import com.hms.entities.Doctor;
 import com.hms.entities.Patient;
 import com.hms.entities.User;
 import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
+import com.hms.payloads.AddressDto;
 import com.hms.payloads.PatientDto;
 import com.hms.payloads.PatientResponse;
+import com.hms.payloads.UserDto;
+import com.hms.repository.AddressRepo;
 import com.hms.repository.DoctorRepo;
 import com.hms.repository.PatientRepo;
 import com.hms.repository.UserRepo;
@@ -26,6 +31,9 @@ import com.hms.services.PatientService;
 
 @Service
 public class PatientServiceImpl implements PatientService {
+
+	@Autowired
+	private AddressRepo addressRepo;
 
 	@Autowired
 	private PatientRepo patientRepo;
@@ -40,6 +48,9 @@ public class PatientServiceImpl implements PatientService {
 	private DoctorRepo doctorRepo;
 
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
 	private WardRepo wardRepo;
 
 	// create new patient
@@ -50,7 +61,32 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = this.modelMapper.map(patientDto, Patient.class);
 		user.setRole("ROLE_PATIENT");
 		patient.setUser(user);
+
+		Patient newPatient = this.patientRepo.save(patient);
+		return this.modelMapper.map(newPatient, PatientDto.class);
+	}
+
+//send user details in json format to create patient
+	@Override
+	public PatientDto createPatientN(PatientDto patientDto) {
 		
+		Patient patient = this.modelMapper.map(patientDto, Patient.class);
+	
+		UserDto userDto = patientDto.getUser();
+
+		AddressDto addressDto = userDto.getAddress();
+		Address address = this.modelMapper.map(addressDto, Address.class);
+		
+		User user = this.modelMapper.map(userDto, User.class);
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		user.setRole("ROLE_PATIENT");
+		user.setAddress(null);
+		User addedUser = this.userRepo.save(user);
+		
+		address.setUser(addedUser);
+		Address addedAddress = this.addressRepo.save(address);
+	
+		patient.setUser(addedUser);
 		Patient newPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}
@@ -178,4 +214,5 @@ public class PatientServiceImpl implements PatientService {
 
 		this.userRepo.delete(user);
 	}
+
 }

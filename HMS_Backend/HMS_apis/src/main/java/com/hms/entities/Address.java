@@ -43,6 +43,6 @@ public class Address {
 	private int pincode;
 
 	@OneToOne()
-	@JoinColumn(name = "user_Id", nullable = false)
+	@JoinColumn(name = "user_Id")
 	private User user;
 }

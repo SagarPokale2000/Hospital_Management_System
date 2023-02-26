@@ -46,7 +46,7 @@ public class Patient {
 	private String allocatedBed;
 
 	@OneToOne()
-	@JoinColumn(name = "user_Id", nullable = false)
+	@JoinColumn(name = "user_Id")
 	private User user;
 
 	@ManyToOne

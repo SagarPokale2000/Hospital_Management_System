@@ -2,6 +2,7 @@ package com.hms.payloads;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -58,6 +59,6 @@ public class UserDto {
 	private String bloodGroup;
 
 	private LocalDate dob;
-
+	
 	private AddressDto address;
 }

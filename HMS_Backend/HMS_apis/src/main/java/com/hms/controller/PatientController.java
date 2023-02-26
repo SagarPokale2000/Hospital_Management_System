@@ -28,6 +28,13 @@ public class PatientController {
 	@Autowired
 	private PatientService patientService;
 
+	// create patient --send user details in json format to create patient
+	@PostMapping("/patients")
+	public ResponseEntity<PatientDto> createPatientN(@RequestBody PatientDto patientDto) {
+		PatientDto createPatient = this.patientService.createPatientN(patientDto);
+		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
+	}
+
 	// create patient
 	@PostMapping("/user/{userId}/patients")
 	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer userId) {
