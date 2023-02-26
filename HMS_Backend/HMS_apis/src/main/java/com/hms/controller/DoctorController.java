@@ -24,7 +24,13 @@ public class DoctorController {
 
 	@Autowired
 	private DoctorService doctorService;
-
+	
+	// create doctor --send user details in json format to create doctor
+	@PostMapping("/doctor")
+	public ResponseEntity<DoctorDto> createDoctorN(@Valid @RequestBody DoctorDto doctorDto) {
+		DoctorDto createDoctor = this.doctorService.createDoctorN(doctorDto);
+		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
+	}
 	// create
 	@PostMapping("/employee/{empId}/doctor")
 	public ResponseEntity<DoctorDto> createDoctor(@Valid @RequestBody DoctorDto doctorDto,@PathVariable Integer empId) {
