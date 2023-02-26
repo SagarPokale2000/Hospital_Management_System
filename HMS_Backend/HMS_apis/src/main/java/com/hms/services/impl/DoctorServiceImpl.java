@@ -7,12 +7,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hms.config.AppConstants;
 import com.hms.entities.Doctor;
 import com.hms.entities.Employee;
+import com.hms.entities.Role;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.DoctorDto;
 import com.hms.repository.DoctorRepo;
 import com.hms.repository.EmployeeRepo;
+import com.hms.repository.RoleRepo;
 import com.hms.services.DoctorService;
 
 @Service
@@ -27,11 +30,19 @@ public class DoctorServiceImpl implements DoctorService {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private RoleRepo roleRepo;
+	
 	@Override
 	public DoctorDto createDoctor(DoctorDto doctorDto,Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
-		emp.getUser().setRole("ROLE_DOCTOR");
+
+		Role role = this.roleRepo.findById(AppConstants.ROLE_RECEPTIONIST)
+				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
+		
+		emp.getUser().addRole(role);
+
 		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
 		
 		doc.setEmployee(emp);

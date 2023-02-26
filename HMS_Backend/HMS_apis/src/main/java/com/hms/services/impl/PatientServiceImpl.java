@@ -12,9 +12,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hms.config.AppConstants;
 import com.hms.entities.Address;
 import com.hms.entities.Doctor;
 import com.hms.entities.Patient;
+import com.hms.entities.Role;
 import com.hms.entities.User;
 import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
@@ -25,6 +27,7 @@ import com.hms.payloads.UserDto;
 import com.hms.repository.AddressRepo;
 import com.hms.repository.DoctorRepo;
 import com.hms.repository.PatientRepo;
+import com.hms.repository.RoleRepo;
 import com.hms.repository.UserRepo;
 import com.hms.repository.WardRepo;
 import com.hms.services.PatientService;
@@ -53,13 +56,19 @@ public class PatientServiceImpl implements PatientService {
 	@Autowired
 	private WardRepo wardRepo;
 
+	@Autowired
+	private RoleRepo roleRepo;
 	// create new patient
 	@Override
 	public PatientDto createPatient(PatientDto patientDto, Integer userId) {
 		User user = this.userRepo.findById(userId)
 				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
 		Patient patient = this.modelMapper.map(patientDto, Patient.class);
-		user.setRole("ROLE_PATIENT");
+		
+		Role role = this.roleRepo.findById(AppConstants.ROLE_PATIENT)
+				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
+		
+		user.addRole(role);
 		patient.setUser(user);
 
 		Patient newPatient = this.patientRepo.save(patient);
@@ -79,7 +88,12 @@ public class PatientServiceImpl implements PatientService {
 		
 		User user = this.modelMapper.map(userDto, User.class);
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
-		user.setRole("ROLE_PATIENT");
+
+		Role role = this.roleRepo.findById(AppConstants.ROLE_PATIENT)
+				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
+		
+		user.addRole(role);
+		
 		user.setAddress(null);
 		User addedUser = this.userRepo.save(user);
 		

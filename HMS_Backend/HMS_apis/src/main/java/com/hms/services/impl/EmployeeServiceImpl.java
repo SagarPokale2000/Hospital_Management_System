@@ -11,12 +11,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.hms.config.AppConstants;
 import com.hms.entities.Employee;
+import com.hms.entities.Role;
 import com.hms.entities.User;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.EmployeeDto;
 import com.hms.payloads.EmployeeResponse;
 import com.hms.repository.EmployeeRepo;
+import com.hms.repository.RoleRepo;
 import com.hms.repository.UserRepo;
 import com.hms.services.EmployeeService;
 
@@ -32,6 +35,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private RoleRepo roleRepo;
+	
 	@Override
 	public EmployeeDto createEmployee(EmployeeDto employeeDto, Integer userId) {
 		User user = this.userRepo.findById(userId)
@@ -47,8 +53,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public EmployeeDto createReceptionist(EmployeeDto employeeDto, Integer userId) {
 		User user = this.userRepo.findById(userId)
 				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
-		user.setRole("ROLE_RECEPTIONIST");
 
+		Role role = this.roleRepo.findById(AppConstants.ROLE_RECEPTIONIST)
+				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
+		
+		user.addRole(role);
+				
 		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 		emp.setUser(user);
 		Employee addedEmp = this.employeeRepo.save(emp);
@@ -59,7 +69,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public EmployeeDto createAccountant(EmployeeDto employeeDto, Integer userId) {
 		User user = this.userRepo.findById(userId)
 				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
-		user.setRole("ROLE_ACCOUNTANT");
+
+		Role role = this.roleRepo.findById(AppConstants.ROLE_ACCOUNTANT)
+				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
+		
+		user.addRole(role);
 
 		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 		emp.setUser(user);
