@@ -48,7 +48,9 @@ public class PatientServiceImpl implements PatientService {
 		User user = this.userRepo.findById(userId)
 				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
 		Patient patient = this.modelMapper.map(patientDto, Patient.class);
+		user.setRole("ROLE_PATIENT");
 		patient.setUser(user);
+		
 		Patient newPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}

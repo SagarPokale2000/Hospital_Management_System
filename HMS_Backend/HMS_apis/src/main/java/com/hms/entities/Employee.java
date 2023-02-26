@@ -32,8 +32,6 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String role;
-
 	private String qualificaton;
 
 	private double salary;

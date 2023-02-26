@@ -75,8 +75,9 @@ public class User implements UserDetails {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Address address;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Role role;
+	//@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//private Role role;
+	private String role;
 
 //	---------------------------------------------------------------------------------------
 	

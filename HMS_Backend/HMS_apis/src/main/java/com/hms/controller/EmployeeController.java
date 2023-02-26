@@ -34,6 +34,22 @@ public class EmployeeController {
 		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto, userId);
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
+	
+	//create Recptionist
+	@PostMapping("/user/{userId}/employee/receptionist")
+	public ResponseEntity<EmployeeDto> createReceptionist(@Valid @RequestBody EmployeeDto employeeDto,
+			@PathVariable Integer userId) {
+		EmployeeDto createEmployee = this.employeeService.createReceptionist(employeeDto, userId);
+		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
+	}
+	
+	//create Accountant
+	@PostMapping("/user/{userId}/employee/accountant")
+	public ResponseEntity<EmployeeDto> createAccountant(@Valid @RequestBody EmployeeDto employeeDto,
+			@PathVariable Integer userId) {
+		EmployeeDto createEmployee = this.employeeService.createAccountant(employeeDto, userId);
+		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
+	}
 
 	// update
 	@PutMapping("/employee/{Id}")

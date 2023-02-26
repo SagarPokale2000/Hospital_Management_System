@@ -31,7 +31,7 @@ public class DoctorServiceImpl implements DoctorService {
 	public DoctorDto createDoctor(DoctorDto doctorDto,Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
-		
+		emp.getUser().setRole("ROLE_DOCTOR");
 		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
 		
 		doc.setEmployee(emp);
