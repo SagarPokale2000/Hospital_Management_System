@@ -27,6 +27,7 @@ public class PatientDto {
 
 	private String allocatedBed;
 
+	//@JsonIgnoreProperties(value = "patients")
 	private UserDto user;
 
 	@JsonIgnoreProperties(value = "patients")
