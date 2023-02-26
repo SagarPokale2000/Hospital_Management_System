@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hms.entities.User;
@@ -18,22 +19,31 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepo userRepo;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+//	-----------------------------------------------------------------------------
+
 	@Override
 	public UserDto createUser(UserDto userDto) {
-		User user = this.modelMapper.map(userDto,User.class);
+		User user = this.modelMapper.map(userDto, User.class);
+//		Encoded the password
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+
+		// Roles is still remaining
+
 		User addedUser = this.userRepo.save(user);
 		return this.modelMapper.map(addedUser, UserDto.class);
 	}
 
 	@Override
 	public UserDto updateUser(UserDto userDto, Integer Id) {
-		User user = this.userRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("User ", "User id", Id));
-		
+		User user = this.userRepo.findById(Id).orElseThrow(() -> new ResourceNotFoundException("User ", "User id", Id));
+
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		user.setEmail(userDto.getEmail());
@@ -42,22 +52,20 @@ public class UserServiceImpl implements UserService {
 		user.setMobileNo(userDto.getMobileNo());
 		user.setDob(userDto.getDob());
 		user.setBloodGroup(userDto.getBloodGroup());
-		
+
 		User updatedUser = this.userRepo.save(user);
 		return this.modelMapper.map(updatedUser, UserDto.class);
 	}
 
 	@Override
 	public void deleteUser(Integer Id) {
-		User user = this.userRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("User ", "User id", Id));
+		User user = this.userRepo.findById(Id).orElseThrow(() -> new ResourceNotFoundException("User ", "User id", Id));
 		this.userRepo.delete(user);
 	}
 
 	@Override
 	public UserDto getUser(Integer Id) {
-		User user = this.userRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", Id));
+		User user = this.userRepo.findById(Id).orElseThrow(() -> new ResourceNotFoundException("User", "User id", Id));
 		return this.modelMapper.map(user, UserDto.class);
 	}
 
