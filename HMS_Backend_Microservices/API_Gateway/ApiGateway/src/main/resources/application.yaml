@@ -1,0 +1,29 @@
+server:
+  port: 9090
+  
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: HMS-SERVICE
+        uri:
+          lb://HMS-SERVICE
+        predicates:
+        - Path=/api/users/**,/api/user/**,/api/address/**,/api/employee/**,/api/doctor/**,/api/patients/**,/api/healthhistory/**,/api/medicine/**,/api/ward/**,/api/wards/**
+        
+      - id: RESOURCE-SERVICE
+        uri:
+          lb://RESOURCE-SERVICE
+        predicates:
+        - Path=/api/resources/**
+        
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
