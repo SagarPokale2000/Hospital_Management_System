@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\":\"em\",\r\n    \"lastName\":\"kong\",\r\n    \"email\":\"e1@gmail.com\",\r\n    \"password\":\"pW@123\",\r\n    \"gender\":\"Male\",\r\n    \"securityQue\":\"What is your Nickname?\",\r\n    \"securityAns\":\"KK\",\r\n    \"mobileNo\":\"4858584625344\",\r\n    \"bloodGroup\":\"A+ve\",\r\n    \"dob\":\"1998-09-21\"\r\n}",
+							"raw": "{\r\n    \"firstName\":\"em\",\r\n    \"lastName\":\"kong\",\r\n    \"email\":\"e123@gmail.com\",\r\n    \"password\":\"pW@123\",\r\n    \"gender\":\"Male\",\r\n    \"securityQue\":\"What is your Nickname?\",\r\n    \"securityAns\":\"KK\",\r\n    \"mobileNo\":\"4858584625344\",\r\n    \"bloodGroup\":\"A+ve\",\r\n    \"dob\":\"1998-09-21\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,7 +125,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/user/2/address",
+							"raw": "http://localhost:9090/api/user/4/address",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -134,7 +134,7 @@
 							"path": [
 								"api",
 								"user",
-								"2",
+								"4",
 								"address"
 							]
 						}
@@ -204,7 +204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"role\":\"Doctor\",\r\n    \"qualificaton\":\"MD\",\r\n    \"salary\":1230.50,\r\n    \"hiredate\":\"2022-02-02\",\r\n    \"status\":true\r\n}",
+							"raw": "{\r\n    \"qualificaton\":\"MD\",\r\n    \"salary\":1230.50,\r\n    \"hiredate\":\"2022-02-02\",\r\n    \"status\":true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -212,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/user/2/employee",
+							"raw": "http://localhost:9090/api/user/3/employee",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -221,8 +221,72 @@
 							"path": [
 								"api",
 								"user",
-								"2",
+								"3",
 								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Receptionist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qualificaton\":\"BA\",\r\n    \"salary\":1230.50,\r\n    \"hiredate\":\"2022-02-02\",\r\n    \"status\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/user/3/employee/receptionist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"3",
+								"employee",
+								"receptionist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Accountant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qualificaton\":\"CA\",\r\n    \"salary\":1230.50,\r\n    \"hiredate\":\"2022-02-02\",\r\n    \"status\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/user/3/employee/accountant",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"3",
+								"employee",
+								"accountant"
 							]
 						}
 					},
@@ -235,7 +299,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"role\":\"Doctor\",\r\n    \"qualificaton\":\"MBBS\",\r\n    \"salary\":1250.50,\r\n    \"hiredate\":\"2022-05-01\",\r\n    \"status\":true\r\n}",
+							"raw": "{\r\n    \"qualificaton\":\"BA\",\r\n    \"salary\":1250.50,\r\n    \"hiredate\":\"2022-05-01\",\r\n    \"status\":true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1089,6 +1153,175 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Resources_MicroServices",
+			"item": [
+				{
+					"name": "Add Resource",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resource_name\":\"oxygen tank\",\r\n    \"total_quantity\":100,\r\n    \"occupy_quantity\":60,\r\n    \"remaining_quantity\":40\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/resources/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"resources",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Resource",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resource_name\":\"blood bank\",\r\n    \"total_quantity\":100,\r\n    \"occupy_quantity\":60,\r\n    \"remaining_quantity\":40\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/resources/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"resources",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Resource",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/resources/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"resources",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Resource",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/resources/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"resources",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Resources (pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/resources/?pageNumber=0&pageSize=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"resources",
+								""
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"em\",\r\n    \"lastName\":\"kong\",\r\n    \"email\":\"ss@gmail.com\",\r\n    \"password\":\"ss@123\",\r\n    \"gender\":\"Male\",\r\n    \"securityQue\":\"What is your Nickname?\",\r\n    \"securityAns\":\"KK\",\r\n    \"mobileNo\":\"4858584625344\",\r\n    \"bloodGroup\":\"A+ve\",\r\n    \"dob\":\"1998-09-21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
