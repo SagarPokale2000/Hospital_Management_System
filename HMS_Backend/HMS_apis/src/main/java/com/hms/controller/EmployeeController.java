@@ -35,6 +35,20 @@ public class EmployeeController {
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 	
+	// create Recptionist --send user details in json format to create Recptionist
+	@PostMapping("/employee/receptionist")
+	public ResponseEntity<EmployeeDto> createReceptionistN(@Valid @RequestBody EmployeeDto employeeDto) {
+		EmployeeDto createEmployee = this.employeeService.createReceptionistN(employeeDto);
+		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
+	}
+	
+	// create Accountant --send user details in json format to create Accountant
+	@PostMapping("/employee/accountant")
+	public ResponseEntity<EmployeeDto> createAccountantN(@Valid @RequestBody EmployeeDto employeeDto) {
+		EmployeeDto createEmployee = this.employeeService.createAccountantN(employeeDto);
+		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
+	}
+	
 	//create Recptionist
 	@PostMapping("/user/{userId}/employee/receptionist")
 	public ResponseEntity<EmployeeDto> createReceptionist(@Valid @RequestBody EmployeeDto employeeDto,

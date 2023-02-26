@@ -6,9 +6,13 @@ import com.hms.payloads.EmployeeResponse;
 public interface EmployeeService {
 	// create
 	EmployeeDto createEmployee(EmployeeDto employeeDto, Integer userId);
-	
+
+	EmployeeDto createReceptionistN(EmployeeDto employeeDto);
+
+	EmployeeDto createAccountantN(EmployeeDto employeeDto);
+
 	EmployeeDto createReceptionist(EmployeeDto employeeDto, Integer userId);
-	
+
 	EmployeeDto createAccountant(EmployeeDto employeeDto, Integer userId);
 
 	// update
@@ -17,9 +21,9 @@ public interface EmployeeService {
 	// get
 	EmployeeDto getEmployee(Integer Id);
 
-	//delete
+	// delete
 	void deleteEmployee(Integer Id);
-	
+
 	// get all Employees
 	EmployeeResponse getAllEmployees(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 }

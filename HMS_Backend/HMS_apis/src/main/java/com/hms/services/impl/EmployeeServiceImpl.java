@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hms.config.AppConstants;
@@ -16,8 +17,11 @@ import com.hms.entities.Employee;
 import com.hms.entities.Role;
 import com.hms.entities.User;
 import com.hms.exceptions.ResourceNotFoundException;
+import com.hms.payloads.AddressDto;
 import com.hms.payloads.EmployeeDto;
 import com.hms.payloads.EmployeeResponse;
+import com.hms.payloads.UserDto;
+import com.hms.repository.AddressRepo;
 import com.hms.repository.EmployeeRepo;
 import com.hms.repository.RoleRepo;
 import com.hms.repository.UserRepo;
@@ -31,9 +35,66 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private UserRepo userRepo;
+	
+	@Autowired
+	private AddressRepo addressRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Override
+	public EmployeeDto createReceptionistN(EmployeeDto employeeDto) {
+		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
+		
+		UserDto userDto = employeeDto.getUser();
+
+		AddressDto addressDto = userDto.getAddress();
+		Address address = this.modelMapper.map(addressDto, Address.class);
+		
+		User user = this.modelMapper.map(userDto, User.class);
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		user.setRole("ROLE_RECEPTIONIST");
+		user.setAddress(null);
+		User addedUser = this.userRepo.save(user);
+		
+		address.setUser(addedUser);
+		Address addedAddress = this.addressRepo.save(address);
+		
+		User userAddedAddress=addedAddress.getUser();
+	
+
+		emp.setUser(userAddedAddress);
+		Employee addedEmp = this.employeeRepo.save(emp);
+		return this.modelMapper.map(addedEmp, EmployeeDto.class);
+	}
+
+	@Override
+	public EmployeeDto createAccountantN(EmployeeDto employeeDto) {
+		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
+		
+		UserDto userDto = employeeDto.getUser();
+
+		AddressDto addressDto = userDto.getAddress();
+		Address address = this.modelMapper.map(addressDto, Address.class);
+		
+		User user = this.modelMapper.map(userDto, User.class);
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		user.setRole("ROLE_ACCOUNTANT");
+		user.setAddress(null);
+		User addedUser = this.userRepo.save(user);
+		
+		address.setUser(addedUser);
+		Address addedAddress = this.addressRepo.save(address);
+		
+		User userAddedAddress=addedAddress.getUser();
+	
+		emp.setUser(userAddedAddress);
+		Employee addedEmp = this.employeeRepo.save(emp);
+		return this.modelMapper.map(addedEmp, EmployeeDto.class);
+	}
 
 	@Autowired
 	private RoleRepo roleRepo;
@@ -138,5 +199,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return employeeResponse;
 	}
+
+	
 
 }

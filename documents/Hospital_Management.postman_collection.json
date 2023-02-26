@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\":\"em\",\r\n    \"lastName\":\"kong\",\r\n    \"email\":\"e123@gmail.com\",\r\n    \"password\":\"pW@123\",\r\n    \"gender\":\"Male\",\r\n    \"securityQue\":\"What is your Nickname?\",\r\n    \"securityAns\":\"KK\",\r\n    \"mobileNo\":\"4858584625344\",\r\n    \"bloodGroup\":\"A+ve\",\r\n    \"dob\":\"1998-09-21\"\r\n}",
+							"raw": "{\r\n    \"firstName\":\"em\",\r\n    \"lastName\":\"kong\",\r\n    \"email\":\"e122311@gmail.com\",\r\n    \"password\":\"pW@123\",\r\n    \"gender\":\"Male\",\r\n    \"securityQue\":\"What is your Nickname?\",\r\n    \"securityAns\":\"KK\",\r\n    \"mobileNo\":\"4858584625344\",\r\n    \"bloodGroup\":\"A+ve\",\r\n    \"dob\":\"1998-09-21\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,7 +125,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/user/4/address",
+							"raw": "http://localhost:9090/api/user/20/address",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -134,7 +134,7 @@
 							"path": [
 								"api",
 								"user",
-								"4",
+								"20",
 								"address"
 							]
 						}
@@ -212,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/user/3/employee",
+							"raw": "http://localhost:9090/api/user/19/employee",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -221,7 +221,7 @@
 							"path": [
 								"api",
 								"user",
-								"3",
+								"19",
 								"employee"
 							]
 						}
@@ -243,7 +243,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/user/3/employee/receptionist",
+							"raw": "http://localhost:9090/api/user/20/employee/receptionist",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -252,7 +252,37 @@
 							"path": [
 								"api",
 								"user",
-								"3",
+								"20",
+								"employee",
+								"receptionist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Receptionist (pass json)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qualificaton\": \"BA\",\r\n    \"salary\": 1230.5,\r\n    \"status\": true,\r\n    \"user\": {\r\n        \"firstName\": \"em\",\r\n        \"lastName\": \"kong\",\r\n        \"email\": \"e12232211@gmail.com\",\r\n        \"password\":\"ss@1235\",\r\n        \"gender\": \"Male\",\r\n        \"role\": \"ROLE_RECEPTIONIST\",\r\n        \"securityQue\": \"What is your Nickname?\",\r\n        \"securityAns\": \"KK\",\r\n        \"mobileNo\": \"4858584625344\",\r\n        \"bloodGroup\": \"A+ve\",\r\n        \"dob\": \"1998-09-21\",\r\n        \"address\": {\r\n            \"plotNo\": \"p221\",\r\n            \"buildingName\": \"High Mont\",\r\n            \"areaName\": \"Hinjewadi\",\r\n            \"city\": \"Pune\",\r\n            \"state\": \"Maharashtra\",\r\n            \"country\": \"India\",\r\n            \"pincode\": 411057\r\n        }\r\n    },\r\n    \"hiredate\": \"2022-02-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/employee/receptionist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
 								"employee",
 								"receptionist"
 							]
@@ -285,6 +315,36 @@
 								"api",
 								"user",
 								"3",
+								"employee",
+								"accountant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Accountant (pass json)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qualificaton\": \"CA\",\r\n    \"salary\": 1230.5,\r\n    \"status\": true,\r\n    \"user\": {\r\n        \"firstName\": \"em\",\r\n        \"lastName\": \"kong\",\r\n        \"email\": \"e11@gmail.com\",\r\n        \"password\":\"ss@1235\",\r\n        \"gender\": \"Male\",\r\n        \"role\": \"ROLE_RECEPTIONIST\",\r\n        \"securityQue\": \"What is your Nickname?\",\r\n        \"securityAns\": \"KK\",\r\n        \"mobileNo\": \"4858584625344\",\r\n        \"bloodGroup\": \"A+ve\",\r\n        \"dob\": \"1998-09-21\",\r\n        \"address\": {\r\n            \"plotNo\": \"p221\",\r\n            \"buildingName\": \"High Mont\",\r\n            \"areaName\": \"Hinjewadi\",\r\n            \"city\": \"Pune\",\r\n            \"state\": \"Maharashtra\",\r\n            \"country\": \"India\",\r\n            \"pincode\": 411057\r\n        }\r\n    },\r\n    \"hiredate\": \"2022-02-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/employee/accountant",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
 								"employee",
 								"accountant"
 							]
@@ -328,7 +388,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:9090/api/employee/1",
+							"raw": "http://localhost:9090/api/employee/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -337,7 +397,7 @@
 							"path": [
 								"api",
 								"employee",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -431,6 +491,35 @@
 					"response": []
 				},
 				{
+					"name": "Add Doctor (pass json)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctorFee\": 200.5,\r\n    \"startTime\": \"10:00:00\",\r\n    \"endTime\": \"20:00:00\",\r\n    \"employee\": {\r\n        \"qualificaton\": \"MD\",\r\n        \"salary\": 1230.5,\r\n        \"status\": true,\r\n        \"user\": {\r\n            \"firstName\": \"em\",\r\n            \"lastName\": \"kong\",\r\n            \"email\": \"e101@gmail.com\",\r\n            \"password\":\"sda2@\",\r\n            \"gender\": \"Male\",\r\n            \"role\": \"ROLE_DOCTOR\",\r\n            \"securityQue\": \"What is your Nickname?\",\r\n            \"securityAns\": \"KK\",\r\n            \"mobileNo\": \"4858584625344\",\r\n            \"bloodGroup\": \"A+ve\",\r\n            \"dob\": \"1998-09-21\",\r\n            \"address\": {\r\n                \"plotNo\": \"p221\",\r\n                \"buildingName\": \"High Mont\",\r\n                \"areaName\": \"Hinjewadi\",\r\n                \"city\": \"Pune\",\r\n                \"state\": \"Maharashtra\",\r\n                \"country\": \"India\",\r\n                \"pincode\": 411057\r\n            }\r\n        },\r\n        \"hiredate\": \"2022-02-02\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/doctor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update Doctor",
 					"request": {
 						"method": "PUT",
@@ -466,7 +555,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:9090/api/doctor/1",
+							"raw": "http://localhost:9090/api/doctor/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -475,7 +564,7 @@
 							"path": [
 								"api",
 								"doctor",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -532,6 +621,35 @@
 								"api",
 								"user",
 								"1",
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Patient (pass json)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"admitStatus\": false,\r\n    \"currentStatus\": false,\r\n    \"action\": false,\r\n    \"user\": {\r\n        \"firstName\": \"em\",\r\n        \"lastName\": \"kong\",\r\n        \"email\": \"ss1275473@gmail.com\",\r\n        \"password\":\"ss@123\",\r\n        \"gender\": \"Male\",\r\n        \"securityQue\": \"What is your Nickname?\",\r\n        \"securityAns\": \"KK\",\r\n        \"mobileNo\": \"4858584625344\",\r\n        \"bloodGroup\": \"A+ve\",\r\n        \"dob\": \"1998-09-21\",\r\n        \"address\": {\r\n            \"plotNo\": \"p221\",\r\n            \"buildingName\": \"High Mont\",\r\n            \"areaName\": \"Hinjewadi\",\r\n            \"city\": \"Pune\",\r\n            \"state\": \"Maharashtra\",\r\n            \"country\": \"India\",\r\n            \"pincode\": 411057\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/patients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
 								"patients"
 							]
 						}
@@ -638,7 +756,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:9090/api/patients/3",
+							"raw": "http://localhost:9090/api/patients/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -647,7 +765,7 @@
 							"path": [
 								"api",
 								"patients",
-								"3"
+								"5"
 							]
 						}
 					},
