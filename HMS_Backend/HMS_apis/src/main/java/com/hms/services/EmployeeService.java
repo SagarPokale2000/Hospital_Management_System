@@ -6,14 +6,16 @@ import com.hms.payloads.EmployeeResponse;
 public interface EmployeeService {
 	// create
 	EmployeeDto createEmployee(EmployeeDto employeeDto, Integer userId);
+	
+	EmployeeDto createAdmin(EmployeeDto employeeDto);
 
-	EmployeeDto createReceptionistN(EmployeeDto employeeDto);
+	EmployeeDto createReceptionist(EmployeeDto employeeDto);
 
-	EmployeeDto createAccountantN(EmployeeDto employeeDto);
+	EmployeeDto createAccountant(EmployeeDto employeeDto);
 
-	EmployeeDto createReceptionist(EmployeeDto employeeDto, Integer userId);
+//	EmployeeDto createReceptionistO(EmployeeDto employeeDto, Integer userId);
 
-	EmployeeDto createAccountant(EmployeeDto employeeDto, Integer userId);
+	//EmployeeDto createAccountantO(EmployeeDto employeeDto, Integer userId);
 
 	// update
 	EmployeeDto updateEmployee(EmployeeDto employeeDto, Integer Id);

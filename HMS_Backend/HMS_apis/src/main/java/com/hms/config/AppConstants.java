@@ -10,4 +10,5 @@ public class AppConstants {
 	public static final Integer ROLE_PATIENT= 502;
 	public static final Integer ROLE_RECEPTIONIST= 503;
 	public static final Integer ROLE_ACCOUNTANT = 504;
+	public static final Integer ROLE_ADMIN = 504;
 }
