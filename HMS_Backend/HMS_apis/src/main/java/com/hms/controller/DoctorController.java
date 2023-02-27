@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,19 +27,15 @@ public class DoctorController {
 	private DoctorService doctorService;
 	
 	// create doctor --send user details in json format to create doctor
+	//@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/doctor")
 	public ResponseEntity<DoctorDto> createDoctorN(@Valid @RequestBody DoctorDto doctorDto) {
 		DoctorDto createDoctor = this.doctorService.createDoctorN(doctorDto);
 		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
 	}
-	// create
-	@PostMapping("/employee/{empId}/doctor")
-	public ResponseEntity<DoctorDto> createDoctor(@Valid @RequestBody DoctorDto doctorDto,@PathVariable Integer empId) {
-		DoctorDto createDoctor = this.doctorService.createDoctor(doctorDto,empId);
-		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
-	}
 
-	// update
+	// update - pass json
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/doctor/{docId}")
 	public ResponseEntity<DoctorDto> updateDoctor(@Valid @RequestBody DoctorDto doctorDto,
 			@PathVariable Integer docId) {
@@ -59,4 +56,13 @@ public class DoctorController {
 		List<DoctorDto> doctor = this.doctorService.getDoctor();
 		return ResponseEntity.ok(doctor);
 	}
+	
+	
+	// create
+	@PostMapping("/employee/{empId}/doctor")
+	public ResponseEntity<DoctorDto> createDoctor(@Valid @RequestBody DoctorDto doctorDto,@PathVariable Integer empId) {
+		DoctorDto createDoctor = this.doctorService.createDoctor(doctorDto,empId);
+		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
+	}
+
 }

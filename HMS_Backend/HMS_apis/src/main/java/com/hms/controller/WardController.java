@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class WardController {
 	private WardService wardService;
 
 	// create
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/")
 	public ResponseEntity<WardDto> createWard(@Valid @RequestBody WardDto wardDto) {
 		WardDto createWard = this.wardService.createWard(wardDto);
@@ -35,6 +37,7 @@ public class WardController {
 	}
 
 	// update
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/{wardId}")
 	public ResponseEntity<WardDto> updateWard(@Valid @RequestBody WardDto wardDto, @PathVariable Integer wardId) {
 		WardDto updatedWard = this.wardService.updateWard(wardDto, wardId);
@@ -42,6 +45,7 @@ public class WardController {
 	}
 
 	// delete
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{wardId}")
 	public ResponseEntity<ApiResponse> deleteWard(@PathVariable Integer wardId) {
 		this.wardService.deleteWard(wardId);
@@ -51,11 +55,8 @@ public class WardController {
 	// get
 	@GetMapping("/{wardId}")
 	public ResponseEntity<WardDto> getWard(@PathVariable Integer wardId) {
-
 		WardDto wardDto = this.wardService.getWard(wardId);
-
 		return new ResponseEntity<WardDto>(wardDto, HttpStatus.OK);
-
 	}
 
 	// get all
