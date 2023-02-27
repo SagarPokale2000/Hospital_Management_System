@@ -19,6 +19,7 @@ import com.hms.security.CustomUserDetailService;
 import com.hms.security.JwtAuthenticationEntryPoint;
 import com.hms.security.JwtAuthenticationFilter;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
