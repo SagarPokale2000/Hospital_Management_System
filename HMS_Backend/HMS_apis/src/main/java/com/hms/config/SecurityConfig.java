@@ -24,7 +24,7 @@ import com.hms.security.JwtAuthenticationFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	public static final String[] PUBLIC_URLS = { "/api/**" };//change
+	public static final String[] PUBLIC_URLS = { "/api/**" ,"/api/new/patients"};//change
 
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
