@@ -58,26 +58,10 @@ public class PatientServiceImpl implements PatientService {
 
 	@Autowired
 	private RoleRepo roleRepo;
-	// create new patient
-	@Override
-	public PatientDto createPatient(PatientDto patientDto, Integer userId) {
-		User user = this.userRepo.findById(userId)
-				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
-		Patient patient = this.modelMapper.map(patientDto, Patient.class);
-		
-		Role role = this.roleRepo.findById(AppConstants.ROLE_PATIENT)
-				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
-		
-		user.addRole(role);
-		patient.setUser(user);
-
-		Patient newPatient = this.patientRepo.save(patient);
-		return this.modelMapper.map(newPatient, PatientDto.class);
-	}
 
 //send user details in json format to create patient
 	@Override
-	public PatientDto createPatientN(PatientDto patientDto) {
+	public PatientDto createPatient(PatientDto patientDto) {
 		
 		Patient patient = this.modelMapper.map(patientDto, Patient.class);
 	
@@ -231,4 +215,22 @@ public class PatientServiceImpl implements PatientService {
 		this.userRepo.delete(user);
 	}
 
+	/*	// create new patient
+	@Override
+	public PatientDto createPatientO(PatientDto patientDto, Integer userId) {
+		User user = this.userRepo.findById(userId)
+				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
+		Patient patient = this.modelMapper.map(patientDto, Patient.class);
+		
+		Role role = this.roleRepo.findById(AppConstants.ROLE_PATIENT)
+				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
+		
+		user.addRole(role);
+		patient.setUser(user);
+
+		Patient newPatient = this.patientRepo.save(patient);
+		return this.modelMapper.map(newPatient, PatientDto.class);
+	}
+*/
+	
 }

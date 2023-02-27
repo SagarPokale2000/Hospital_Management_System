@@ -51,7 +51,7 @@ public class DoctorServiceImpl implements DoctorService {
 	private RoleRepo roleRepo;
 
 	@Override
-	public DoctorDto createDoctorN(DoctorDto doctorDto) {
+	public DoctorDto createDoctor(DoctorDto doctorDto) {
 		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
 		
 		EmployeeDto employeeDto=doctorDto.getEmployee();
@@ -91,17 +91,17 @@ public class DoctorServiceImpl implements DoctorService {
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
 		
 		EmployeeDto employeeDto = doctorDto.getEmployee();
-		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
-
+		Employee emp=doc.getEmployee();
+		
 		UserDto userDto = employeeDto.getUser();
-		User user = this.modelMapper.map(userDto, User.class);
+		 User user=emp.getUser();
 		
 		AddressDto addressDto = userDto.getAddress();
-		Address address = this.modelMapper.map(addressDto, Address.class);
-		
+		Address address=user.getAddress();
+		 
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		user.setEmail(userDto.getEmail());
+		//user.setEmail(userDto.getEmail());
 		user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
 		user.setGender(userDto.getGender());
 		user.setMobileNo(userDto.getMobileNo());
@@ -120,6 +120,7 @@ public class DoctorServiceImpl implements DoctorService {
 		address.setPincode(addressDto.getPincode());
 		address.setUser(updatedUser);
 		
+		@SuppressWarnings("unused")
 		Address updatedAddress = this.addressRepo.save(address);
 		
 		emp.setQualificaton(employeeDto.getQualificaton());
@@ -153,10 +154,20 @@ public class DoctorServiceImpl implements DoctorService {
 				.collect(Collectors.toList());
 		return docDtos;
 	}
-	
-	
+
 	@Override
-	public DoctorDto createDoctor(DoctorDto doctorDto, Integer empId) {
+	public void deleteDoctor(Integer Id) {
+		Doctor doc = this.doctorRepo.findById(Id)
+				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", Id));
+		
+		User user = doc.getEmployee().getUser();
+
+		this.userRepo.delete(user);
+	}
+	
+	/*
+	@Override
+	public DoctorDto createDoctorO(DoctorDto doctorDto, Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
 
@@ -173,5 +184,5 @@ public class DoctorServiceImpl implements DoctorService {
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 	
 	}
-
+*/
 }
