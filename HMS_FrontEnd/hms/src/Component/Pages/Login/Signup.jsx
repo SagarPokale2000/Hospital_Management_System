@@ -12,18 +12,21 @@ import {
   Input,
   Button,
 } from "reactstrap";
+import { singup } from "../../../ServerCall/User/SignUp_LogIn";
 import Base from "../../Base/Base";
 
 function Signup() {
   const [data, setData] = useState({
     firstName: "",
-    lastName : "",
+    lastName: "",
     email: "",
     password: "",
+    gender : "",
     securityQue: "",
-    securityAns : "",
-    mobileNo : "",
-
+    securityAns: "",
+    mobileNo: "",
+    bloodGroup: "",
+    dob: "",
   });
 
   const handleChange = (event, property) => {
@@ -33,16 +36,65 @@ function Signup() {
     // console.log(data);
   };
 
+  // Reset the form
+  const resetData = () => {
+    setData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      gender : "",
+      securityQue: "",
+      securityAns: "",
+      mobileNo: "",
+      bloodGroup: "",
+      dob: "",
+    });
+  };
+
+  const submitForm = (event) => {
+    // debugger
+    event.preventDefault();
+
+    // if (error.isError) {
+    //     toast.error("Form data is Invalid !!!!!!!!!!")
+    //     setError({...error, isError:false})
+    //     return;
+    // }
+    console.log("Before send to Server");
+    console.log(data);
+    // Data validate
+
+    // Call server API
+    singup(data)
+      .then((response) => {
+        console.log(response);
+        console.log("Success LOG");
+        console.log("After receiving to Server response");
+        // toast.success("User Registred as " + response.id);
+        resetData();
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("error log");
+
+        //Handling Error
+        // setError({
+        //     errors: error,
+        //     isError: true
+        // })
+      });
+  };
+
   return (
     <div>
       <Base>
+        <br />
         <Container>
           <Row className="mt-5 mb-5">
-          
-
-          {JSON.stringify(data)}
+            {JSON.stringify(data)}
             <Col sm={{ size: 6, offset: 3 }}>
-              <Card>
+              <Card outline color="dark">
                 <CardHeader>
                   <h1>Welcome Patient</h1>
                   <h3>Fill Info to register</h3>
@@ -50,8 +102,8 @@ function Signup() {
 
                 <CardBody>
                   {/* Creating Form */}
-                  {/* <Form onSubmit={submitForm}> */}
-                  <Form>
+                  <Form onSubmit={submitForm}>
+                    {/* <Form> */}
                     <FormGroup>
                       <Label for="firstName">Enter Your First Name</Label>
                       <Input
@@ -80,14 +132,15 @@ function Signup() {
                       />
                     </FormGroup>
 
-
                     <FormGroup>
                       <Label for="email">Enter Your E-mail</Label>
                       <Input
                         type="email"
                         placeholder="Enter Here"
                         id="email"
-                        onChange={(e) => { handleChange(e, 'email') }}
+                        onChange={(e) => {
+                          handleChange(e, "email");
+                        }}
                         value={data.email}
                       />
                     </FormGroup>
@@ -98,35 +151,54 @@ function Signup() {
                         type="password"
                         placeholder="Enter Here"
                         id="password"
-                        onChange={(e) => { handleChange(e, 'password') }}
+                        onChange={(e) => {
+                          handleChange(e, "password");
+                        }}
                         value={data.password}
                       />
                     </FormGroup>
 
-{/* Gender */}
+                    <FormGroup>
+                      <Label for="gender">Gender</Label>
+                      <Input id="gender" name="select" type="select"  onChange={(e) => {
+                          handleChange(e, "gender");
+                        }} defaultValue="Select">
+                        <option disabled>Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                      </Input>
+                    </FormGroup>
 
                     <FormGroup>
-                      <Label for="securityQue">Enter Your Security Question</Label>
+                      <Label for="securityQue">
+                        Enter Your Security Question
+                      </Label>
                       <Input
                         id="securityQue"
                         placeholder="Enter Here"
                         type="text"
-                        onChange={(e) => { handleChange(e, 'securityQue') }}
+                        onChange={(e) => {
+                          handleChange(e, "securityQue");
+                        }}
                         value={data.securityQue}
                       />
                     </FormGroup>
 
                     <FormGroup>
-                      <Label for="securityAns">Enter Your Security Answer</Label>
+                      <Label for="securityAns">
+                        Enter Your Security Answer
+                      </Label>
                       <Input
                         id="securityAns"
                         placeholder="Enter Here"
                         type="password"
-                        onChange={(e) => { handleChange(e, 'securityAns') }}
+                        onChange={(e) => {
+                          handleChange(e, "securityAns");
+                        }}
                         value={data.securityAns}
                       />
                     </FormGroup>
-
 
                     <FormGroup>
                       <Label for="mobileNo">Enter Your Mobile Number</Label>
@@ -134,7 +206,9 @@ function Signup() {
                         id="mobileNo"
                         placeholder="Enter Here"
                         type="number"
-                        onChange={(e) => { handleChange(e, 'mobileNo') }}
+                        onChange={(e) => {
+                          handleChange(e, "mobileNo");
+                        }}
                         value={data.mobileNo}
                       />
                     </FormGroup>
@@ -145,11 +219,12 @@ function Signup() {
                         id="bloodGroup"
                         placeholder="Enter Here"
                         type="text"
-                        onChange={(e) => { handleChange(e, 'bloodGroup') }}
+                        onChange={(e) => {
+                          handleChange(e, "bloodGroup");
+                        }}
                         value={data.bloodGroup}
                       />
                     </FormGroup>
-
 
                     <FormGroup>
                       <Label for="dob">Enter Your DOB</Label>
@@ -157,7 +232,9 @@ function Signup() {
                         id="dob"
                         placeholder="Enter Here"
                         type="date"
-                        onChange={(e) => { handleChange(e, 'dob') }}
+                        onChange={(e) => {
+                          handleChange(e, "dob");
+                        }}
                         value={data.dob}
                       />
                     </FormGroup>
@@ -166,7 +243,14 @@ function Signup() {
                       <Button outline color="primary">
                         Register
                       </Button>
-                      {/* <Button onClick={resetData} outline color="secondary" className="ms-3">Reset</Button> */}
+                      <Button
+                        onClick={resetData}
+                        outline
+                        color="secondary"
+                        className="ms-3"
+                      >
+                        Reset
+                      </Button>
                     </Container>
                   </Form>
                 </CardBody>
