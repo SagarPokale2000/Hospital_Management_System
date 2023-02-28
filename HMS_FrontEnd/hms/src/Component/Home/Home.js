@@ -1,14 +1,15 @@
-import React from 'react'
-import Base from '../Base/Base'
+import React from "react";
+import Base from "../Base/Base";
 
 function Home() {
   return (
     <Base>
-
-    fsddd
-      
+      <br></br>
+      <br></br>
+      <br></br>
+      fsddd hghgfhgf
     </Base>
-  )
+  );
 }
 
-export default Home
+export default Home;

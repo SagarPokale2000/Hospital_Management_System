@@ -17,6 +17,7 @@ import { NavLink as ReactLink, useNavigate } from "react-router-dom";
 import { getCurrentUserDetail, isLoggedIn } from "../../Authentication/auth";
 
 function CustomeNavBar(args) {
+ 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -38,7 +39,7 @@ function CustomeNavBar(args) {
 
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
-            <NavItem>sfdsf</NavItem>
+            {/* <NavItem>sfdsf</NavItem> */}
           </Nav>
           <Nav navbar>
             {!login && (
