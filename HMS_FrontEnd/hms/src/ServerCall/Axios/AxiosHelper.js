@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken } from "../../Authentication/auth";
 
 
 export const BASE_URL = 'http://localhost:9090/api/';
@@ -11,3 +12,18 @@ export const MYAXIOIS = axios.create(
     }
 );
 
+export const PrivateAxios = axios.create({
+    baseURL: BASE_URL,
+});
+
+PrivateAxios.interceptors.request.use(config => {
+      const token = getToken();
+    //   console.log(token)
+    // debugger
+    if (token) {
+        config.headers= `authorization : Bearer ${token}`;
+        return config;
+    }
+
+
+}, (error) => { debugger; Promise.reject(error) });
