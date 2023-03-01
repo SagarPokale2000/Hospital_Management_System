@@ -11,7 +11,7 @@ public interface EmployeeService {
 
 	EmployeeDto createReceptionist(EmployeeDto employeeDto);
 
-	EmployeeDto createAccountant(EmployeeDto employeeDto);
+//	EmployeeDto createAccountant(EmployeeDto employeeDto);
 
 //	EmployeeDto createReceptionistO(EmployeeDto employeeDto, Integer userId);
 
@@ -28,4 +28,6 @@ public interface EmployeeService {
 
 	// get all Employees
 	EmployeeResponse getAllEmployees(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+	EmployeeDto createAccountant(EmployeeDto employeeDto, Integer Id);
 }

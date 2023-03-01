@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.payloads.DoctorDto;
+import com.hms.payloads.EmployeeDto;
 import com.hms.services.DoctorService;
 
 @RestController
@@ -27,10 +28,10 @@ public class DoctorController {
 	private DoctorService doctorService;
 	
 	// create doctor --send user details in json format to create doctor
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/doctor")
-	public ResponseEntity<DoctorDto> createDoctorN(@Valid @RequestBody DoctorDto doctorDto) {
-		DoctorDto createDoctor = this.doctorService.createDoctorN(doctorDto);
+	public ResponseEntity<DoctorDto> createDoctorN(@Valid @RequestBody EmployeeDto empDto) {
+		DoctorDto createDoctor = this.doctorService.createDoctorN(empDto);
 		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
 	}
 

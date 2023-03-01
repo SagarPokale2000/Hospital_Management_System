@@ -35,21 +35,31 @@ public class EmployeeController {
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 	
-	// create Recptionist --send user details in json format to create Recptionist
+//	// create Recptionist --send user details in json format to create Recptionist
+//	@PreAuthorize("hasRole('ADMIN')")
+//	@PostMapping("/employee/receptionist")
+//	public ResponseEntity<EmployeeDto> createReceptionistN(@Valid @RequestBody EmployeeDto employeeDto) {
+//		EmployeeDto createEmployee = this.employeeService.createReceptionist(employeeDto);
+//		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
+//	}
+//	
+//	// create Accountant --send user details in json format to create Accountant
+//	@PreAuthorize("hasRole('ADMIN')")
+//	@PostMapping("/employee/accountant")
+//	public ResponseEntity<EmployeeDto> createAccountantN(@Valid @RequestBody EmployeeDto employeeDto) {
+//		EmployeeDto createEmployee = this.employeeService.createAccountant(employeeDto);
+//		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
+//	}
+	
+	
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/employee/receptionist")
-	public ResponseEntity<EmployeeDto> createReceptionistN(@Valid @RequestBody EmployeeDto employeeDto) {
-		EmployeeDto createEmployee = this.employeeService.createReceptionist(employeeDto);
+	@PostMapping("/employee/create/{Id}")
+	public ResponseEntity<EmployeeDto> createAccountantN(@Valid @RequestBody EmployeeDto employeeDto, @PathVariable Integer Id) {
+		EmployeeDto createEmployee = this.employeeService.createAccountant(employeeDto, Id);
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 	
-	// create Accountant --send user details in json format to create Accountant
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/employee/accountant")
-	public ResponseEntity<EmployeeDto> createAccountantN(@Valid @RequestBody EmployeeDto employeeDto) {
-		EmployeeDto createEmployee = this.employeeService.createAccountant(employeeDto);
-		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
-	}
+	
 
 	// update
 	@PreAuthorize("hasRole('ADMIN')")
