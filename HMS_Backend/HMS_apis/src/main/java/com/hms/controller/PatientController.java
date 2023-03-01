@@ -28,14 +28,14 @@ public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
-
+/*
 	// create patient --send user details in json format to create patient
 	@PostMapping("/patients")
 	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
 		PatientDto createPatient = this.patientService.createPatient(patientDto);
 		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
 	}
-
+*/
 	// update patient details
 	@PreAuthorize("hasRole('PATIENT')")
 	@PutMapping("/patients/{patientId}")

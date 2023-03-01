@@ -21,9 +21,9 @@ PrivateAxios.interceptors.request.use(config => {
     //   console.log(token)
     // debugger
     if (token) {
-        config.headers= `authorization : Bearer ${token}`;
+        //config.headers= `authorization : Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
         return config;
     }
-
 
 }, (error) => { debugger; Promise.reject(error) });
