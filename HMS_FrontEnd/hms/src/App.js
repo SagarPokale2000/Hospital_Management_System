@@ -8,15 +8,27 @@ import Signup from "./Component/Pages/Login/Signup";
 import UserContext from "./Context/UserContext";
 import UserProvider from "./Context/UserProvider";
 import { ToastContainer, toast } from "react-toastify";
+import Patient from "./Component/Pages/Patient/Patient";
+import PrivateRoute from "./Component/Base/PrivateRoute";
 
 function App() {
   return (
     <div className="App">
-      
       <UserProvider>
         <BrowserRouter>
           {/* <ToastContainer position='bottom-center' /> */}
-          <ToastContainer position="bottom-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored"/>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
 
           <Routes>
             {/* <Temp /> */}
@@ -24,8 +36,10 @@ function App() {
             <Route path="/home" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signUp" element={<Signup />}></Route>
-
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/user" element={<PrivateRoute />}>
+              <Route path="patient" element={<Patient />}></Route>
+            </Route>
+            <Route path="/" element={<Home />}></Route> 
           </Routes>
         </BrowserRouter>
       </UserProvider>

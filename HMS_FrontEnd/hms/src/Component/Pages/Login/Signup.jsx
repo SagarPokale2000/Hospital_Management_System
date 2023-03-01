@@ -28,11 +28,13 @@ function Signup() {
     mobileNo: "",
     bloodGroup: "",
     dob: "",
-    address : {}
+    address : {},
+    roles : []
   })
 
   const [data, setData] = useState({
-    user : {...user}
+    
+    user : {}
 
   });
 
@@ -41,7 +43,8 @@ function Signup() {
   const handleChange = (event, property) => {
     // dynamic setting of values
     setUser({ ...user, [property]: event.target.value });
-    console.log(user);
+    setData( {user})
+    // console.log(user);
     console.log(data);
   };
 
