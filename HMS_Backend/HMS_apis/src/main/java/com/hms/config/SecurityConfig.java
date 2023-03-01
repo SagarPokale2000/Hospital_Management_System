@@ -29,7 +29,7 @@ import com.hms.security.JwtAuthenticationFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	public static final String[] PUBLIC_URLS = { "/api/**" ,"/api/new/patients"};//change
+	public static final String[] PUBLIC_URLS = { "/api/v1/auth/**" ,"/api/employee/admin"};
 
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
@@ -69,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Bean
     public FilterRegistrationBean coresFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -76,7 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.addAllowedOriginPattern("*");
-        System.out.println("**************************************");
         corsConfiguration.addAllowedHeader("authorization");
         corsConfiguration.addAllowedHeader("Content-Type");
         corsConfiguration.addAllowedHeader("Accept");
@@ -89,7 +89,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         source.registerCorsConfiguration("/**", corsConfiguration);
 
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        @SuppressWarnings("unchecked")
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 
         bean.setOrder(-110);
 

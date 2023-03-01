@@ -18,9 +18,10 @@ import com.hms.entities.User;
 import com.hms.exceptions.ApiException;
 import com.hms.payloads.JwtAuthRequest;
 import com.hms.payloads.JwtAuthResponse;
+import com.hms.payloads.PatientDto;
 import com.hms.payloads.UserDto;
 import com.hms.security.JwtTokenHelper;
-import com.hms.services.UserService;
+import com.hms.services.PatientService;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
@@ -33,7 +34,7 @@ public class AuthController {
 	private UserDetailsService userDetailsService;
 
 	@Autowired
-	private UserService userService;
+	private PatientService patientService;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -76,11 +77,10 @@ public class AuthController {
 		}
 	}
 
+	// register patient
 	@PostMapping("/register")
-	public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto) {
-		UserDto registeredUser = this.userService.createUser(userDto);
-		System.out.println(userDto.getId());
-		return new ResponseEntity<UserDto>(registeredUser, HttpStatus.CREATED);
+	public ResponseEntity<PatientDto> registerPatient(@RequestBody PatientDto patientDto) {
+		PatientDto createPatient = this.patientService.createPatient(patientDto);
+		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
 	}
-
 }
