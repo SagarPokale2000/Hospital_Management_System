@@ -39,6 +39,14 @@ public class HealthHistoryController {
 		return new ResponseEntity<HealthHistoryDto>(appointment, HttpStatus.OK);
 	}
 
+//get health history by patient
+	@PreAuthorize("hasRole('PATIENT')")
+	@GetMapping("/patient/{patientId}/healthhistory")
+	public ResponseEntity<List<HealthHistoryDto>> getHealthHistoryBypatient(@PathVariable Integer patientId) {
+		List<HealthHistoryDto> healths = this.healthservice.getHealthHistoryBypatient(patientId);
+		return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
+	}
+	
 	@GetMapping("/healthhistory/{Id}")
 	public ResponseEntity<HealthHistoryDto> getHealthHistoryById(@PathVariable Integer Id) {
 
@@ -77,11 +85,6 @@ public class HealthHistoryController {
 		return new ResponseEntity<HealthHistoryDto>(updateHealthHistory, HttpStatus.OK);
 	}
 
-	@GetMapping("/patient/{patientId}/healthhistory")
-	public ResponseEntity<List<HealthHistoryDto>> getHealthHistoryBypatient(@PathVariable Integer patientId) {
-		List<HealthHistoryDto> healths = this.healthservice.getHealthHistoryBypatient(patientId);
-		return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
-	}
 
 	// search
 	@GetMapping("/posts/search/{keywords}")
