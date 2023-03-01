@@ -20,6 +20,9 @@ function Patient() {
   <NavItem>
     <NavLink href='AddAppoinment'>
             AddAppoinment
+          </NavLink>
+          <NavLink href='HealthHistory'>
+            Health History
     </NavLink>
   </NavItem>
       </Nav>

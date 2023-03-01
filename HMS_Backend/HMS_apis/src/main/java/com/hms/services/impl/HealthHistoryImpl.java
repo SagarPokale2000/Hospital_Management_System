@@ -81,6 +81,7 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		this.healthRepo.delete(health);
 	}
 
+	
 	// get health history by patient ( need pagination here )
 	@Override
 	public List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId) {
@@ -93,10 +94,10 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 		return healthDtos;
 	}
-
+//get all health history
 	@Override
 	public HealthHistoryResponse getAllHealthHistory(Integer pageNumber, Integer pageSize, String sortBy,
-			String sortDir) {
+			String sortDir ) {
 		Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
 		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
@@ -135,4 +136,5 @@ public class HealthHistoryImpl implements HealthHistoryService {
 				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
 		return healthDtos;
 	}
+
 }

@@ -7,14 +7,17 @@ import com.hms.payloads.HealthHistoryResponse;
 
 public interface HealthHistoryService {
 
-			//update 
-			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
-			
 			//add appointment ( create )
 			HealthHistoryDto addAppointment(HealthHistoryDto healthDto,Integer patientId);
 
+			//get all medicine of health history by patient
+			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
+			
 			// delete
 			void deleteHealthHistory(Integer healthId);
+
+			//update 
+			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
 			
 			//get all medicine
 			HealthHistoryResponse getAllHealthHistory(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
@@ -22,8 +25,6 @@ public interface HealthHistoryService {
 			//get single medicine
 			HealthHistoryDto getHealthHistoryById(Integer healthId);
 			
-			//get all medicine of health history
-			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
 			
 			//search posts
 			List<HealthHistoryDto> searchHealthHistory(String keyword);
