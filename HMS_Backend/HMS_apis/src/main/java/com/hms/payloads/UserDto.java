@@ -3,7 +3,6 @@ package com.hms.payloads;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;

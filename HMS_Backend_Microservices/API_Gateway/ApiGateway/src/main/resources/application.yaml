@@ -11,7 +11,7 @@ spring:
         uri:
           lb://HMS-SERVICE
         predicates:
-        - Path=/api/users/**,/api/user/**,/api/address/**,/api/employee/**,/api/doctor/**,/api/patients/**,/api/healthhistory/**,/api/medicine/**,/api/ward/**,/api/wards/**
+        - Path=/api/v1/auth/**,/api/users/**,/api/user/**,/api/address/**,/api/employee/**,/api/doctor/**,/api/patients/**,/api/healthhistory/**,/api/medicine/**,/api/ward/**,/api/wards/**
         
       - id: RESOURCE-SERVICE
         uri:
