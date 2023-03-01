@@ -45,6 +45,7 @@ public class UserDto {
 	@NotEmpty
 	private String gender;
 	
+	@JsonInclude(value = Include.NON_NULL)
 	private Set<Role> roles;
 
 	@NotEmpty

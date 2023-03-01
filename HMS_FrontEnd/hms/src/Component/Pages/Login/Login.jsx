@@ -1,5 +1,17 @@
 import React, { useContext, useState } from "react";
-import { Form, Card, CardBody, CardHeader, Col, Container, FormGroup, Label, Row, Input, Button, }  from "reactstrap";
+import {
+  Form,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Container,
+  FormGroup,
+  Label,
+  Row,
+  Input,
+  Button,
+} from "reactstrap";
 import Base from "../../Base/Base";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../ServerCall/User/SignUp_LogIn";
@@ -20,7 +32,9 @@ function Login() {
   const handleChange = (event, field) => {
     let actualValue = event.target.value;
     // debugger;
-    setLoginDetail({...loginDetail, [field]: actualValue,
+    setLoginDetail({
+      ...loginDetail,
+      [field]: actualValue,
       //Actual value with updated value
     });
   };
@@ -45,6 +59,19 @@ function Login() {
           console.log(data);
           toast.success("Logged In");
 
+          // debugger
+          data.user.roles[0].id == 500
+            ? navigate("/user/admin")
+            : data.user.roles[0].id == 501
+            ? navigate("/user/doctor")
+            : data.user.roles[0].id == 502
+            ? navigate("/user/patient")
+            : data.user.roles[0].id == 503
+            ? navigate("/user/receptionist")
+            : data.user.roles[0].id == 504
+            ? navigate("/user/accountant")
+            : navigate("/");
+
           // Save the Data to localStorage
           doLogin(data, () => {
             console.log("login details saved to localstorage .. Here in Login");
@@ -54,7 +81,6 @@ function Login() {
               data: data,
               log: true,
             });
-            navigate("/");
           });
         })
         .catch((error) => {
