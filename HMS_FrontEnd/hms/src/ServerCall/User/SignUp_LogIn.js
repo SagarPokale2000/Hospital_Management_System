@@ -3,7 +3,7 @@ import { MYAXIOIS } from "../Axios/AxiosHelper"
 
 export const singup = (user) => {
 
-    return MYAXIOIS.post('/v1/auth/register', user).then((response) => response.data)
+    return MYAXIOIS.post('/patients', user).then((response) => response.data)
     
 }
 

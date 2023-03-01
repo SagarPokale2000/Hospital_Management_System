@@ -1,6 +1,7 @@
 package com.hms.payloads;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.hms.entities.Role;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,7 +46,7 @@ public class UserDto {
 	@NotEmpty
 	private String gender;
 	
-	private String role;
+	private Set<Role> roles;
 
 	@NotEmpty
 	private String securityQue;
