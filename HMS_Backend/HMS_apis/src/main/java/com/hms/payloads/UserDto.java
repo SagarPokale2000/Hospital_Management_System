@@ -3,13 +3,13 @@ package com.hms.payloads;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -64,4 +64,10 @@ public class UserDto {
 	private LocalDate dob;
 	
 	private AddressDto address;
+	
+	@JsonIgnoreProperties(value = "user")
+	private PatientDto patient;
+	
+	@JsonIgnoreProperties(value = "user")
+	private EmployeeDto employee;
 }

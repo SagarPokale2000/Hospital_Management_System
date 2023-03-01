@@ -70,19 +70,19 @@ public class EmployeeController {
 		return new ResponseEntity<EmployeeDto>(updatedEmp, HttpStatus.OK);
 	}
 
-	// get
-	@GetMapping("/employee/{Id}")
-	public ResponseEntity<EmployeeDto> getEmpoyee(@PathVariable Integer Id) {
-		EmployeeDto employeeDto = this.employeeService.getEmployee(Id);
-		return new ResponseEntity<EmployeeDto>(employeeDto, HttpStatus.OK);
-	}
-
 	// delete
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/employee/{Id}")
 	public ResponseEntity<ApiResponse> deleteEmployee(@PathVariable Integer Id) {
 		this.employeeService.deleteEmployee(Id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Employee is deleted successfully !!", true), HttpStatus.OK);
+	}
+
+	// get
+	@GetMapping("/employee/{Id}")
+	public ResponseEntity<EmployeeDto> getEmpoyee(@PathVariable Integer Id) {
+		EmployeeDto employeeDto = this.employeeService.getEmployee(Id);
+		return new ResponseEntity<EmployeeDto>(employeeDto, HttpStatus.OK);
 	}
 	
 	//get all - pagination
@@ -98,7 +98,7 @@ public class EmployeeController {
 		return new ResponseEntity<EmployeeResponse>(employeeResponse, HttpStatus.OK);
 	}
 	
-	
+/*
 	// create
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/user/{userId}/employee")
@@ -107,7 +107,7 @@ public class EmployeeController {
 		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto, userId);
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
-/*
+
 	//create Recptionist
 	@PostMapping("/user/{userId}/employee/receptionist")
 	public ResponseEntity<EmployeeDto> createReceptionist(@Valid @RequestBody EmployeeDto employeeDto,

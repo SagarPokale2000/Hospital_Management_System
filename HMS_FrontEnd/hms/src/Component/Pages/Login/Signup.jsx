@@ -16,7 +16,17 @@ import { singup } from "../../../ServerCall/User/SignUp_LogIn";
 import Base from "../../Base/Base";
 
 function Signup() {
-  
+
+  const [address, setAddress] = useState({
+    plotNo: "",
+    buildingName: "",
+    areaName: "",
+    city: "",
+    state: "",
+    country: "",
+    pincode: ""
+  })
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -33,35 +43,59 @@ function Signup() {
   })
 
   const [data, setData] = useState({
-    
+    admitStatus: false,
+    currentStatus: false,
+    action: false,
     user : {}
-
   });
 
-  
+  const addressHandleChange = (event, property) => {
+    // dynamic setting of values
+    setAddress({ ...address, [property]: event.target.value });
+    setUser({ ...user,address })
+    setData({...data,user})
+    //console.log(address);
+  };
 
   const handleChange = (event, property) => {
     // dynamic setting of values
     setUser({ ...user, [property]: event.target.value });
-    setData( {user})
+    setData({...data,user})
     // console.log(user);
     console.log(data);
   };
 
   // Reset the form
   const resetData = () => {
-    // setData({
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: "",
-    //   gender : "",
-    //   securityQue: "",
-    //   securityAns: "",
-    //   mobileNo: "",
-    //   bloodGroup: "",
-    //   dob: "",
-    // });
+    setAddress({
+      plotNo: "",
+      buildingName: "",
+      areaName: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: ""
+    })
+    setUser({
+      firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    gender : "",
+    securityQue: "",
+    securityAns: "",
+    mobileNo: "",
+    bloodGroup: "",
+    dob: "",
+    address : {},
+    roles : []
+    })
+    setData({
+      admitStatus: false,
+      currentStatus: false,
+      action: false,
+    user : {}
+  });
   };
 
   const submitForm = (event) => {
@@ -73,8 +107,7 @@ function Signup() {
     //     setError({...error, isError:false})
     //     return;
     // }
-    setData({user})
-    console.log(data);
+    
     console.log("Before send to Server");
     // Data validate
 
@@ -251,6 +284,97 @@ function Signup() {
                         value={user.dob}
                       />
                     </FormGroup>
+
+                    <FormGroup>
+                      <Label for="plotNo">plotNo</Label>
+                      <Input
+                        id="plotNo"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "plotNo");
+                        }}
+                        value={address.plotNo}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="buildingName">buildingName</Label>
+                      <Input
+                        id="buildingName"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "buildingName");
+                        }}
+                        value={address.buildingName}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="areaName">areaName</Label>
+                      <Input
+                        id="areaName"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "areaName");
+                        }}
+                        value={address.areaName}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="city">city</Label>
+                      <Input
+                        id="city"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "city");
+                        }}
+                        value={address.city}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="state">state</Label>
+                      <Input
+                        id="state"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "state");
+                        }}
+                        value={address.state}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="country">country</Label>
+                      <Input
+                        id="country"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "country");
+                        }}
+                        value={address.country}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="pincode">pincode</Label>
+                      <Input
+                        id="pincode"
+                        placeholder="Enter Here"
+                        type="number"
+                        onChange={(e) => {
+                          addressHandleChange(e, "pincode");
+                        }}
+                        value={address.pincode}
+                      />
+                      </FormGroup>
 
                     <Container className="text-center">
                       <Button outline color="primary">

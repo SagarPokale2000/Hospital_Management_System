@@ -28,21 +28,14 @@ public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
-
+/*
 	// create patient --send user details in json format to create patient
 	@PostMapping("/patients")
-	public ResponseEntity<PatientDto> createPatientN(@RequestBody PatientDto patientDto) {
-		PatientDto createPatient = this.patientService.createPatientN(patientDto);
+	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
+		PatientDto createPatient = this.patientService.createPatient(patientDto);
 		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
 	}
-
-	// create patient
-	@PostMapping("/user/{userId}/patients")
-	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto, @PathVariable Integer userId) {
-		PatientDto createPatient = this.patientService.createPatient(patientDto, userId);
-		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
-	}
-
+*/
 	// update patient details
 	@PreAuthorize("hasRole('PATIENT')")
 	@PutMapping("/patients/{patientId}")
@@ -105,6 +98,7 @@ public class PatientController {
 	}
 
 	// delete patient
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/patients/{patientId}")
 	public ResponseEntity<ApiResponse> deletePatient(@PathVariable Integer patientId) {
 		this.patientService.deletePatient(patientId);
@@ -118,4 +112,13 @@ public class PatientController {
 		List<PatientDto> result = this.patientService.searchPatientById(keywords);
 		return new ResponseEntity<List<PatientDto>>(result, HttpStatus.OK);
 	}
+	
+	/*
+	// create patient
+	@PostMapping("/user/{userId}/patients")
+	public ResponseEntity<PatientDto> createPatientO(@RequestBody PatientDto patientDto, @PathVariable Integer userId) {
+		PatientDto createPatient = this.patientService.createPatient(patientDto, userId);
+		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
+	}
+*/
 }

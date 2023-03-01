@@ -29,7 +29,7 @@ public class ResourceController {
 	private ResourceService resourceService;
 
 	// create
-	@PostMapping("/")
+	@PostMapping("/add")
 	public ResponseEntity<ResourceDto> createResource(@Valid @RequestBody ResourceDto resourceDto) {
 		ResourceDto createResource = this.resourceService.createResource(resourceDto);
 		return new ResponseEntity<ResourceDto>(createResource, HttpStatus.CREATED);

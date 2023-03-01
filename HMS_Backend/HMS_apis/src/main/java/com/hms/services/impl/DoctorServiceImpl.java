@@ -93,8 +93,8 @@ public class DoctorServiceImpl implements DoctorService {
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
 
 		EmployeeDto employeeDto = doctorDto.getEmployee();
-		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
-
+		Employee emp=doc.getEmployee();
+		
 		UserDto userDto = employeeDto.getUser();
 		User user = this.modelMapper.map(userDto, User.class);
 
@@ -103,7 +103,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		user.setEmail(userDto.getEmail());
+		//user.setEmail(userDto.getEmail());
 		user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
 		user.setGender(userDto.getGender());
 		user.setMobileNo(userDto.getMobileNo());
@@ -157,7 +157,7 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public DoctorDto createDoctor(DoctorDto doctorDto, Integer empId) {
+	public DoctorDto createDoctorO(DoctorDto doctorDto, Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
 
@@ -174,5 +174,5 @@ public class DoctorServiceImpl implements DoctorService {
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 
 	}
-
+*/
 }

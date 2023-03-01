@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class HealthHistoryController {
 	private HealthHistoryService healthservice;	
 
 	// add appointment ( create health history )
+	@PreAuthorize("hasRole('PATIENT')")
 	@PostMapping("/patients/{patientId}/healthHistory")
 	public ResponseEntity<HealthHistoryDto> addAppointment(@RequestBody HealthHistoryDto healthHistoryDto,
 			@PathVariable Integer patientId) {
@@ -37,6 +39,14 @@ public class HealthHistoryController {
 		return new ResponseEntity<HealthHistoryDto>(appointment, HttpStatus.OK);
 	}
 
+//get health history by patient
+	@PreAuthorize("hasRole('PATIENT')")
+	@GetMapping("/patient/{patientId}/healthhistory")
+	public ResponseEntity<List<HealthHistoryDto>> getHealthHistoryBypatient(@PathVariable Integer patientId) {
+		List<HealthHistoryDto> healths = this.healthservice.getHealthHistoryBypatient(patientId);
+		return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
+	}
+	
 	@GetMapping("/healthhistory/{Id}")
 	public ResponseEntity<HealthHistoryDto> getHealthHistoryById(@PathVariable Integer Id) {
 
@@ -46,6 +56,7 @@ public class HealthHistoryController {
 	}
 
 	// get all health history ( pagination )
+	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping("/healthhistory")
 	public ResponseEntity<HealthHistoryResponse> getAllHealthHistory(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
@@ -65,22 +76,15 @@ public class HealthHistoryController {
 		return new ApiResponse("health history is successfully deleted !!", true);
 	}
 
+	@PreAuthorize("hasRole('DOCTOR')")
 	@PutMapping("/healthhistory/{Id}")
 	public ResponseEntity<HealthHistoryDto> updateHealthHistory(@RequestBody HealthHistoryDto healthDto,
 			@PathVariable Integer Id) {
 
 		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistory(healthDto, Id);
 		return new ResponseEntity<HealthHistoryDto>(updateHealthHistory, HttpStatus.OK);
-
 	}
 
-	@GetMapping("/patient/{patientId}/healthhistory")
-	public ResponseEntity<List<HealthHistoryDto>> getHealthHistoryBypatient(@PathVariable Integer patientId) {
-
-		List<HealthHistoryDto> healths = this.healthservice.getHealthHistoryBypatient(patientId);
-		return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
-
-	}
 
 	// search
 	@GetMapping("/posts/search/{keywords}")

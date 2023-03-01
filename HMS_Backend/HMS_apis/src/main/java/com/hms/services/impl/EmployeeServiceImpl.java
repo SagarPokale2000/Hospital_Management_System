@@ -122,6 +122,7 @@ Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 		
 		
 		address.setUser(addedUser);
+		@SuppressWarnings("unused")
 		Address addedAddress = this.addressRepo.save(address);
 		
 		emp.setUser(addedUser);
@@ -136,10 +137,10 @@ Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", Id));
 		
 		UserDto userDto = employeeDto.getUser();
-		User user = this.modelMapper.map(userDto, User.class);
+		User user = emp.getUser();
 		
 		AddressDto addressDto = userDto.getAddress();
-		Address address = this.modelMapper.map(addressDto, Address.class);
+		Address address = user.getAddress();
 		
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
@@ -164,6 +165,7 @@ Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 		address.setPincode(addressDto.getPincode());
 		address.setUser(updatedUser);
 		
+		@SuppressWarnings("unused")
 		Address updatedAddress = this.addressRepo.save(address);
 
 		emp.setQualificaton(employeeDto.getQualificaton());

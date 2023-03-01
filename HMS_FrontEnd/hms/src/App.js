@@ -9,6 +9,8 @@ import UserContext from "./Context/UserContext";
 import UserProvider from "./Context/UserProvider";
 import { ToastContainer, toast } from "react-toastify";
 import Patient from "./Component/Pages/Patient/Patient";
+import AddAppoinment from "./Component/Pages/Patient/AddAppointment";
+import HealthHistory from "./Component/Pages/Patient/HealthHistory";
 import PrivateRoute from "./Component/Base/PrivateRoute";
 import Accountant from "./Component/Pages/Accountant/Accountant";
 import Doctor from "./Component/Pages/Doctor/Doctor";
@@ -42,6 +44,8 @@ function App() {
             <Route path="/signUp" element={<Signup />}></Route>
             <Route path="/user" element={<PrivateRoute />}>
               <Route path="patient" element={<Patient />}></Route>
+              <Route path="AddAppoinment" element={<AddAppoinment />}></Route>
+              <Route path="HealthHistory" element={<HealthHistory />}></Route>
               <Route path="doctor" element={<Doctor />}></Route>
               <Route path="receptionist" element={<Patient />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
