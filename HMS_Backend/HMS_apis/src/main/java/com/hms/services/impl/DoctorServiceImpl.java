@@ -51,33 +51,35 @@ public class DoctorServiceImpl implements DoctorService {
 	private RoleRepo roleRepo;
 
 	@Override
-	public DoctorDto createDoctor(DoctorDto doctorDto) {
-		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
-		
-		EmployeeDto employeeDto=doctorDto.getEmployee();
+	public DoctorDto createDoctorN(EmployeeDto employeeDto) {
+//		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
+
+//		EmployeeDto employeeDto=doctorDto.getEmployee();
 
 		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
-		
-		UserDto userDto = employeeDto.getUser();User user = this.modelMapper.map(userDto, User.class);
+
+		UserDto userDto = employeeDto.getUser();
+		User user = this.modelMapper.map(userDto, User.class);
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user.setAddress(null);
 		Role role = this.roleRepo.findById(AppConstants.ROLE_DOCTOR)
 				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
-		
+
 		user.addRole(role);
 		User addedUser = this.userRepo.save(user);
 
 		AddressDto addressDto = userDto.getAddress();
 		Address address = this.modelMapper.map(addressDto, Address.class);
-		
+
 		address.setUser(addedUser);
 		Address addedAddress = this.addressRepo.save(address);
-		
-		User userAddedAddress=addedAddress.getUser();
-	
+
+		User userAddedAddress = addedAddress.getUser();
+
 		emp.setUser(userAddedAddress);
 		Employee addedEmp = this.employeeRepo.save(emp);
-		
+
+		Doctor doc = new Doctor();
 		doc.setEmployee(addedEmp);
 		doc.setPatients(null);
 
@@ -89,16 +91,16 @@ public class DoctorServiceImpl implements DoctorService {
 	public DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId) {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
-		
+
 		EmployeeDto employeeDto = doctorDto.getEmployee();
 		Employee emp=doc.getEmployee();
 		
 		UserDto userDto = employeeDto.getUser();
-		 User user=emp.getUser();
-		
+		User user = this.modelMapper.map(userDto, User.class);
+
 		AddressDto addressDto = userDto.getAddress();
-		Address address=user.getAddress();
-		 
+		Address address = this.modelMapper.map(addressDto, Address.class);
+
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		//user.setEmail(userDto.getEmail());
@@ -108,9 +110,9 @@ public class DoctorServiceImpl implements DoctorService {
 		user.setDob(userDto.getDob());
 		user.setBloodGroup(userDto.getBloodGroup());
 		user.setAddress(null);
-		
+
 		User updatedUser = this.userRepo.save(user);
-		
+
 		address.setPlotNo(addressDto.getPlotNo());
 		address.setBuildingName(addressDto.getBuildingName());
 		address.setAreaName(addressDto.getAreaName());
@@ -119,10 +121,9 @@ public class DoctorServiceImpl implements DoctorService {
 		address.setCountry(addressDto.getCountry());
 		address.setPincode(addressDto.getPincode());
 		address.setUser(updatedUser);
-		
-		@SuppressWarnings("unused")
+
 		Address updatedAddress = this.addressRepo.save(address);
-		
+
 		emp.setQualificaton(employeeDto.getQualificaton());
 		emp.setSalary(employeeDto.getSalary());
 		emp.setHiredate(employeeDto.getHiredate());
@@ -130,12 +131,12 @@ public class DoctorServiceImpl implements DoctorService {
 		emp.setUser(updatedUser);
 
 		Employee updatedEmp = this.employeeRepo.save(emp);
-		
+
 		doc.setDoctorFee(doctorDto.getDoctorFee());
 		doc.setStartTime(doctorDto.getStartTime());
 		doc.setEndTime(doctorDto.getEndTime());
 		doc.setEmployee(updatedEmp);
-		
+
 		Doctor updateddoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(updateddoc, DoctorDto.class);
 	}
@@ -156,24 +157,13 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public void deleteDoctor(Integer Id) {
-		Doctor doc = this.doctorRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", Id));
-		
-		User user = doc.getEmployee().getUser();
-
-		this.userRepo.delete(user);
-	}
-	
-	/*
-	@Override
 	public DoctorDto createDoctorO(DoctorDto doctorDto, Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
 
 		Role role = this.roleRepo.findById(AppConstants.ROLE_DOCTOR)
 				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
-		
+
 		emp.getUser().addRole(role);
 
 		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
@@ -182,7 +172,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 		Doctor addedDoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
-	
+
 	}
 */
 }

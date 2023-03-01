@@ -41,8 +41,8 @@ function CustomeNavBar(args) {
       //     login : false
       //   }
       // )
-      Navigate('/')
     })
+    Navigate('/')
   }
   return (
     <div>
@@ -84,7 +84,7 @@ function CustomeNavBar(args) {
                   </NavLink>
                 </NavItem> */}
                 <NavItem>
-                  <NavLink onClick={Logout}>Logout</NavLink>
+                  <NavLink onClick={Logout} tag={ReactLink} to="/">Logout</NavLink>
                 </NavItem>
               </>
             )}

@@ -13,8 +13,9 @@ import AddAppoinment from "./Component/Pages/Patient/AddAppointment";
 import HealthHistory from "./Component/Pages/Patient/HealthHistory";
 import PrivateRoute from "./Component/Base/PrivateRoute";
 import Accountant from "./Component/Pages/Accountant/Accountant";
-import Admin from "./Component/Pages/Admin/Admin";
 import Doctor from "./Component/Pages/Doctor/Doctor";
+import AllPatient from "./Component/Pages/Admin/AllPatient";
+import AddEmployee from "./Component/Pages/Admin/AddEmployee";
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
               <Route path="doctor" element={<Doctor />}></Route>
               <Route path="receptionist" element={<Patient />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
-              <Route path="admin" element={<Admin />}></Route>
+              <Route path="admin" element={<AddEmployee />}></Route>
             </Route>
             <Route path="/" element={<Home />}></Route> 
           </Routes>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
-import { loadAllEmployee } from "../../../ServerCall/Admin/Admin";
+import { loadAllEmployee, loadAllPatient } from "../../../ServerCall/Admin/Admin";
 import Base from "../../Base/Base";
 
-function Admin() {
+function AllPatient() {
   const [data, setData] = useState({
     content: [],
     totalPages: "",
@@ -16,7 +16,7 @@ function Admin() {
 
   useEffect(() => {
     // load post of postId
-    loadAllEmployee()
+    loadAllPatient()
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
@@ -38,8 +38,9 @@ function Admin() {
       });
   }, []);
 
-  console.log(data?.content[0]);
-  let user = data?.content[0]?.user;
+  console.log(data?.content[0]?.admitStatus);
+  debugger
+  const user = data?.content;
   // debugger;
 
   return (
@@ -54,29 +55,37 @@ function Admin() {
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Role</th>
                 <th>Gender</th>
-                <th>Qualification</th>
                 <th>DOB</th>
                 <th>Contact</th>
                 <th>E-Mail</th>
+                <th>Admit Status</th>
               </tr>
             </thead>
-           
-           
+
             <tbody>
-   
-   
-   
-              {user?.map((user) => {
-                <tr>
-                  <th scope="row">1</th>
-                  <td>{user?.firstName}</td>
-                </tr>;
+              {
+              data && data?.content?.map((user) => {
+                return (
+                  <tr key={user?.user.id}>
+                    <th scope="row">{user?.user.id}</th>
+                    <td>{user?.user.firstName}</td>
+                    <td>{user?.user.gender}</td>
+                    <td>{user?.user.dob}</td>
+                    <td>{user?.user.mobileNo}</td>
+                    <td>{user?.user.email}</td>
+                    <td>{user?.user.bloodGroup}</td>
+                  </tr>
+                );
               })}
 
-              
-               {/* <tr>
+              {/* {
+              postContent?.content?.map((post) => (
+                // <Post post={post} key={post.postId} deletePost={post} />
+                <Post post={post} key={post.postId} />
+              ))} */}
+{/* 
+              <tr>
                 <th scope="row">1</th>
                 <td>{user?.firstName}</td>
                 <td>{user?.roles[0]?.name}</td>
@@ -86,10 +95,6 @@ function Admin() {
                 <td>{user?.mobileNo}</td>
                 <td>{user?.email}</td>
               </tr> */}
-              
-              
-   
-   
             </tbody>
           </Table>
         </Container>
@@ -98,4 +103,4 @@ function Admin() {
   );
 }
 
-export default Admin;
+export default AllPatient;

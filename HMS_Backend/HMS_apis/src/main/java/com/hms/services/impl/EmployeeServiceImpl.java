@@ -104,14 +104,14 @@ Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 	}
 
 	@Override
-	public EmployeeDto createAccountant(EmployeeDto employeeDto) {
+	public EmployeeDto createAccountant(EmployeeDto employeeDto, Integer Id) {
 		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 		
 		UserDto userDto = employeeDto.getUser();
 		User user = this.modelMapper.map(userDto, User.class);
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user.setAddress(null);
-		Role role = this.roleRepo.findById(AppConstants.ROLE_ACCOUNTANT)
+		Role role = this.roleRepo.findById(Id)
 				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
 		
 		user.addRole(role);
