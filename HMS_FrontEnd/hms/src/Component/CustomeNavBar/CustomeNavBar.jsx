@@ -13,11 +13,10 @@ import {
   DropdownItem,
   NavbarText,
 } from "reactstrap";
-import { NavLink as ReactLink, useNavigate } from "react-router-dom";
-import { getCurrentUserDetail, isLoggedIn } from "../../Authentication/auth";
+import { Navigate, NavLink as ReactLink, useNavigate } from "react-router-dom";
+import { doLogout, getCurrentUserDetail, isLoggedIn } from "../../Authentication/auth";
 
 function CustomeNavBar(args) {
- 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -31,9 +30,29 @@ function CustomeNavBar(args) {
     setUser(getCurrentUserDetail());
   }, [login]);
 
+
+  const Logout = () => {
+    doLogout(() => {
+      // Logged out
+      setLogin(false);
+      // userContextDate.setUser(
+      //   {
+      //     data : null,
+      //     login : false
+      //   }
+      // )
+      Navigate('/')
+    })
+  }
   return (
     <div>
-      <Navbar color="dark" dark="true" expand="sm" fixed="top" className="px-4 mb" >
+      <Navbar
+        color="dark"
+        dark="true"
+        expand="sm"
+        fixed="top"
+        className="px-4 mb"
+      >
         <NavbarBrand href="/">Hospital Management System</NavbarBrand>
         <NavbarToggler onClick={toggle} />
 
@@ -53,6 +72,19 @@ function CustomeNavBar(args) {
                   <NavLink tag={ReactLink} to="/signup">
                     SignUp
                   </NavLink>
+                </NavItem>
+              </>
+            )}
+
+            {login && (
+              <>
+                {/* <NavItem>
+                  <NavLink tag={ReactLink} to="/user/dashboard">
+                    {user.email}
+                  </NavLink>
+                </NavItem> */}
+                <NavItem>
+                  <NavLink onClick={Logout}>Logout</NavLink>
                 </NavItem>
               </>
             )}

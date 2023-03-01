@@ -16,7 +16,8 @@ import { singup } from "../../../ServerCall/User/SignUp_LogIn";
 import Base from "../../Base/Base";
 
 function Signup() {
-  const [data, setData] = useState({
+  
+  const [user, setUser] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -27,29 +28,37 @@ function Signup() {
     mobileNo: "",
     bloodGroup: "",
     dob: "",
+    address : {}
+  })
+
+  const [data, setData] = useState({
+    user : {...user}
+
   });
+
+  
 
   const handleChange = (event, property) => {
     // dynamic setting of values
-    setData({ ...data, [property]: event.target.value });
-
-    // console.log(data);
+    setUser({ ...user, [property]: event.target.value });
+    console.log(user);
+    console.log(data);
   };
 
   // Reset the form
   const resetData = () => {
-    setData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      gender : "",
-      securityQue: "",
-      securityAns: "",
-      mobileNo: "",
-      bloodGroup: "",
-      dob: "",
-    });
+    // setData({
+    //   firstName: "",
+    //   lastName: "",
+    //   email: "",
+    //   password: "",
+    //   gender : "",
+    //   securityQue: "",
+    //   securityAns: "",
+    //   mobileNo: "",
+    //   bloodGroup: "",
+    //   dob: "",
+    // });
   };
 
   const submitForm = (event) => {
@@ -61,8 +70,9 @@ function Signup() {
     //     setError({...error, isError:false})
     //     return;
     // }
-    console.log("Before send to Server");
+    setData({user})
     console.log(data);
+    console.log("Before send to Server");
     // Data validate
 
     // Call server API
@@ -113,7 +123,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "firstName");
                         }}
-                        value={data.firstName}
+                        value={user.firstName}
                         // invalid={true}
                       />
                     </FormGroup>
@@ -127,7 +137,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "lastName");
                         }}
-                        value={data.lastName}
+                        value={user.lastName}
                         // invalid={true}
                       />
                     </FormGroup>
@@ -141,7 +151,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "email");
                         }}
-                        value={data.email}
+                        value={user.email}
                       />
                     </FormGroup>
 
@@ -154,7 +164,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "password");
                         }}
-                        value={data.password}
+                        value={user.password}
                       />
                     </FormGroup>
 
@@ -181,7 +191,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "securityQue");
                         }}
-                        value={data.securityQue}
+                        value={user.securityQue}
                       />
                     </FormGroup>
 
@@ -196,7 +206,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "securityAns");
                         }}
-                        value={data.securityAns}
+                        value={user.securityAns}
                       />
                     </FormGroup>
 
@@ -209,7 +219,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "mobileNo");
                         }}
-                        value={data.mobileNo}
+                        value={user.mobileNo}
                       />
                     </FormGroup>
 
@@ -222,7 +232,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "bloodGroup");
                         }}
-                        value={data.bloodGroup}
+                        value={user.bloodGroup}
                       />
                     </FormGroup>
 
@@ -235,7 +245,7 @@ function Signup() {
                         onChange={(e) => {
                           handleChange(e, "dob");
                         }}
-                        value={data.dob}
+                        value={user.dob}
                       />
                     </FormGroup>
 
