@@ -28,14 +28,7 @@ public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
-/*
-	// create patient --send user details in json format to create patient
-	@PostMapping("/patients")
-	public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
-		PatientDto createPatient = this.patientService.createPatient(patientDto);
-		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
-	}
-*/
+
 	// update patient details
 	@PreAuthorize("hasRole('PATIENT')")
 	@PutMapping("/patients/{patientId}")
@@ -53,28 +46,19 @@ public class PatientController {
 		PatientDto updatePatient = this.patientService.updatePatientDoctor(patientDto, patientId, doctorId);
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
-/*
-	// allocate ward and bed
-	@PreAuthorize("hasRole('RECEPTIONIST')")
-	@PutMapping("/patients/{patientId}/ward/{wardId}")
-	public ResponseEntity<PatientDto> updatePatientWard(@RequestBody PatientDto patientDto,
-			@PathVariable Integer patientId, @PathVariable Integer wardId) {
-		PatientDto updatePatient = this.patientService.updatePatientWard(patientDto, patientId, wardId);
-		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
+
+	// get patients by doctor ( Appointment list )
+	@GetMapping("/doctor/{doctorId}/patients")
+	public ResponseEntity<List<PatientDto>> getPatientsByDoctor(@PathVariable Integer doctorId) {
+		List<PatientDto> patients = this.patientService.getPatientsByDoctor(doctorId);
+		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
 	}
-*/
+	
 	// get patients by Id
 	@GetMapping("/patients/{patientId}")
 	public ResponseEntity<PatientDto> getPatientsById(@PathVariable Integer patientId) {
 		PatientDto patientDto = this.patientService.getPatientById(patientId);
 		return new ResponseEntity<PatientDto>(patientDto, HttpStatus.OK);
-	}
-
-	// get patients by doctor
-	@GetMapping("/doctor/{doctorId}/patients")
-	public ResponseEntity<List<PatientDto>> getPatientsByDoctor(@PathVariable Integer doctorId) {
-		List<PatientDto> patients = this.patientService.getPatientsByDoctor(doctorId);
-		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
 	}
 
 	// get patients by ward

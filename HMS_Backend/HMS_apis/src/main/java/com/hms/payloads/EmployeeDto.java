@@ -34,6 +34,9 @@ public class EmployeeDto {
 	@JsonIgnoreProperties(value = "employee")
 	private UserDto user;
 
+	@JsonIgnoreProperties(value = "employee")
+	private DoctorDto doctor;
+	
 	public boolean getStatus() {
 		return status;
 	}
