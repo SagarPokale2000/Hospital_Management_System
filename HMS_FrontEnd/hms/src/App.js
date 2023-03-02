@@ -18,7 +18,6 @@ import AllPatient from "./Component/Pages/Admin/AllPatient";
 import AddEmployee from "./Component/Pages/Admin/AddEmployee";
 import RemoveEmployee from "./Component/Pages/Admin/RemoveEmployee";
 import { Button } from "reactstrap";
-import MyButton from "./Component/Pages/Admin/MyButton";
 
 function App() {
   return (
