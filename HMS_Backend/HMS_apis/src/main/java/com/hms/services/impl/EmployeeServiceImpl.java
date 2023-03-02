@@ -191,7 +191,7 @@ Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 				.orElseThrow(() -> new ResourceNotFoundException("Employee", "employee id", Id));
 
 		User user = emp.getUser();
-
+		user.getRoles().clear();
 		this.userRepo.delete(user);
 	}
 

@@ -16,6 +16,9 @@ import Accountant from "./Component/Pages/Accountant/Accountant";
 import Doctor from "./Component/Pages/Doctor/Doctor";
 import AllPatient from "./Component/Pages/Admin/AllPatient";
 import AddEmployee from "./Component/Pages/Admin/AddEmployee";
+import RemoveEmployee from "./Component/Pages/Admin/RemoveEmployee";
+import { Button } from "reactstrap";
+import MyButton from "./Component/Pages/Admin/MyButton";
 
 function App() {
   return (
@@ -49,7 +52,7 @@ function App() {
               <Route path="doctor" element={<Doctor />}></Route>
               <Route path="receptionist" element={<Patient />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
-              <Route path="admin" element={<AddEmployee />}></Route>
+              <Route path="admin" element={<RemoveEmployee />}></Route>
             </Route>
             <Route path="/" element={<Home />}></Route> 
           </Routes>

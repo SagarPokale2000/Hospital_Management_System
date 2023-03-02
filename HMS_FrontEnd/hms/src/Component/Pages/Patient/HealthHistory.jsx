@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
-import { HealthHistory } from "../../../ServerCall/Patient/PatientAxios";
+import { healthHistory } from "../../../ServerCall/Patient/PatientAxios";
 import Base from "../../Base/Base";
 
 function HealthHistory() {
   const [data, setData] = useState({
-    content: []
+    content: [],
   });
 
   useEffect(() => {
     // load post of postId
-    HealthHistory()
+    healthHistory()
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
-          content: [...data.content, ...serverData.content]
+          content: [...data.content, ...serverData.content],
         });
       })
       .catch((error) => {
@@ -39,8 +39,8 @@ function HealthHistory() {
             <thead>
               <tr>
                 <th>id</th>
-                              <th>Name</th>
-                              <th>Appintment Date</th>
+                <th>Name</th>
+                <th>Appintment Date</th>
                 <th>Appintment Time</th>
                 <th></th>
               </tr>
@@ -52,7 +52,7 @@ function HealthHistory() {
                   return (
                     <tr key={user?.user.id}>
                       <th scope="row">{user?.user.id}</th>
-                          <td>{user?.user.firstName + user?.user.lastName}</td>
+                      <td>{user?.user.firstName + user?.user.lastName}</td>
                       <td>{user?.user.dob}</td>
                     </tr>
                   );
@@ -60,7 +60,7 @@ function HealthHistory() {
             </tbody>
           </Table>
         </Container>
-        </Base>
+      </Base>
     </div>
   );
 }

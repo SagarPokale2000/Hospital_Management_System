@@ -156,7 +156,6 @@ public class DoctorServiceImpl implements DoctorService {
 		return docDtos;
 	}
 
-	@Override
 	public DoctorDto createDoctorO(DoctorDto doctorDto, Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", empId));
@@ -174,5 +173,10 @@ public class DoctorServiceImpl implements DoctorService {
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 
 	}
-*/
+
+	@Override
+	public void deleteDoctor(Integer Id) {
+		
+	}
+
 }

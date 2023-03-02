@@ -31,11 +31,7 @@ function Login() {
 
   const handleChange = (event, field) => {
     let actualValue = event.target.value;
-    // debugger;
-    setLoginDetail({
-      ...loginDetail,
-      [field]: actualValue,
-      //Actual value with updated value
+    setLoginDetail({...loginDetail,[field]: actualValue,
     });
   };
 
