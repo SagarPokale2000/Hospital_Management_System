@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
-import { loadAllEmployee, loadAllPatient } from "../../../ServerCall/Admin/Admin";
+import { GetAppointmentList } from "../../../ServerCall/Doctor/DoctoAxios";
 import Base from "../../Base/Base";
 
-function AllPatient() {
+function AppointPatientList() {
   const [data, setData] = useState({
     content: []
   });
 
   useEffect(() => {
     // load post of postId
-    loadAllPatient()
+    GetAppointmentList()
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
@@ -28,7 +28,7 @@ function AllPatient() {
       });
   }, []);
 
-  console.log(data?.content[0]?.admitStatus);
+  //console.log(data?.content[0]?.admitStatus);
   debugger
   const patient = data?.content;
   // debugger;
@@ -68,23 +68,6 @@ function AllPatient() {
                   </tr>
                 );
               })}
-
-              {/* {
-              postContent?.content?.map((post) => (
-                // <Post post={post} key={post.postId} deletePost={post} />
-                <Post post={post} key={post.postId} />
-              ))} */}
-{/* 
-              <tr>
-                <th scope="row">1</th>
-                <td>{user?.firstName}</td>
-                <td>{user?.roles[0]?.name}</td>
-                <td>{user?.gender}</td>
-                 <td>{data?.content[0]?.qualificaton}</td> 
-                <td>{user?.dob}</td>
-                <td>{user?.mobileNo}</td>
-                <td>{user?.email}</td>
-              </tr> */}
             </tbody>
           </Table>
         </Container>
@@ -93,4 +76,4 @@ function AllPatient() {
   );
 }
 
-export default AllPatient;
+export default AppointPatientList;

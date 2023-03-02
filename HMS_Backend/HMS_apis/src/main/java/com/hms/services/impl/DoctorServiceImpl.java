@@ -174,9 +174,4 @@ public class DoctorServiceImpl implements DoctorService {
 
 	}
 
-	@Override
-	public void deleteDoctor(Integer Id) {
-		
-	}
-
 }
