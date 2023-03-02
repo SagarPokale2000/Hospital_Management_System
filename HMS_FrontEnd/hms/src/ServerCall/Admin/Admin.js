@@ -22,3 +22,12 @@ export const addEmployee = (data, id) => {
 export const addDoctor = (doctor) => {
   return PrivateAxios.post("doctor", doctor).then((response) => response.data);
 };
+
+export const getTheEmployee = (id) => {
+  return PrivateAxios.get("employee/" + id).then((response) => response.data);
+};
+
+export const deleteTheEmployee = (id) =>
+{
+  return PrivateAxios.delete("employee/" + id).then((response) => response.data);
+}

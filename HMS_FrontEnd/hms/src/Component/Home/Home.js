@@ -1,4 +1,5 @@
 import React from "react";
+import { Container } from "reactstrap";
 import Base from "../Base/Base";
 
 function Home() {
@@ -7,7 +8,9 @@ function Home() {
       <br></br>
       <br></br>
       <br></br>
-      fsddd hghgfhgf
+      <Container className="text-center">
+        <h1> Hospital Management System</h1>
+      </Container>
     </Base>
   );
 }

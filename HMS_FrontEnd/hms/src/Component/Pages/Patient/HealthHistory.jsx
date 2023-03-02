@@ -6,7 +6,7 @@ import Base from "../../Base/Base";
 
 function HealthHistory() {
   const [data, setData] = useState({
-    content: []
+    content: [],
   });
 
   useEffect(() => {
@@ -81,7 +81,7 @@ function HealthHistory() {
             </tbody>
           </Table>
         </Container>
-        </Base>
+      </Base>
     </div>
   );
 }
