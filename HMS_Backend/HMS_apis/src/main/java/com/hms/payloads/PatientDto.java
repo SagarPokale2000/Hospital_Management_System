@@ -1,14 +1,9 @@
 package com.hms.payloads;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.hms.entities.Health_History;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
