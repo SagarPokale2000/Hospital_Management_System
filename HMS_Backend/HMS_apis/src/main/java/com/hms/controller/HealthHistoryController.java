@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.config.AppConstants;
@@ -39,14 +40,23 @@ public class HealthHistoryController {
 		return new ResponseEntity<HealthHistoryDto>(appointment, HttpStatus.OK);
 	}
 
-//get health history by patient
+	//get health history by patient
 	@PreAuthorize("hasRole('PATIENT')")
 	@GetMapping("/patient/{patientId}/healthhistory")
-	public ResponseEntity<List<HealthHistoryDto>> getHealthHistoryBypatient(@PathVariable Integer patientId) {
+	public @ResponseBody ResponseEntity<List<HealthHistoryDto>> getHealthHistoryBypatient(@PathVariable Integer patientId) {
 		List<HealthHistoryDto> healths = this.healthservice.getHealthHistoryBypatient(patientId);
 		return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
 	}
 	
+	// allocate ward and bed
+		@PreAuthorize("hasRole('RECEPTIONIST')")
+		@PutMapping("/healthhistory/{healthId}/ward/{wardId}")
+		public ResponseEntity<HealthHistoryDto> updatePatientWard(@RequestBody HealthHistoryDto healthHistoryDto,
+				@PathVariable Integer healthId, @PathVariable Integer wardId) {
+			HealthHistoryDto updatePatient = this.healthservice.updatePatientWard(healthHistoryDto,healthId, wardId);
+			return new ResponseEntity<HealthHistoryDto>(updatePatient, HttpStatus.OK);
+		}
+		
 	@GetMapping("/healthhistory/{Id}")
 	public ResponseEntity<HealthHistoryDto> getHealthHistoryById(@PathVariable Integer Id) {
 

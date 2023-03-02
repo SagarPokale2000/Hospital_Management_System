@@ -13,6 +13,8 @@ public interface HealthHistoryService {
 			//get all medicine of health history by patient
 			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
 			
+			HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto,Integer healthId,Integer wardId);
+			
 			// delete
 			void deleteHealthHistory(Integer healthId);
 

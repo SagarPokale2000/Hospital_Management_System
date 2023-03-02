@@ -53,7 +53,7 @@ public class PatientController {
 		PatientDto updatePatient = this.patientService.updatePatientDoctor(patientDto, patientId, doctorId);
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
-
+/*
 	// allocate ward and bed
 	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@PutMapping("/patients/{patientId}/ward/{wardId}")
@@ -62,7 +62,7 @@ public class PatientController {
 		PatientDto updatePatient = this.patientService.updatePatientWard(patientDto, patientId, wardId);
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
-
+*/
 	// get patients by Id
 	@GetMapping("/patients/{patientId}")
 	public ResponseEntity<PatientDto> getPatientsById(@PathVariable Integer patientId) {

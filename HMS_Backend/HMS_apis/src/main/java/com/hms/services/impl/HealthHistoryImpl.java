@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 
 import com.hms.entities.Health_History;
 import com.hms.entities.Patient;
+import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.HealthHistoryDto;
 import com.hms.payloads.HealthHistoryResponse;
 import com.hms.repository.HealthHistoryRepo;
 import com.hms.repository.PatientRepo;
+import com.hms.repository.WardRepo;
 import com.hms.services.HealthHistoryService;
 
 @Service
@@ -31,6 +33,9 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private WardRepo wardRepo;
 	 
 	//add patient appointment (create health history )
 	@Override
@@ -45,6 +50,28 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		Health_History newHealths = this.healthRepo.save(healths);
 
 		return this.modelMapper.map(newHealths, HealthHistoryDto.class);
+	}
+	
+
+	@Override
+	public HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto ,Integer healthId,Integer wardId) {
+
+		Health_History healths = this.healthRepo.findById(healthId)
+				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
+		
+		Patient patient = healths.getPatient();
+
+		Ward ward = this.wardRepo.findById(wardId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ward", "ward id ", wardId));
+
+		patient.setWard(ward);
+		//need to check bed logic allocatedBed
+		healths.setAllocatedBed(healthDto.getAllocatedBed());
+
+		Patient updatedPatient = this.patientRepo.save(patient);
+		
+		Health_History updatedHealth = this.healthRepo.save(healths);
+		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
 
 	//update HH
@@ -136,5 +163,6 @@ public class HealthHistoryImpl implements HealthHistoryService {
 				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
 		return healthDtos;
 	}
+
 
 }
