@@ -44,10 +44,7 @@ function AllEmployee() {
 
   return (
     <div>
-      <Base>
-        <br />
-        <br />
-        <br />
+      {/* <Base> */}
         <Container>
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>
@@ -82,7 +79,7 @@ function AllEmployee() {
             </tbody>
           </Table>
         </Container>
-      </Base>
+      {/* </Base> */}
     </div>
   );
 }

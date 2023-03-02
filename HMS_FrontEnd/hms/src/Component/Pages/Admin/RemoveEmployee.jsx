@@ -79,102 +79,91 @@ function RemoveEmployee() {
 
   return (
     <div>
-      <Base>
-        <br />
-        <br />
-        <Container>
-          {/* {JSON.stringify(loginDetail)} */}
-          <Row className="mt-3">
-            <Col sm={{ size: 6, offset: 3 }}>
-              <Card outline color="dark">
-                <CardHeader>
-                  <h3>Remove Employee</h3>
-                </CardHeader>
+      <Row>
+        <Col sm={{ size: 6, offset: 3 }}>
+          <Card outline color="dark">
+            <CardHeader>
+              <h3>Remove Employee</h3>
+            </CardHeader>
 
-                <CardBody>
-                  <Form onSubmit={handleFormSubmit}>
-                    <FormGroup>
-                      <Label for="number">Enter Employee Number</Label>
-                      <Input
-                        type="number"
-                        id="id"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                      />
-                    </FormGroup>
+            <CardBody>
+              <Form onSubmit={handleFormSubmit}>
+                <FormGroup>
+                  <Label for="number">Enter Employee Number</Label>
+                  <Input
+                    type="number"
+                    id="id"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                  />
+                </FormGroup>
 
-                    <FormGroup>
-                      <Label for="firstName">Employee Name</Label>
-                      <Input
-                        id="firstName"
-                        value={employee.firstName}
-                        disabled
-                      />
-                    </FormGroup>
+                <FormGroup>
+                  <Label for="firstName">Employee Name</Label>
+                  <Input id="firstName" value={employee.firstName} disabled />
+                </FormGroup>
 
-                    <FormGroup>
-                      <Label for="roles">Employee Role</Label>
-                      <Input id="roles" value={employee.roles} disabled />
-                    </FormGroup>
+                <FormGroup>
+                  <Label for="roles">Employee Role</Label>
+                  <Input id="roles" value={employee.roles} disabled />
+                </FormGroup>
 
-                    <FormGroup>
-                      <Label for="securityQue">Security Question</Label>
-                      <Input
-                        type="text"
-                        id="securityQue"
-                        value={employee.securityQue}
-                        disabled
-                      />
-                    </FormGroup>
+                <FormGroup>
+                  <Label for="securityQue">Security Question</Label>
+                  <Input
+                    type="text"
+                    id="securityQue"
+                    value={employee.securityQue}
+                    disabled
+                  />
+                </FormGroup>
 
-                    <FormGroup>
-                      <Label for="key">
-                        Enter Correct Security Answer to Delete Employee
-                      </Label>
-                      <Input
-                        type="text"
-                        id="key"
-                        value={key}
-                        onChange={(e) => setKey(e.target.value)}
-                      />
-                    </FormGroup>
+                <FormGroup>
+                  <Label for="key">
+                    Enter Correct Security Answer to Delete Employee
+                  </Label>
+                  <Input
+                    type="text"
+                    id="key"
+                    value={key}
+                    onChange={(e) => setKey(e.target.value)}
+                  />
+                </FormGroup>
 
-                    <Container className="text-center">
-                      <Button
-                        outline
-                        color="primary"
-                        disabled={!id}
-                        onClick={getTheEmployeeServer}
-                      >
-                        Get Employee Details
-                      </Button>
+                <Container className="text-center">
+                  <Button
+                    outline
+                    color="primary"
+                    disabled={!id}
+                    onClick={getTheEmployeeServer}
+                  >
+                    Get Employee Details
+                  </Button>
 
-                      {key === employee.securityAns && (
-                        <Button
-                          outline
-                          className="ms-2"
-                          color="danger"
-                          onClick={deleteEmployeeServer}
-                        >
-                          Delete Employee
-                        </Button>
-                      )}
-                      <Button
-                        outline
-                        color="secondary"
-                        className="ms-2"
-                        onClick={handleReset}
-                      >
-                        Clear
-                      </Button>
-                    </Container>
-                  </Form>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </Base>
+                  {key === employee.securityAns && (
+                    <Button
+                      outline
+                      className="ms-2"
+                      color="danger"
+                      onClick={deleteEmployeeServer}
+                    >
+                      Delete Employee
+                    </Button>
+                  )}
+                  <Button
+                    outline
+                    color="secondary"
+                    className="ms-2"
+                    onClick={handleReset}
+                  >
+                    Clear
+                  </Button>
+                </Container>
+              </Form>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 }
