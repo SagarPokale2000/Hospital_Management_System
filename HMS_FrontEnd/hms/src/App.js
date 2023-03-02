@@ -2,10 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./Component/Home/Home";
-import Temp from "./Component/Home/Temp";
 import Login from "./Component/Pages/Login/Login";
 import Signup from "./Component/Pages/Login/Signup";
-import UserContext from "./Context/UserContext";
 import UserProvider from "./Context/UserProvider";
 import { ToastContainer, toast } from "react-toastify";
 import Patient from "./Component/Pages/Patient/Patient";
@@ -14,10 +12,8 @@ import HealthHistory from "./Component/Pages/Patient/HealthHistory";
 import PrivateRoute from "./Component/Base/PrivateRoute";
 import Accountant from "./Component/Pages/Accountant/Accountant";
 import Doctor from "./Component/Pages/Doctor/Doctor";
-import AllPatient from "./Component/Pages/Admin/AllPatient";
-import AddEmployee from "./Component/Pages/Admin/AddEmployee";
-import RemoveEmployee from "./Component/Pages/Admin/RemoveEmployee";
-import { Button } from "reactstrap";
+import AdminDashboard from "./Component/Pages/Admin/AdminDashboard";
+import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
 
 function App() {
   return (
@@ -51,7 +47,7 @@ function App() {
               <Route path="doctor" element={<Doctor />}></Route>
               <Route path="receptionist" element={<Patient />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
-              <Route path="admin" element={<RemoveEmployee />}></Route>
+              <Route path="admin" element={<SideNavBar />}></Route>
             </Route>
             <Route path="/" element={<Home />}></Route> 
           </Routes>

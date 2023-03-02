@@ -140,12 +140,8 @@ function AddEmployee() {
 
   return (
     <div>
-      <Base>
-        <br />
-        <Container>
-          <Row className="mt-5 mb-5">
-            {JSON.stringify(employee)}
-            {JSON.stringify(roleLocal)}
+          <Row>
+            {/* {JSON.stringify(employee)} */}
             <Col sm={{ size: 6, offset: 3 }}>
               <Card outline color="dark">
                 <CardHeader>
@@ -332,8 +328,6 @@ function AddEmployee() {
               </Card>
             </Col>
           </Row>
-        </Container>
-      </Base>
     </div>
   );
 }

@@ -39,16 +39,13 @@ function AllPatient() {
   }, []);
 
   console.log(data?.content[0]?.admitStatus);
-  debugger
+  // debugger
   const user = data?.content;
   // debugger;
 
   return (
     <div>
-      <Base>
-        <br />
-        <br />
-        <br />
+      {/* <Base> */}
         <Container>
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>
@@ -98,7 +95,7 @@ function AllPatient() {
             </tbody>
           </Table>
         </Container>
-      </Base>
+      {/* </Base> */}
     </div>
   );
 }
