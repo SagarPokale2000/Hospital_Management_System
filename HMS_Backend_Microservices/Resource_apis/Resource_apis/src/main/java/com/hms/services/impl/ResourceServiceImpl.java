@@ -33,7 +33,7 @@ public class ResourceServiceImpl implements ResourceService {
 	@Override
 	public ResourceDto createResource(ResourceDto resourceDto) {
 		Resources resource = this.modelMapper.map(resourceDto, Resources.class);
-		resource.setId(autoId++);
+		//resource.setId(autoId++);
 		Resources addedResource = this.resourceRepo.save(resource);
 		return this.modelMapper.map(addedResource, ResourceDto.class);
 	}

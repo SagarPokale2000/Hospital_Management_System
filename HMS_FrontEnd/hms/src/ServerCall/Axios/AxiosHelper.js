@@ -27,3 +27,9 @@ PrivateAxios.interceptors.request.use(config => {
     }
 
 }, (error) => { debugger; Promise.reject(error) });
+
+export const RESOURCEAXIOS = axios.create(
+    {
+        baseURL: 'http://localhost:9092/api/'
+    }
+);
