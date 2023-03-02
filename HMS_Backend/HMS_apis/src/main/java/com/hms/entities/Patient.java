@@ -1,11 +1,14 @@
 package com.hms.entities;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,9 +45,6 @@ public class Patient {
 	@Column(columnDefinition = "boolean default false")
 	private Boolean action;
 
-	@Column(name = "allocated_bed", length = 45)
-	private String allocatedBed;
-
 	@OneToOne()
 	@JoinColumn(name = "user_Id")
 	private User user;
@@ -53,8 +53,8 @@ public class Patient {
 	@JoinColumn(name = "doctor_Id")
 	private Doctor doctor;
 
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-	private Set<Health_History> health_history = new HashSet<>();
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Health_History> health_history = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "ward_Id")

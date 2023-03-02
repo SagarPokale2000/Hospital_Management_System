@@ -36,7 +36,7 @@ public class DoctorController {
 		DoctorDto createDoctor = this.doctorService.createDoctorN(empDto);
 		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
 	}
-
+	
 	// update - pass json
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/doctor/{docId}")
@@ -45,14 +45,14 @@ public class DoctorController {
 		DoctorDto updatedDoctor = this.doctorService.updateDoctor(doctorDto, docId);
 		return new ResponseEntity<DoctorDto>(updatedDoctor, HttpStatus.OK);
 	}
-	
+	/*
 	// delete
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/doctor/{Id}")
 	public ResponseEntity<ApiResponse> deleteEmployee(@PathVariable Integer Id) {
 		this.doctorService.deleteDoctor(Id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Doctor is deleted successfully !!", true), HttpStatus.OK);
-	}
+	}*/
 
 	// get
 	@GetMapping("/doctor/{docId}")

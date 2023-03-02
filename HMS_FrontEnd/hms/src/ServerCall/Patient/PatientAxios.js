@@ -4,7 +4,7 @@ export const AddAppoinment = (patient) => {
     return PrivateAxios.post(`/patients/${JSON.parse(localStorage.data).user.patient.id}/healthHistory`,patient).then((response) => response.data);
 }
 
-export const HealthHistory = (patient) => {
-    return PrivateAxios.get(`/patients/${JSON.parse(localStorage.data).user.patient.id}/healthHistory`,patient).then((response) => response.data);
+export const GetAllHealthHistory = (patient) => {
+    return PrivateAxios.get(`/patient/${JSON.parse(localStorage.data).user.patient.id}/healthhistory`,patient).then((response) => response.data);
 }
 

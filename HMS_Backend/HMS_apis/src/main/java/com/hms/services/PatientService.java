@@ -18,7 +18,7 @@ public interface PatientService {
 	PatientDto updatePatientDoctor(PatientDto patientDto, Integer patientId, Integer doctorId);
 
 	// update patient Ward
-	PatientDto updatePatientWard(PatientDto patientDto, Integer patientId, Integer wardId);
+	//PatientDto updatePatientWard(PatientDto patientDto, Integer patientId, Integer wardId);
 
 	// get all patients (pagination)
 	PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);

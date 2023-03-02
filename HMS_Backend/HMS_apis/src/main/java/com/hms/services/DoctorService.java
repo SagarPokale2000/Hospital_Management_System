@@ -11,14 +11,14 @@ public interface DoctorService {
 	// create
 		//DoctorDto createDoctorO(DoctorDto doctorDto,Integer empId);
 		
-//		DoctorDto createDoctorN(DoctorDto doctorDto);
+		//DoctorDto createDoctor(DoctorDto doctorDto);
 
 		DoctorDto createDoctorN(EmployeeDto empDto);
 		// update
 		DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId);
 
 		// delete
-		void deleteDoctor(Integer Id);
+//		void deleteDoctor(Integer Id);
 		
 		// get
 		DoctorDto getDoctor(Integer doctorId);

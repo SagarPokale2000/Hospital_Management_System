@@ -1,11 +1,14 @@
 package com.hms.payloads;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.hms.entities.Health_History;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonInclude(value = Include.NON_NULL)
+//@JsonInclude(value = Include.NON_NULL)
 public class PatientDto {
 
 	private Integer id;
@@ -24,8 +27,6 @@ public class PatientDto {
 	private Boolean currentStatus;
 
 	private Boolean action;
-
-	private String allocatedBed;
 
 	@JsonIgnoreProperties(value = "patient")
 	private UserDto user;
@@ -37,5 +38,5 @@ public class PatientDto {
 	private WardDto ward;
 
 	@JsonIgnoreProperties(value = "patient")
-	private Set<HealthHistoryDto> health_histories = new HashSet<>();
+	private List<HealthHistoryDto> health_history = new ArrayList<>();
 }

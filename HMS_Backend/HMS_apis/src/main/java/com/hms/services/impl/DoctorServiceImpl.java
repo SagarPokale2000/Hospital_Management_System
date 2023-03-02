@@ -155,7 +155,7 @@ public class DoctorServiceImpl implements DoctorService {
 				.collect(Collectors.toList());
 		return docDtos;
 	}
-
+/*
 	@Override
 	public DoctorDto createDoctorO(DoctorDto doctorDto, Integer empId) {
 		Employee emp = this.employeeRepo.findById(empId)
