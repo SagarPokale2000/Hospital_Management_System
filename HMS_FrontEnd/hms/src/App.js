@@ -14,6 +14,8 @@ import Accountant from "./Component/Pages/Accountant/Accountant";
 import Doctor from "./Component/Pages/Doctor/Doctor";
 import AdminDashboard from "./Component/Pages/Admin/AdminDashboard";
 import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
+import AddResources from "./Component/Pages/HospitalResources/AddResources";
+import GetResources from "./Component/Pages/HospitalResources/GetResources";
 
 function App() {
   return (
@@ -49,6 +51,8 @@ function App() {
               <Route path="accountant" element={<Accountant />}></Route>
               <Route path="admin" element={<SideNavBar />}></Route>
             </Route>
+            <Route path="/AddResources" element={<AddResources />}></Route>
+            <Route path="/GetResources" element={<GetResources />}></Route>
             <Route path="/" element={<Home />}></Route> 
           </Routes>
         </BrowserRouter>
