@@ -3,8 +3,11 @@ import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
 import { GetAllResources } from "../../../ServerCall/HospitalResources/Resources";
 import Base from "../../Base/Base";
-
-function GetResources() {
+import { RESOURCEAXIOS } from "../../../ServerCall/Axios/AxiosHelper";
+import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+function AdminGetResources() {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     content: [],
     totalPages: "",
@@ -42,6 +45,41 @@ function GetResources() {
   const resource = data?.content;
   console.log(resource)
    //debugger;
+  
+  const getAdminGetResources = () => {
+    debugger;
+    axios.get(RESOURCEAXIOS+"/resources?pageNumber=0&pageSize=5",resource).then((response) => {
+    const result = response.data
+
+    if (result['status'] === 'success') {
+      console.log(result)
+      // set the homes to the state member
+      setData(result['data'])
+    } else {
+      toast.error(result['error'])
+    }
+  })
+  }
+
+  const deleteResource = (id) => {
+    RESOURCEAXIOS.delete(`/resources/`+id,resource).then((response) => {
+          const result = response.data
+          if (result['status'] === 'success') {
+            // reload the screen
+            getAdminGetResources()
+            //toast.success("Resource Deleted Successfully");
+          } else {
+            toast.error(result['error'])
+          }
+        })
+    }
+  
+    // edit my home
+    const updateResource = (id) => {
+      // pass the home id which you want to edit
+      navigate('/UpdateResource', { state: { ResourceId: id } })
+    }
+    
   return (
     <div>
       {/* <Base> */}
@@ -53,7 +91,9 @@ function GetResources() {
                 <th>resource_name</th>
                 <th>total_quantity</th>
                 <th>occupy_quantity</th>
-                <th>remaining_quantity</th>
+              <th>remaining_quantity</th>
+              <th>Update Resource</th>
+              <th>Delete Resource</th>
               </tr>
             </thead>
 
@@ -67,6 +107,18 @@ function GetResources() {
                      <td>{resource.total_quantity}</td>
                       <td>{resource.occupy_quantity}</td>
                       <td>{resource.remaining_quantity}</td> 
+                      <td> <button
+                    onClick={() => updateResource(resource.id)}
+                    style={styles.button}
+                    className='btn btn-sm btn-success'>
+                    Update
+                  </button></td>
+                  <td>   <button
+                    onClick={() => deleteResource(resource.id)}
+                    style={styles.button}
+                    className='btn btn-sm btn-danger'>
+                    Delete
+                  </button></td>
                     </tr>
                   );
                 })}
@@ -78,4 +130,15 @@ function GetResources() {
   );
 }
 
-export default GetResources;
+const styles = {
+  h3: {
+    textAlign: 'center',
+    margin: 20,
+  },
+  button: {
+    marginRight: 10,
+  },
+}
+
+
+export default AdminGetResources;
