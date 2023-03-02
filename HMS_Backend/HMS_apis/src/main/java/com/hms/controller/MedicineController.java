@@ -39,10 +39,8 @@ public class MedicineController {
 	// get medicine by health history
 	@GetMapping("/healthhistory/{healthId}/medicine")
 	public ResponseEntity<List<MedicineDto>> getMedicineByHealthHistory(@PathVariable Integer healthId) {
-
 		List<MedicineDto> medicine = this.medicineService.getMedicineByHealthHistory(healthId);
 		return new ResponseEntity<List<MedicineDto>>(medicine, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/medicine")

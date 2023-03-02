@@ -87,6 +87,8 @@ public class PatientServiceImpl implements PatientService {
 		User userAddedAddress=addedAddress.getUser();
 	
 		patient.setUser(userAddedAddress);
+		//patient.setDoctor(null);
+		//patient.setWard(null);
 		Patient newPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}
@@ -120,7 +122,7 @@ public class PatientServiceImpl implements PatientService {
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}
-
+/*
 	// appoint ward to patient
 	@Override
 	public PatientDto updatePatientWard(PatientDto patientDto, Integer patientId, Integer wardId) {
@@ -131,12 +133,14 @@ public class PatientServiceImpl implements PatientService {
 				.orElseThrow(() -> new ResourceNotFoundException("Ward", "ward id ", wardId));
 
 		patient.setWard(ward);
-		patient.setAllocatedBed(patientDto.getAllocatedBed());
+		//need to check bed logic
+		//patient.setAllocatedBed(patientDto.getAllocatedBed());
+		patient.getHealth_history
 
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}
-
+*/
 	@Override
 	public PatientDto getPatientById(Integer patientId) {
 		Patient patient = this.patientRepo.findById(patientId)

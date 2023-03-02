@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,6 +56,9 @@ public class Health_History {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate admitDate;
 
+	@Column(name = "allocated_bed", length = 45)
+	private String allocatedBed;
+
 	@Column(name = "prescription_instruction", length = 1000)
 	private String prescriptionInstruction;
 
@@ -71,6 +75,6 @@ public class Health_History {
 	@JoinColumn(name = "patient_Id", nullable = false)
 	private Patient patient;
 
-	@OneToMany(mappedBy = "healthHistory", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "healthHistory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Medicine> medicines = new ArrayList<>();
 }

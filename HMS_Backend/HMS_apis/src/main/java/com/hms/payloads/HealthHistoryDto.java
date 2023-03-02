@@ -32,6 +32,8 @@ public class HealthHistoryDto {
 	private LocalDate appointmentDate;
 
 	private LocalTime appointmentTime;
+
+	private String allocatedBed;
 	
 	@NotEmpty
 	@Size(min = 5, message = "firstname must be min of 5 characters")
@@ -47,7 +49,7 @@ public class HealthHistoryDto {
 
 	private LocalDate paymentDate;
 
-	@JsonIgnoreProperties(value = "health_histories")
+	@JsonIgnoreProperties(value = "health_history")
 	private PatientDto patient;
 
 	@JsonIgnoreProperties(value = "healthHistory")

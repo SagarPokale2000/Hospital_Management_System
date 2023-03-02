@@ -35,14 +35,14 @@ public class EmployeeController {
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 	
-//	// create Recptionist --send user details in json format to create Recptionist
-//	@PreAuthorize("hasRole('ADMIN')")
-//	@PostMapping("/employee/receptionist")
-//	public ResponseEntity<EmployeeDto> createReceptionistN(@Valid @RequestBody EmployeeDto employeeDto) {
-//		EmployeeDto createEmployee = this.employeeService.createReceptionist(employeeDto);
-//		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
-//	}
-//	
+	// create Recptionist --send user details in json format to create Recptionist
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/employee/receptionist")
+	public ResponseEntity<EmployeeDto> createReceptionistN(@Valid @RequestBody EmployeeDto employeeDto) {
+		EmployeeDto createEmployee = this.employeeService.createReceptionist(employeeDto);
+		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
+	}
+	
 //	// create Accountant --send user details in json format to create Accountant
 //	@PreAuthorize("hasRole('ADMIN')")
 //	@PostMapping("/employee/accountant")
