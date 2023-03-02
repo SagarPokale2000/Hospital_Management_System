@@ -16,7 +16,8 @@ import AdminDashboard from "./Component/Pages/Admin/AdminDashboard";
 import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
 import AddResources from "./Component/Pages/HospitalResources/AddResources";
 import GetResources from "./Component/Pages/HospitalResources/GetResources";
-
+import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
+import UpdateResource from "./Component/Pages/HospitalResources/UpdateResource";
 function App() {
   return (
     <div className="App">
@@ -53,6 +54,8 @@ function App() {
             </Route>
             <Route path="/AddResources" element={<AddResources />}></Route>
             <Route path="/GetResources" element={<GetResources />}></Route>
+            <Route path="/AdminGetResources" element={<AdminGetResources />}></Route>
+            <Route path="/UpdateResource" element={<UpdateResource />}></Route>
             <Route path="/" element={<Home />}></Route> 
           </Routes>
         </BrowserRouter>

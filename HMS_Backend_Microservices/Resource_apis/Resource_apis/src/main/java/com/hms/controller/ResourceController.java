@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.hms.services.ResourceService;
 
 @RestController
 @RequestMapping("/api/resources")
+@CrossOrigin
 public class ResourceController {
 
 	@Autowired
@@ -57,7 +59,7 @@ public class ResourceController {
 	}
 
 	// get all
-	@GetMapping("/")
+	@GetMapping
 	public ResponseEntity<ResourceResponse> getAllResources(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
