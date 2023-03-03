@@ -30,7 +30,7 @@ public class PatientController {
 	private PatientService patientService;
 
 	// update patient details
-	@PreAuthorize("hasRole('PATIENT')")
+//	@PreAuthorize("hasRole('PATIENT')")
 	@PutMapping("/patients/{patientId}")
 	public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto,
 			@PathVariable Integer patientId) {
@@ -39,7 +39,7 @@ public class PatientController {
 	}
 
 	// appoint doctor to patient
-	@PreAuthorize("hasRole('RECEPTIONIST')")
+//	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@PutMapping("/patients/{patientId}/doctor/{doctorId}")
 	public ResponseEntity<PatientDto> updatePatientDoctor(@RequestBody PatientDto patientDto,
 			@PathVariable Integer patientId, @PathVariable Integer doctorId) {

@@ -14,6 +14,9 @@ import Accountant from "./Component/Pages/Accountant/Accountant";
 import Doctor from "./Component/Pages/Doctor/Doctor";
 import AdminDashboard from "./Component/Pages/Admin/AdminDashboard";
 import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
+import AppointPatientList from "./Component/Pages/Doctor/AppointPatientList";
+import PatientDetails from "./Component/Pages/Doctor/PatientDetails";
+import Admin from "./Component/CustomeNavBar/Admin/SideNavBar";
 
 function App() {
   return (
@@ -44,10 +47,14 @@ function App() {
               <Route path="patient" element={<Patient />}></Route>
               <Route path="AddAppoinment" element={<AddAppoinment />}></Route>
               <Route path="HealthHistory" element={<HealthHistory />}></Route>
-              <Route path="doctor" element={<Doctor />}></Route>
+              <Route path="doctor" element={<AppointPatientList />}></Route>
               <Route path="receptionist" element={<Patient />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
-              <Route path="admin" element={<SideNavBar />}></Route>
+              <Route path="admin" element={<Admin />}></Route>
+
+              
+
+              <Route path="update/patient/:id" element={<PatientDetails />}></Route>
             </Route>
             <Route path="/" element={<Home />}></Route> 
           </Routes>
