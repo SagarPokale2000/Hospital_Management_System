@@ -56,6 +56,10 @@ function App() {
 
               <Route path="update/patient/:id" element={<PatientDetails />}></Route>
             </Route>
+            <Route path="/AddResources" element={<AddResources />}></Route>
+            <Route path="/GetResources" element={<GetResources />}></Route>
+            <Route path="/AdminGetResources" element={<AdminGetResources />}></Route>
+            <Route path="/UpdateResource" element={<UpdateResource />}></Route>
             <Route path="/" element={<Home />}></Route> 
           </Routes>
         </BrowserRouter>

@@ -1,6 +1,7 @@
 package com.hms.services.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -10,7 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
+import com.hms.entities.DbSequence;
 import com.hms.entities.Resources;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.ResourceDto;
@@ -18,22 +24,43 @@ import com.hms.payloads.ResourceResponse;
 import com.hms.repository.ResourceRepo;
 import com.hms.services.ResourceService;
 
+import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;
+
+
 @Service
 public class ResourceServiceImpl implements ResourceService {
 
 	@Autowired
 	private ResourceRepo resourceRepo;
 	
+    @Autowired
+    private MongoOperations mongoOperations;
+	
 	//jugad
-	static int autoId=1;
+	//static int autoId=1;
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	public int getSequenceNumber(String sequenceName) {
+        //get sequence no
+        Query query = new Query(Criteria.where("id").is(sequenceName));
+        //update the sequence no
+        Update update = new Update().inc("seq", 1);
+        //modify in document
+        DbSequence counter = mongoOperations
+                .findAndModify(query,
+                        update, options().returnNew(true).upsert(true),
+                        DbSequence.class);
+
+        return !Objects.isNull(counter) ? counter.getSeq() : 1;
+    }
 
 	@Override
 	public ResourceDto createResource(ResourceDto resourceDto) {
 		Resources resource = this.modelMapper.map(resourceDto, Resources.class);
-		resource.setId(autoId++);
+		//resource.setId(autoId++);
+		resource.setId(getSequenceNumber("resource_sequence"));
 		Resources addedResource = this.resourceRepo.save(resource);
 		return this.modelMapper.map(addedResource, ResourceDto.class);
 	}
