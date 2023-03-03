@@ -17,7 +17,7 @@ import Resources from "../../Pages/Admin/Resources";
 import Base from "../../Base/Base";
 import { Container } from "reactstrap";
 
-function SideNavBar() {
+function Admin() {
   const [verticalActive, setVerticalActive] = useState("Dashboard");
 
   const handleVerticalClick = (value) => {
@@ -127,4 +127,4 @@ function SideNavBar() {
   );
 }
 
-export default SideNavBar;
+export default Admin;

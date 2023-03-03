@@ -14,13 +14,10 @@ import Accountant from "./Component/Pages/Accountant/Accountant";
 import Doctor from "./Component/Pages/Doctor/Doctor";
 import AdminDashboard from "./Component/Pages/Admin/AdminDashboard";
 import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
-import AppointmentList from "./Component/Pages/Receptionist/AppointmentList";
-import Receptionist from "./Component/Pages/Receptionist/Receptionist";
-import AppointDoctor from "./Component/Pages/Receptionist/AppointDoctor";
-import AddResources from "./Component/Pages/HospitalResources/AddResources";
-import GetResources from "./Component/Pages/HospitalResources/GetResources";
-import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
-import UpdateResource from "./Component/Pages/HospitalResources/UpdateResource";
+import AppointPatientList from "./Component/Pages/Doctor/AppointPatientList";
+import PatientDetails from "./Component/Pages/Doctor/PatientDetails";
+import Admin from "./Component/CustomeNavBar/Admin/SideNavBar";
+
 function App() {
   return (
     <div className="App">
@@ -50,12 +47,14 @@ function App() {
               <Route path="patient" element={<Patient />}></Route>
               <Route path="AddAppoinment" element={<AddAppoinment />}></Route>
               <Route path="HealthHistory" element={<HealthHistory />}></Route>
-              <Route path="doctor" element={<Doctor />}></Route>
-              <Route path="receptionist" element={<Receptionist />}></Route>
+              <Route path="doctor" element={<AppointPatientList />}></Route>
+              <Route path="receptionist" element={<Patient />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
-              <Route path="admin" element={<SideNavBar />}></Route>
-              <Route path="AppointmentList" element={<AppointmentList />}></Route>
-              <Route path="AppointDoctor" element={<AppointDoctor />}></Route>
+              <Route path="admin" element={<Admin />}></Route>
+
+              
+
+              <Route path="update/patient/:id" element={<PatientDetails />}></Route>
             </Route>
             <Route path="/AddResources" element={<AddResources />}></Route>
             <Route path="/GetResources" element={<GetResources />}></Route>
