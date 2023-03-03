@@ -14,6 +14,9 @@ import Accountant from "./Component/Pages/Accountant/Accountant";
 import Doctor from "./Component/Pages/Doctor/Doctor";
 import AdminDashboard from "./Component/Pages/Admin/AdminDashboard";
 import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
+import AppointmentList from "./Component/Pages/Receptionist/AppointmentList";
+import Receptionist from "./Component/Pages/Receptionist/Receptionist";
+import AppointDoctor from "./Component/Pages/Receptionist/AppointDoctor";
 import AddResources from "./Component/Pages/HospitalResources/AddResources";
 import GetResources from "./Component/Pages/HospitalResources/GetResources";
 import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
@@ -48,9 +51,11 @@ function App() {
               <Route path="AddAppoinment" element={<AddAppoinment />}></Route>
               <Route path="HealthHistory" element={<HealthHistory />}></Route>
               <Route path="doctor" element={<Doctor />}></Route>
-              <Route path="receptionist" element={<Patient />}></Route>
+              <Route path="receptionist" element={<Receptionist />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
               <Route path="admin" element={<SideNavBar />}></Route>
+              <Route path="AppointmentList" element={<AppointmentList />}></Route>
+              <Route path="AppointDoctor" element={<AppointDoctor />}></Route>
             </Route>
             <Route path="/AddResources" element={<AddResources />}></Route>
             <Route path="/GetResources" element={<GetResources />}></Route>
