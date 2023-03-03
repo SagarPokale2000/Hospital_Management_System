@@ -13,24 +13,30 @@ function HealthHistory() {
     // load post of postId
     GetAllHealthHistory()
       .then((serverData) => {
-        console.log(serverData);
-        //debugger;
-        serverData.forEach(d => {
-          setData({
-            // Concatinent the pageContent with new data -> new data with existing data
-            content: [...data.content, d]
-          });
-        })
-          .catch((error) => {
-            console.log(error);
-            toast.error("Error in loading");
-          })
+      console.log(serverData)
+      setData({
+        // Concatinent the pageContent with new data -> new data with existing data
+        content: [...data.content, ...serverData]
       });
+
+      // console.log(serverData);
+      // setData(serverData);
+      // debugger;
+    })
+    .catch((error) => {
+      console.log(error);
+      toast.error("Error in loading");
+    });
   }, []);
 
-  //console.log(data?.content[0]);
+  console.log(data?.content);
   const healthhistory = data?.content;
-   //debugger;
+  // debugger;
+  // getMedicines(){
+  //   return this.healthhistory.medicines.map(() => {
+      
+  //   })
+  // }
 
   return (
     <div>
@@ -52,8 +58,8 @@ function HealthHistory() {
                 <th>admitDate</th>
                 <th>dischargeDate</th>
                 <th>prescriptionInstruction</th>
-                <th>ward</th>
                 <th>allocatedBed</th>
+                <th>Medicines</th>
               </tr>
             </thead>
             {/* patient user address medicines */}
@@ -61,7 +67,7 @@ function HealthHistory() {
               {data &&
                 data?.content?.map((healthhistory) => {
                   return (
-                    <tr key={healthhistory.id}>
+                    <tr key={healthhistory?.healthhistory?.id}>
                       <th scope="row">{healthhistory.id}</th>
                       <td>{healthhistory.patient.user.firstName +" " + healthhistory.patient.user.lastName}</td>
                       <td>{healthhistory.appointmentDate}</td>
@@ -72,8 +78,21 @@ function HealthHistory() {
                       <td>{healthhistory.admitDate}</td>
                       <td>{healthhistory.dischargeDate}</td>
                       <td>{healthhistory.prescriptionInstruction}</td>
-                      <td>{healthhistory.patient.ward.wardType}</td>
                       <td>{healthhistory.allocatedBed}</td>
+                      <td>
+                        <tbody>{healthhistory&&
+                          healthhistory.medicines.map((hh) => {
+                            debugger;
+                            console.log(hh.medicineName);
+                          <tr key={hh.id}>
+                            <td scope="row">
+                              {hh.medicineName}
+                            </td>
+                          </tr>
+                            })}
+                       </tbody>
+                      </td>
+                      {/*getMedicines()  */}
                     </tr>
                   );
                   debugger;

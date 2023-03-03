@@ -12,7 +12,7 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { PostAllAppointedDoctors } from "../../../ServerCall/Doctor/AppointDoctorAxios";
+import { PostAllAppointedDoctors } from "../../../ServerCall/Receiptionist/ReceptionistAxios";
 import Base from "../../Base/Base";
 
 function AppointDoctor() {
