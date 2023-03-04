@@ -11,7 +11,7 @@ function HealthHistory(args) {
   const [data, setData] = useState({
     content: [],
   });
-  const [medicine, setMedicine] = useState([]);
+  const [med, setMedicine] = useState([]);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -24,9 +24,6 @@ function HealthHistory(args) {
         content: [...data.content, ...serverData]
       });
 
-      // console.log(serverData);
-      // setData(serverData);
-      // debugger;
     })
     .catch((error) => {
       console.log(error);
@@ -69,8 +66,8 @@ const getMedicines = (id) => {
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>
               <tr>
-                <th>id</th>
-                <th>Name</th>
+                <th>Id</th>
+                <th>Patient Name</th>
                 <th>Appintment Date</th>
                 <th>Appintment Time</th>
                 <th>symptoms</th>
@@ -78,7 +75,7 @@ const getMedicines = (id) => {
                 <th>diseases</th>
                 <th>admitDate</th>
                 <th>dischargeDate</th>
-                <th>prescriptionInstruction</th>
+                <th>prescriptions</th>
                 <th>allocatedBed</th>
                 <th>Medicines</th>
               </tr>
@@ -100,35 +97,11 @@ const getMedicines = (id) => {
                       <td>{healthhistory.dischargeDate}</td>
                       <td>{healthhistory.prescriptionInstruction}</td>
                       <td>{healthhistory.allocatedBed}</td>
-                      {/* <td>{healthhistory.medicine.map((m) => {
-                        debugger;
-                        <div>
-                          {m.id}
-                         </div>
-                      })}</td> */}
                       <td><Button color="primary" onClick={() => { getMedicines(healthhistory.id) }}>
                                                 Medicines
                                             </Button></td>
-                      {/* <td>
-                        <Button color="primary" onClick={() => { toggle(healthhistory.medicines) }}>
-                                                Medicines
-                                            </Button> */}
-                        {/* <tbody>{healthhistory&&
-                          healthhistory.medicines.map((hh) => {
-                            debugger;
-                            console.log(hh.medicineName);
-                          <tr key={hh.id}>
-                            <td scope="row">
-                              {hh.medicineName}
-                            </td>
-                          </tr>
-                            })}
-                       </tbody> */}
-                      {/* </td> */}
-                      {/*getMedicines()  */}
                     </tr>
                   );
-                  debugger;
                 })}
             </tbody>
           </Table>
@@ -137,17 +110,23 @@ const getMedicines = (id) => {
         <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"lg"}>
           <ModalHeader toggle={toggle}>Medicines</ModalHeader>
           <ModalBody>
-           ( <>
-              <table>
-                {
-                  medicine.map((medicine) => {
-                    <tr key={medicine?.medicine?.id}>
-                      <td>{medicine.id}</td>
+            <>
+              <Table hover responsive size="" striped className="w-100  p-3">
+                <tr>
+                <th>Medicine Name</th>
+                <th>Medicine Charges</th><th>Duration</th></tr>
+                {med&&
+                  med?.map((medicine) => { return(
+                    //debugger;
+                    <tr key={medicine?.id}>
+                      <td>{medicine.medicineName}</td>
+                      <td>{medicine.medicineCharges}</td>
+                      <td>{medicine.duration}</td>
                     </tr>
-                  }
-                  )
-                }</table>
-            </>)
+                  )}
+                  )}
+                </Table>
+            </>
             </ModalBody>            
           </Modal>
       </Base>
