@@ -5,7 +5,7 @@ function Accountant() {
   return (
     <div>
         <Base>
-        Accountatn
+        Accountant
         </Base>
     </div>
   )

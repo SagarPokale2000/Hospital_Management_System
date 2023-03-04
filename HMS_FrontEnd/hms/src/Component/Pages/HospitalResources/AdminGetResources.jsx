@@ -64,7 +64,7 @@ function AdminGetResources() {
   const deleteResource = (id) => {
     RESOURCEAXIOS.delete(`/resources/`+id,resource).then((response) => {
           const result = response.data
-          if (result['status'] === 'success') {
+          if (result.success === true) {
             // reload the screen
             getAdminGetResources()
             //toast.success("Resource Deleted Successfully");

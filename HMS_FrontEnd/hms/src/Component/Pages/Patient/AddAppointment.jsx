@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   Card,
@@ -10,12 +11,13 @@ import {
   Label,
   Row,
   Input,
-  Button,
+  Button,Modal, ModalHeader, ModalBody, ModalFooter,toggle
 } from "reactstrap";
 import { AddAppoinment } from "../../../ServerCall/Patient/PatientAxios";
 import Base from "../../Base/Base";
 
 function Appointment() {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     symptoms: "",
     appointmentDate: "",
@@ -28,6 +30,10 @@ function Appointment() {
     console.log(data);
   };
 
+  const [modal, setModal] = useState(false);
+  const toggle = () => {
+    setModal(!modal);
+  }
   // Reset the form
     const resetData = () => {
         setData({
@@ -49,18 +55,23 @@ function Appointment() {
         .then((response) => {
           console.log(response)
          //toast.success("Appointment Book Successfully");
-        resetData();
+          resetData();
+          navigate('/user/Patient');
       })
       .catch((error) => {
         console.log(error);
         console.log("error log");
       });
   };
+  const dash = () => {
+    navigate('/user/Patient')
+}
 //const firstName=localStorage.getItem("firstName")
   return (
       <div>
       <Base>
         <br />
+        <br/><br/>
         <Container>
           <Row className="mt-5 mb-5">
             <Col sm={{ size: 6, offset: 3 }}>
@@ -113,13 +124,20 @@ function Appointment() {
                     </FormGroup> 
 
                     <Container className="text-center">
-                      <Button outline color="primary">
+                      <Button outline color="primary" onClick={toggle}>
                         Book Appointment
                       </Button>
                       <Button
+                    onClick={dash}
+                    outline
+                        color="secondary"
+                        className="ms-3">
+                    Cancel
+                  </Button>
+                      <Button
                         onClick={resetData}
                         outline
-                        color="secondary"
+                        color="danger"
                         className="ms-3"
                       >
                         Reset
@@ -131,6 +149,17 @@ function Appointment() {
             </Col>
           </Row>
         </Container>
+        <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"sm"}>
+          <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
+          <ModalBody>
+            <Button outline
+                        color="primary"
+                        className="ms-3" onClick={submitForm}>Yes</Button>
+            <Button outline
+                        color="danger"
+                        className="ms-3" onClick={toggle} >No</Button>
+            </ModalBody>            
+          </Modal>
       </Base>
     </div>
   );

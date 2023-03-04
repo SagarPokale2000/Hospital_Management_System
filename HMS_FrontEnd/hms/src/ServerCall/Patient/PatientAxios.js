@@ -8,3 +8,6 @@ export const GetAllHealthHistory = (patient) => {
     return PrivateAxios.get(`/patient/${JSON.parse(localStorage.data).user.patient.id}/healthhistory`,patient).then((response) => response.data);
 }
 
+export const GetAllAppintmentHistory =(patient) => {
+    return PrivateAxios.get(`/patient/${JSON.parse(localStorage.data).user.patient.id}/appointmenthistory`,patient).then((response) => response.data);
+}

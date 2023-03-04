@@ -48,6 +48,14 @@ public class HealthHistoryController {
 		return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
 	}
 	
+	//get Appointment history by patient
+		@PreAuthorize("hasRole('PATIENT')")
+		@GetMapping("/patient/{patientId}/appointmenthistory")
+		public @ResponseBody ResponseEntity<List<HealthHistoryDto>> getAppointmentHistoryBypatient(@PathVariable Integer patientId) {
+			List<HealthHistoryDto> healths = this.healthservice.getAppointmentHistoryBypatient(patientId);
+			return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
+		}
+	
 	// allocate ward and bed
 		@PreAuthorize("hasRole('RECEPTIONIST')")
 		@PutMapping("/healthhistory/{healthId}/ward/{wardId}")
