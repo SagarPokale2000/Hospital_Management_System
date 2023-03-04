@@ -17,6 +17,11 @@ import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
 import AppointPatientList from "./Component/Pages/Doctor/AppointPatientList";
 import PatientDetails from "./Component/Pages/Doctor/PatientDetails";
 import Admin from "./Component/CustomeNavBar/Admin/SideNavBar";
+import AddResources from "./Component/Pages/HospitalResources/AddResources";
+import { GetAllResources } from "./ServerCall/HospitalResources/Resources";
+import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
+import UpdateResource from "./Component/Pages/HospitalResources/UpdateResource";
+import AppintmentHistory from "./Component/Pages/Patient/AppointmentHistory";
 
 function App() {
   return (
@@ -45,8 +50,12 @@ function App() {
             <Route path="/signUp" element={<Signup />}></Route>
             <Route path="/user" element={<PrivateRoute />}>
               <Route path="patient" element={<Patient />}></Route>
+              
+             
               <Route path="AddAppoinment" element={<AddAppoinment />}></Route>
               <Route path="HealthHistory" element={<HealthHistory />}></Route>
+              <Route path="AppintmentHistory" element={<AppintmentHistory />}></Route>
+              
               <Route path="doctor" element={<AppointPatientList />}></Route>
               <Route path="receptionist" element={<Patient />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
@@ -57,7 +66,7 @@ function App() {
               <Route path="update/patient/:id" element={<PatientDetails />}></Route>
             </Route>
             <Route path="/AddResources" element={<AddResources />}></Route>
-            <Route path="/GetResources" element={<GetResources />}></Route>
+            <Route path="/GetResources" element={<GetAllResources />}></Route>
             <Route path="/AdminGetResources" element={<AdminGetResources />}></Route>
             <Route path="/UpdateResource" element={<UpdateResource />}></Route>
             <Route path="/" element={<Home />}></Route> 
