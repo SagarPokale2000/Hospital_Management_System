@@ -39,7 +39,7 @@ function AppintmentHistory(args) {
   const getAppointmentHistory = (id) => {
 
     PrivateAxios.get(`/patient/`+id+`/healthhistory`).then((response) => {
-      //const result = response.serverData
+      //const result = response.data
       setData(response.data);//logic issue
       toast.success("Appointment Deleted Successfully");
   })

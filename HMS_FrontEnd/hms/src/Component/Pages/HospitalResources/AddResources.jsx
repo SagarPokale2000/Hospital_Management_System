@@ -10,13 +10,15 @@ import {
   Label,
   Row,
   Input,
-  Button,
+  Button,Modal, ModalHeader, ModalBody, ModalFooter,toggle
 } from "reactstrap";
 import { AddResource } from "../../../ServerCall/HospitalResources/Resources";
 import Base from "../../Base/Base";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function AddResources() {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     resource_name: "",
     total_quantity: "",
@@ -29,7 +31,10 @@ function AddResources() {
     setData({...data, [property]: event.target.value })
     console.log(data);
   };
-
+  const [modal, setModal] = useState(false);
+  const toggle = () => {
+    setModal(!modal);
+  }
   // Reset the form
     const resetData = () => {
         setData({
@@ -52,13 +57,17 @@ function AddResources() {
         .then((response) => {
           console.log(response)
          toast.success("Resource Added Successfully");
-        resetData();
+          resetData();
+          navigate('/AdminGetResources');
       })
       .catch((error) => {
         console.log(error);
         console.log("error log");
       });
   };
+  const dash = () => {
+    navigate('/AdminGetResources')
+}
 //const firstName=localStorage.getItem("firstName")
   return (
       <div>
@@ -129,9 +138,16 @@ function AddResources() {
                    
 
                     <Container className="text-center">
-                      <Button outline color="primary">
+                      <Button outline color="primary" onClick={toggle}>
                         Add Resource
                       </Button>
+                      <Button
+                    onClick={dash}
+                    outline
+                        color="secondary"
+                        className="ms-3">
+                    Cancel
+                  </Button>
                       <Button
                         onClick={resetData}
                         outline
@@ -147,6 +163,17 @@ function AddResources() {
             </Col>
           </Row>
         </Container>
+        <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"sm"}>
+          <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
+          <ModalBody>
+            <Button outline
+                        color="primary"
+                        className="ms-3" onClick={submitForm}>Yes</Button>
+            <Button outline
+                        color="danger"
+                        className="ms-3" onClick={toggle} >No</Button>
+            </ModalBody>            
+          </Modal>
       </Base>
     </div>
   );
