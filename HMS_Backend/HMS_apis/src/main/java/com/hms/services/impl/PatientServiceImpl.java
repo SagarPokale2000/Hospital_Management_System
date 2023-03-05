@@ -88,8 +88,6 @@ public class PatientServiceImpl implements PatientService {
 		User userAddedAddress = addedAddress.getUser();
 
 		patient.setUser(userAddedAddress);
-		// patient.setDoctor(null);
-		// patient.setWard(null);
 		Patient newPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}
@@ -104,6 +102,7 @@ public class PatientServiceImpl implements PatientService {
 		patient.setCurrentStatus(patientDto.getCurrentStatus());
 		patient.setAdmitStatus(patientDto.getAdmitStatus());
 		patient.setPaymentStatus(patientDto.getPaymentStatus());
+		patient.setCurrentStatus(false);
 
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
