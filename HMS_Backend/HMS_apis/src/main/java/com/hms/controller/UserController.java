@@ -29,7 +29,14 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
+	
+	// get
+		@GetMapping("/{Id}")
+		public ResponseEntity<UserDto> getUser(@PathVariable Integer Id) {
+			UserDto userDto = this.userService.getUser(Id);
+			return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
+		}
+/*
 	// create
 	@PostMapping("/")
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
@@ -52,17 +59,12 @@ public class UserController {
 		return new ResponseEntity<ApiResponse>(new ApiResponse("User is deleted successfully !!", true), HttpStatus.OK);
 	}
 
-	// get ( not needed )
-	@GetMapping("/{Id}")
-	public ResponseEntity<UserDto> getUser(@PathVariable Integer Id) {
-		UserDto userDto = this.userService.getUser(Id);
-		return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
-	}
+	
 
 	// get all ( not needed )
 	@GetMapping("/")
 	public ResponseEntity<List<UserDto>> getUsers() {
 		List<UserDto> users = this.userService.getUsers();
 		return ResponseEntity.ok(users);
-	}
+	}*/
 }

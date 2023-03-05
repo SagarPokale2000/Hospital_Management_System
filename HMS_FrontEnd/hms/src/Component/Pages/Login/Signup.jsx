@@ -45,7 +45,7 @@ function Signup() {
   const [data, setData] = useState({
     admitStatus: false,
     currentStatus: false,
-    action: false,
+    paymentStatus: false,
     user : {}
   });
 
@@ -93,7 +93,7 @@ function Signup() {
     setData({
       admitStatus: false,
       currentStatus: false,
-      action: false,
+      paymentStatus: false,
     user : {}
   });
   };
@@ -138,7 +138,7 @@ function Signup() {
         <br />
         <Container>
           <Row className="mt-5 mb-5">
-            {JSON.stringify(data)}
+            {/* {JSON.stringify(data)} */}
             <Col sm={{ size: 6, offset: 3 }}>
               <Card outline color="dark">
                 <CardHeader>

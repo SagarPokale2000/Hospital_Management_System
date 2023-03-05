@@ -325,7 +325,8 @@ function AddEmployee() {
                     </Container>
                   </Form>
                 </CardBody>
-              </Card>
+          </Card>
+          
             </Col>
           </Row>
     </div>

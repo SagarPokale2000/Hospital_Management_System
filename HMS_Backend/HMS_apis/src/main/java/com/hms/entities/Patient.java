@@ -1,9 +1,7 @@
 package com.hms.entities;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,8 +40,8 @@ public class Patient {
 	@Column(name = "current_status", columnDefinition = "boolean default false")
 	private Boolean currentStatus;
 
-	@Column(columnDefinition = "boolean default false")
-	private Boolean action;
+	@Column(name = "payment_status",columnDefinition = "boolean default false")
+	private Boolean paymentStatus;
 
 	@OneToOne()
 	@JoinColumn(name = "user_Id")

@@ -1,6 +1,6 @@
 import React from 'react'
 import CustomeNavBar from '../CustomeNavBar/CustomeNavBar'
-
+import Footer from '../Home/Footer';
 const Base = ({children})  =>{
   
   
@@ -9,7 +9,11 @@ const Base = ({children})  =>{
 
         <CustomeNavBar  />
 
-        {children}
+      {children}
+      <br/>
+      <br/>
+      <br/>
+      <Footer />
 
     </div>
 );

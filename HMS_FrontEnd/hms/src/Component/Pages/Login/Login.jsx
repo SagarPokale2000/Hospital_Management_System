@@ -106,7 +106,6 @@ function Login() {
         <br />
         <br />
         <Container>
-          {JSON.stringify(loginDetail)}
           <Row className="mt-3">
             <Col sm={{ size: 6, offset: 3 }}>
               <Card outline color="dark">

@@ -11,6 +11,7 @@ import AddAppoinment from "./Component/Pages/Patient/AddAppointment";
 import HealthHistory from "./Component/Pages/Patient/HealthHistory";
 import PrivateRoute from "./Component/Base/PrivateRoute";
 import Accountant from "./Component/Pages/Accountant/Accountant";
+import Receptionist from "./Component/Pages/Receptionist/Receptionist";
 import Doctor from "./Component/Pages/Doctor/Doctor";
 import AdminDashboard from "./Component/Pages/Admin/AdminDashboard";
 import SideNavBar from "./Component/CustomeNavBar/Admin/SideNavBar";
@@ -21,6 +22,7 @@ import AddResources from "./Component/Pages/HospitalResources/AddResources";
 import { GetAllResources } from "./ServerCall/HospitalResources/Resources";
 import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
 import AppintmentHistory from "./Component/Pages/Patient/AppointmentHistory";
+import PatientAccountList from "./Component/Pages/Accountant/PatientAccountList";
 
 function App() {
   return (
@@ -49,24 +51,23 @@ function App() {
             <Route path="/signUp" element={<Signup />}></Route>
             <Route path="/user" element={<PrivateRoute />}>
               <Route path="patient" element={<Patient />}></Route>
-              
              
               <Route path="AddAppoinment" element={<AddAppoinment />}></Route>
               <Route path="HealthHistory" element={<HealthHistory />}></Route>
               <Route path="AppintmentHistory" element={<AppintmentHistory />}></Route>
+              <Route path="PatientAccountList" element={<PatientAccountList />}></Route>
               
               <Route path="doctor" element={<AppointPatientList />}></Route>
-              <Route path="receptionist" element={<Patient />}></Route>
+              <Route path="receptionist" element={<Receptionist />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
               <Route path="admin" element={<Admin />}></Route>
-
-              
 
               <Route path="update/patient/:id" element={<PatientDetails />}></Route>
             </Route>
             <Route path="/AddResources" element={<AddResources />}></Route>
             <Route path="/GetResources" element={<GetAllResources />}></Route>
             <Route path="/AdminGetResources" element={<AdminGetResources />}></Route>
+            
             <Route path="/" element={<Home />}></Route> 
           </Routes>
         </BrowserRouter>
