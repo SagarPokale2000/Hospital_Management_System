@@ -58,6 +58,9 @@ public class Health_History {
 	@Column(name = "admit_date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate admitDate;
+	
+	@Column(name = "payment_status",columnDefinition = "boolean default false")
+	private Boolean paymentStatus;
 
 	@Column(name = "allocated_bed", length = 45)
 	private String allocatedBed;

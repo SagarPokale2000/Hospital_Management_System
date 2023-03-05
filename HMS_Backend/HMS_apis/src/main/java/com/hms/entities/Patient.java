@@ -39,10 +39,10 @@ public class Patient {
 
 	@Column(name = "current_status", columnDefinition = "boolean default false")
 	private Boolean currentStatus;
-
+/*
 	@Column(name = "payment_status",columnDefinition = "boolean default false")
 	private Boolean paymentStatus;
-
+*/
 	@OneToOne()
 	@JoinColumn(name = "user_Id")
 	private User user;
