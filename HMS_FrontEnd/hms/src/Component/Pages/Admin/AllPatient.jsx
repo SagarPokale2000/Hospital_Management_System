@@ -71,7 +71,7 @@ function AllPatient() {
                     <td>{user?.user.dob}</td>
                     <td>{user?.user.mobileNo}</td>
                     <td>{user?.user.email}</td>
-                    <td>{user?.user.bloodGroup}</td>
+                    <td>{user?.user.admitStatus}</td>
                   </tr>
                 );
               })}

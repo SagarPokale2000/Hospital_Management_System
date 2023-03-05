@@ -3,25 +3,27 @@ import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
 import { GetAllHealthHistory } from "../../../ServerCall/Patient/PatientAxios";
 import Base from "../../Base/Base";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter,toggle } from 'reactstrap';
+import { useNavigate } from "react-router-dom";
+import { MYAXIOIS } from "../../../ServerCall/Axios/AxiosHelper";
 
-function HealthHistory() {
+function HealthHistory(args) {
   const [data, setData] = useState({
     content: [],
   });
+  const [med, setMedicine] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     // load post of postId
     GetAllHealthHistory()
       .then((serverData) => {
-      console.log(serverData)
+      //console.log(serverData)
       setData({
         // Concatinent the pageContent with new data -> new data with existing data
         content: [...data.content, ...serverData]
       });
 
-      // console.log(serverData);
-      // setData(serverData);
-      // debugger;
     })
     .catch((error) => {
       console.log(error);
@@ -29,27 +31,43 @@ function HealthHistory() {
     });
   }, []);
 
-  console.log(data?.content);
-  const healthhistory = data?.content;
-  // debugger;
-  // getMedicines(){
-  //   return this.healthhistory.medicines.map(() => {
-      
-  //   })
-  // }
+  const [modal, setModal] = useState(false);
+  const toggle = () => {
+    setModal(!modal);
+  }
 
+  const dash = () => {
+    navigate('/user/Patient')
+}
+
+ // console.log(data?.content);
+  const healthhistory = data?.content;
+  
+const getMedicines = (id) => {
+
+  MYAXIOIS.get(`/healthhistory/` + id + `/medicine`).then((response) => {
+   // content: [...data.content, ...serverData]
+    setMedicine(response.data);
+      toggle()
+    })
+  }
   return (
     <div>
       <Base>
         <br />
         <br />
         <br />
+        <Button
+                    onClick={dash}
+                    className='btn btn-sm btn-info'>
+                    Back
+                  </Button>
         <Container>
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>
               <tr>
-                <th>id</th>
-                <th>Name</th>
+                <th>Id</th>
+                <th>Patient Name</th>
                 <th>Appintment Date</th>
                 <th>Appintment Time</th>
                 <th>symptoms</th>
@@ -57,7 +75,7 @@ function HealthHistory() {
                 <th>diseases</th>
                 <th>admitDate</th>
                 <th>dischargeDate</th>
-                <th>prescriptionInstruction</th>
+                <th>prescriptions</th>
                 <th>allocatedBed</th>
                 <th>Medicines</th>
               </tr>
@@ -79,30 +97,42 @@ function HealthHistory() {
                       <td>{healthhistory.dischargeDate}</td>
                       <td>{healthhistory.prescriptionInstruction}</td>
                       <td>{healthhistory.allocatedBed}</td>
-                      <td>
-                        <tbody>{healthhistory&&
-                          healthhistory.medicines.map((hh) => {
-                            debugger;
-                            console.log(hh.medicineName);
-                          <tr key={hh.id}>
-                            <td scope="row">
-                              {hh.medicineName}
-                            </td>
-                          </tr>
-                            })}
-                       </tbody>
-                      </td>
-                      {/*getMedicines()  */}
+                      <td><Button color="primary" onClick={() => { getMedicines(healthhistory.id) }}>
+                                                Medicines
+                                            </Button></td>
                     </tr>
                   );
-                  debugger;
                 })}
             </tbody>
           </Table>
         </Container>
+
+        <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"lg"}>
+          <ModalHeader toggle={toggle}>Medicines</ModalHeader>
+          <ModalBody>
+            <>
+              <Table hover responsive size="" striped className="w-100  p-3">
+                <tr>
+                <th>Medicine Name</th>
+                <th>Medicine Charges</th><th>Duration</th></tr>
+                {med&&
+                  med?.map((medicine) => { return(
+                    //debugger;
+                    <tr key={medicine?.id}>
+                      <td>{medicine.medicineName}</td>
+                      <td>{medicine.medicineCharges}</td>
+                      <td>{medicine.duration}</td>
+                    </tr>
+                  )}
+                  )}
+                </Table>
+            </>
+            </ModalBody>            
+          </Modal>
       </Base>
     </div>
   );
 }
+
 
 export default HealthHistory;

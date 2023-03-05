@@ -47,6 +47,9 @@ public class Health_History {
 
 	@Column(name = "symptoms", length = 100)
 	private String symptoms;
+	
+	@Column(name="paid_amount")
+	private double paidAmount;
 
 	@Column(name = "appointment_time")
 	@JsonFormat(pattern = "HH:mm:ss")

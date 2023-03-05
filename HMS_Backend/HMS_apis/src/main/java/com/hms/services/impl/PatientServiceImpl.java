@@ -1,5 +1,6 @@
 package com.hms.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,8 +88,6 @@ public class PatientServiceImpl implements PatientService {
 		User userAddedAddress = addedAddress.getUser();
 
 		patient.setUser(userAddedAddress);
-		// patient.setDoctor(null);
-		// patient.setWard(null);
 		Patient newPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}
@@ -102,7 +101,8 @@ public class PatientServiceImpl implements PatientService {
 
 		patient.setCurrentStatus(patientDto.getCurrentStatus());
 		patient.setAdmitStatus(patientDto.getAdmitStatus());
-		patient.setAction(patientDto.getAction());
+		patient.setPaymentStatus(patientDto.getPaymentStatus());
+		patient.setCurrentStatus(false);
 
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
@@ -177,6 +177,39 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
+	public PatientResponse getAllPatientForAccountant(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir) {
+		Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+
+		Page<Patient> pagePatient = this.patientRepo.findAll(p);
+
+		List<Patient> allPatients = pagePatient.getContent();
+		List<Patient> temp = new ArrayList<Patient>();
+		List<PatientDto> patientDtos=null;
+		for (Patient pat : allPatients) {
+			if (pat.getCurrentStatus().equals(true) && pat.getPaymentStatus().equals(false)) {
+				temp.add(pat);
+			}
+		}
+		patientDtos = temp.stream()
+				.map((patient) -> this.modelMapper.map(patient, PatientDto.class)).collect(Collectors.toList());
+
+		PatientResponse patientResponse = new PatientResponse();
+
+		patientResponse.setContent(patientDtos);
+		patientResponse.setPageNumber(pagePatient.getNumber());
+		patientResponse.setPageSize(pagePatient.getSize());
+		patientResponse.setTotalElements(pagePatient.getTotalElements());
+
+		patientResponse.setTotalPages(pagePatient.getTotalPages());
+		patientResponse.setLastPage(pagePatient.isLast());
+
+		return patientResponse;
+	}
+
+	@Override
 	public List<PatientDto> getPatientsByDoctor(Integer doctorId) {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", doctorId));
@@ -222,6 +255,7 @@ public class PatientServiceImpl implements PatientService {
 
 		this.userRepo.delete(user);
 	}
+	
 
 	/*
 	 * // create new patient

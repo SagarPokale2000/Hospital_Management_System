@@ -1,6 +1,5 @@
 import React from 'react'
 import Base from '../../Base/Base';
-import Appointment from './AddAppointment';
 import {
   Nav,
   NavItem,
@@ -21,6 +20,9 @@ function Patient() {
     <NavLink href='AddAppoinment'>
             AddAppoinment
           </NavLink>
+          <NavLink href='AppintmentHistory'>
+          Appintment History
+    </NavLink>
           <NavLink href='HealthHistory'>
             Health History
     </NavLink>
