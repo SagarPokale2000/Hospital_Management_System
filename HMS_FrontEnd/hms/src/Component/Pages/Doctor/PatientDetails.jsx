@@ -24,7 +24,7 @@ function PatientDetails(props) {
   const [name, setName] = useState("");
   const [admitStatus, setAdmitStatus] = useState(false);
 
-  const [data, setData] = useState({
+  const [value, setValue] = useState({
     admitStatus: false,
     health_history: [],
   });
@@ -35,8 +35,8 @@ function PatientDetails(props) {
   });
 
   useEffect(() => {
-    getPatientDetails(id).then((serverData) => {
-      setName(serverData.user.firstName);
+    getPatientDetails(id).then((servervalue) => {
+      setName(servervalue.user.firstName);
     });
   }, []);
 
@@ -45,29 +45,29 @@ function PatientDetails(props) {
   };
 
   //   console.log(health_history);
-  // console.log(data.admitStatus);
+  // console.log(value.admitStatus);
 
   const handleFormSubmit = () => {
     console.log("Inside server call");
-    // setData((data) => ({
-    //   ...data,
-    //   health_history: [...data.health_history, health_history],
+    // setValue((value) => ({
+    //   ...value,
+    //   health_history: [...value.health_history, health_history],
     //   admitStatus,
     // }));
 
-    updatePatientStatus(id, data).then((serverData) => {
-      console.log('data from server')
-      console.log(serverData);
+    updatePatientStatus(id, value).then((servervalue) => {
+      console.log('value from server')
+      console.log(servervalue);
       toast.success("Updated the Patient")
     });
 
-    console.log(data);
+    console.log(value);
   };
 
   useEffect(() => {
-    setData((data) => ({
-      ...data,
-      health_history: [...data.health_history, health_history],
+    setValue((value) => ({
+      ...value,
+      health_history: [...value.health_history, health_history],
       admitStatus,
     }));
   }, [admitStatus]);
