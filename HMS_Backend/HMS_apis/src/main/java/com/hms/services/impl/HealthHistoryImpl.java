@@ -75,6 +75,19 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
+	
+
+	@Override
+	public HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt) {
+		Health_History healths = this.healthRepo.findById(Id)
+				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", Id));
+		double a=healths.getPaidAmount()+amt;
+		healths.setPaidAmount(a);
+		
+		Health_History updatedHealth = this.healthRepo.save(healths);
+		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
+	}
+
 
 	// update HH
 	@Override
@@ -82,13 +95,13 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 		Health_History healths = this.healthRepo.findById(healthId)
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
-		
+
 //appointment
 		healths.setSymptoms(healthDto.getSymptoms());
 		healths.setAppointmentDate(healthDto.getAppointmentDate());
 		healths.setAppointmentTime(healthDto.getAppointmentTime());
 		healths.setPaidAmount(healthDto.getPaidAmount());
-		
+
 //updated by doctor
 		healths.setDiseases(healthDto.getDiseases());
 		healths.setPrescriptionInstruction(healthDto.getPrescriptionInstruction());
@@ -123,6 +136,22 @@ public class HealthHistoryImpl implements HealthHistoryService {
 				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
 
 		return healthDtos;
+	}
+
+	@Override
+	public HealthHistoryDto getHealthHistoryByAccountant(Integer patientId) {
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
+		List<Health_History> healths = this.healthRepo.findByPatient(patient);
+		List<HealthHistoryDto> healthDtos = healths.stream()
+				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
+		HealthHistoryDto h = null;
+		for (HealthHistoryDto hdo : healthDtos) {
+			if (hdo.getPaymentStatus().equals(true)) {
+				h = hdo;
+			}
+		}
+		return h;
 	}
 
 	@Override

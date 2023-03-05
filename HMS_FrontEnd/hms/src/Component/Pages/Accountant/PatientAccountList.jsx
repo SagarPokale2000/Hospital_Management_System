@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button, Container, Table,Modal, ModalHeader, ModalBody, ModalFooter,toggle } from "reactstrap";
+import { Button, Container, Table,Modal, ModalHeader, ModalBody, ModalFooter,toggle,Input } from "reactstrap";
 import { GetPatientForAccountant } from "../../../ServerCall/Accountant/AccountantAxios";
 import Base from "../../Base/Base";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
-
+import JsPDF from "jspdf";
+import { autoTable } from "jspdf-autotable";
 function PatientAccountList() {
     const navigate = useNavigate()
     const [data, setData] = useState({
@@ -16,9 +17,19 @@ function PatientAccountList() {
       lastPage: false,
       pageNumber: "",
     });
+  const [pat, setPat] = useState({
+      id:"",
+      paidAmount: "",
+      TotalAmount: "",
+      RemainingAmount: "",
+      days:"",
+      doctorFee: "",
+      medicineCharges: "",
+      wardCharges: "",
+      pay:0
+    });
     const [modal, setModal] = useState(false);
   const toggle = () => {
-      
       setModal(!modal);
     }
     useEffect(() => {
@@ -34,10 +45,7 @@ function PatientAccountList() {
             lastPage: serverData.lastPage,
             pageNumber: serverData.pageNumber,
           });
-  
-           console.log(serverData);
-          // setData(serverData);
-          // debugger;
+          //  console.log(serverData);
         })
         .catch((error) => {
           console.log(error);
@@ -45,28 +53,100 @@ function PatientAccountList() {
         });
     }, []);
   
-    // debugger
   const user = data?.content;
-  
-  const UpdatePayment = (id) => {
-    // PrivateAxios.delete(`/healthhistory/`+id).then((response) => {
-    //     const result = response.data
-    //     //debugger;
-    //       if (result.success === true) {
-    //         // reload the screen
-    //         getAppointmentHistory(JSON.parse(localStorage.data).user.patient.id);
-    //           //navigate('/user/AppintmentHistory')
-    //         //toast.success("Appointment Deleted Successfully");
-    //       } else {
-    //         toast.error(result['error'])
-    //       }
-    //     })
+
+  const resetData = () => {
+      setPat({id:"",
+      paidAmount: "",
+      TotalAmount: "",
+      RemainingAmount: "",
+      days:"",
+      doctorFee: "",
+      medicineCharges: "",
+      wardCharges: "",
+      pay:0})
+    
+  };
+
+  const getHealthHistory = (id) => {
+    PrivateAxios.get(`patient/`+ id+`/healthhistory/accountant`).then((response) => {
+      var result = response.data;
+      debugger;
+      pat.id = result.id;
+      let dis = new Date(result.dischargeDate);
+      let adm = new Date(result.admitDate);
+      var days = (dis - adm) / (60 * 1000 * 60 * 24);
+      pat.days = days;
+      var wardCharges = pat.days * pat.wardCharges;
+      setPat({...pat,"wardCharges":wardCharges});
+      var med = 0;
+      result.medicines.map((m) => {
+        med = med + m.medicineCharges;
+      })
+      pat.medicineCharges = med;
+      //setPat({ ...pat, "medicineCharges": med });
+      var total = pat.doctorFee + pat.wardCharges + pat.medicineCharges;
+      //setPat({ ...pat, "TotalAmount": total });
+      pat.TotalAmount = total;
+      var rem = total - result.paidAmount;
+      pat.RemainingAmount = rem;
+      setPat({ ...pat, "paidAmount": result.paidAmount });
+    })
+    toggle()
   }
   
-    // debugger;
-    const dash = () => {
-      navigate('/user/Accountant')
-}
+  const UpdatePaidAmount = () => {
+    //debugger;
+    PrivateAxios.put(`healthhistory/` +pat.id+`/amount/`+ pat.pay).then((response) => {
+       debugger;
+      var result = response.data;
+      resetData();
+      toggle();
+      toast.success("Payment Done Successfully");
+     })
+  }
+
+  const UpdatePayment = (id) => {
+    resetData();
+    PrivateAxios.get(`patients/` + id).then((response) => {
+     // debugger;
+      var result = response.data;
+      pat.doctorFee = result.doctor.doctorFee;
+      pat.wardCharges = result.ward.wardCharges;
+      getHealthHistory(id);
+    })
+  }
+  const handleChange = (event, property) => {
+    console.log(pat);
+    setPat({ ...pat, [property]: event.target.value })
+  };
+  const dash = () => {
+    navigate('/user/Accountant')
+  }
+
+  const GenerateInvoice = () => {
+    var doc = new JsPDF('p', 'pt', 'letter')
+    // Supply data via script
+    var body = [
+      ['Doctor Fee ', pat.doctorFee],
+      ['Medicine Charges ',pat.medicineCharges],
+      ['Ward Charges ', pat.wardCharges],
+      ['Total Amount ',pat.TotalAmount],
+      ['Paid Amount ',pat.paidAmount]
+               ]
+    // generate auto table with body
+    var y = 10;
+    doc.setLineWidth(2);
+    doc.text(200, y = y + 30, "Hospital Management System");
+    doc.autoTable({
+        body: body,
+        startY: 70,
+        theme: 'grid',
+                 })
+    // save the data to this file
+    doc.save('hms');
+  }
+
     return (
       <div>
         <Base>
@@ -85,8 +165,7 @@ function PatientAccountList() {
                   <th>DOB</th>
                   <th>Contact</th>
                   <th>E-Mail</th>
-                  <th>Update Payment</th>
-                  <th>Generate Invoice</th>
+                  <th>Update Payment / Generate Invoice</th>
                 </tr>
               </thead>
   
@@ -102,28 +181,71 @@ function PatientAccountList() {
                       <td>{user?.user.mobileNo}</td>
                       <td>{user?.user.email}</td>
                       <td><Button
-                    onClick={toggle}
+                    onClick={() => { UpdatePayment(user.id) }}
                     style={styles.button}
                     className='btn btn-sm btn-success'>
                     Update Payemnt
                   </Button></td>
-                      <td></td>
                     </tr>
                   );
                 })}
               </tbody>
             </Table>
           </Container>
-          <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"sm"}>
-          <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
+          <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"md"}>
+          <ModalHeader toggle={toggle}>Update Patient Payment</ModalHeader>
           <ModalBody>
-            <Button outline
-                        color="primary"
-                        className="ms-3" onClick={() => UpdatePayment(user.id)}>Yes</Button>
-            <Button outline
-                        color="danger"
-                        className="ms-3" onClick={toggle} >No</Button>
-            </ModalBody>            
+              <>
+                <Table>
+                  <tbody>
+                <tr>
+                    <th>doctor fee  = </th>
+                    <td>{pat.doctorFee}</td>
+                  </tr>
+                  <tr>
+                    <th>Ward Charges for {pat.days} days  = </th>
+                    <td>{pat.wardCharges}</td>
+                    </tr>
+                    <tr>
+                    <th>Medicine Charges  = </th>
+                    <td>{pat.medicineCharges}</td>
+                    </tr>
+                    <tr>
+                    <th>Total Amount  = </th>
+                    <td>{pat.TotalAmount}</td>
+                    </tr>
+                    <tr>
+                    <th>Paid Amount  = </th>
+                    <td>{pat.paidAmount}</td>
+                    </tr>
+                    <tr>
+                    <th>Remaining Amount  = </th>
+                    <td>{pat.RemainingAmount}</td>
+                    </tr>
+                    <tr>
+                    <th>Amount To pay  = </th>
+                    <td><Input
+                            type="number"
+                            placeholder="Enter Here"
+                            id="pay"
+                            onChange={(e) => {
+                              handleChange(e, "pay");
+                            }}
+                            value={pat.pay}
+                          /></td>
+                    </tr>
+                    <tr>
+                    <th><Button outline color="primary" onClick={UpdatePaidAmount}> 
+                  Pay
+                      </Button></th>
+                      <th><td><Button outline color="primary" onClick={GenerateInvoice}> 
+                  Invoice
+                </Button></td></th>
+                    </tr>
+                  </tbody>
+                </Table>
+                </>
+          </ModalBody>            
           </Modal>
         </Base>
       </div>

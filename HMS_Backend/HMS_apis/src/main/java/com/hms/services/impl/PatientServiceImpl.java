@@ -2,7 +2,10 @@ package com.hms.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +106,6 @@ public class PatientServiceImpl implements PatientService {
 
 		patient.setCurrentStatus(patientDto.getCurrentStatus());
 		patient.setAdmitStatus(patientDto.getAdmitStatus());
-		patient.setPaymentStatus(patientDto.getPaymentStatus());
 
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
@@ -190,7 +192,7 @@ public class PatientServiceImpl implements PatientService {
 		List<Patient> temp = new ArrayList<Patient>();
 		List<PatientDto> patientDtos=null;
 		for (Patient pat : allPatients) {
-			if (pat.getCurrentStatus().equals(true) && pat.getPaymentStatus().equals(false)) {
+			if (pat.getCurrentStatus().equals(true)) {
 				temp.add(pat);
 			}
 		}

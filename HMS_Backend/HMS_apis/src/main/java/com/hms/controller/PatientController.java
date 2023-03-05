@@ -54,7 +54,8 @@ public class PatientController {
 		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
 	}
 	
-	// get patients by Id
+	// get patients by Id ( used for accountant )
+	@PreAuthorize("hasRole('ACCOUNTANT')")
 	@GetMapping("/patients/{patientId}")
 	public ResponseEntity<PatientDto> getPatientsById(@PathVariable Integer patientId) {
 		PatientDto patientDto = this.patientService.getPatientById(patientId);
