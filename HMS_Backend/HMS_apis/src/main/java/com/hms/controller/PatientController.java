@@ -80,6 +80,18 @@ public class PatientController {
 		PatientResponse patientResponse = this.patientService.getAllPatient(pageNumber, pageSize, sortBy, sortDir);
 		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
 	}
+	
+	@PreAuthorize("hasRole('ACCOUNTANT')")
+	@GetMapping("/accountant/patients")
+	public ResponseEntity<PatientResponse> getAllPatientForAccountant(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+
+		PatientResponse patientResponse = this.patientService.getAllPatientForAccountant(pageNumber, pageSize, sortBy, sortDir);
+		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
+	}
 
 	// delete patient
 	@PreAuthorize("hasRole('ADMIN')")

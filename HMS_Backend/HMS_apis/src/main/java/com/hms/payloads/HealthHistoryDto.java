@@ -35,6 +35,8 @@ public class HealthHistoryDto {
 
 	private String allocatedBed;
 	
+	private double paidAmount;
+	
 	@NotEmpty
 	@Size(min = 5, message = "firstname must be min of 5 characters")
 	private String symptoms;

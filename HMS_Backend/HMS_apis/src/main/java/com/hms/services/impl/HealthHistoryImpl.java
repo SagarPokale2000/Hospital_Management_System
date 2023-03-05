@@ -69,6 +69,7 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		// need to check bed logic allocatedBed
 		healths.setAllocatedBed(healthDto.getAllocatedBed());
 
+		@SuppressWarnings("unused")
 		Patient updatedPatient = this.patientRepo.save(patient);
 
 		Health_History updatedHealth = this.healthRepo.save(healths);
@@ -81,11 +82,13 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 		Health_History healths = this.healthRepo.findById(healthId)
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
+		
 //appointment
 		healths.setSymptoms(healthDto.getSymptoms());
 		healths.setAppointmentDate(healthDto.getAppointmentDate());
 		healths.setAppointmentTime(healthDto.getAppointmentTime());
-
+		healths.setPaidAmount(healthDto.getPaidAmount());
+		
 //updated by doctor
 		healths.setDiseases(healthDto.getDiseases());
 		healths.setPrescriptionInstruction(healthDto.getPrescriptionInstruction());
@@ -135,7 +138,6 @@ public class HealthHistoryImpl implements HealthHistoryService {
 			healthDtos = healths.stream().map((health) -> this.modelMapper.map(health, HealthHistoryDto.class))
 					.collect(Collectors.toList());
 		}
-
 		return healthDtos;
 	}
 
