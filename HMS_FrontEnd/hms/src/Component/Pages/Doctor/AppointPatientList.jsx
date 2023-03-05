@@ -1,12 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button, Container, Table } from "reactstrap";
-import { GetAppointmentList } from "../../../ServerCall/Doctor/DoctoAxios";
+import {
+  GetAppointmentList,
+  getPatientDetails,
+  updatePatientStatus,
+} from "../../../ServerCall/Doctor/DoctoAxios";
 import Base from "../../Base/Base";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {
+  Form,
+  Card,
+  Table,
+  CardBody,
+  CardHeader,
+  Col,
+  Container,
+  FormGroup,
+  Label,
+  Row,
+  Input,
+  Button,
+  ButtonGroup,
+} from "reactstrap";
 import PatientDetails from "./PatientDetails";
 
-function AppointPatientList() {
+function AppointPatientList(args) {
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
   const [localData, setData] = useState([
     {
       id: "",
@@ -15,7 +38,7 @@ function AppointPatientList() {
       admitStatus: false,
       action: false,
       mobileNo: "",
-      bloodGroup : ""
+      bloodGroup: "",
     },
   ]);
 
@@ -31,7 +54,7 @@ function AppointPatientList() {
           admitStatus: data.admitStatus,
           action: data.action,
           mobileNo: data.user.mobileNo,
-          bloodGroup : data.user.bloodGroup
+          bloodGroup: data.user.bloodGroup,
         }));
 
         setData(temp);
@@ -47,53 +70,187 @@ function AppointPatientList() {
   // debugger
   console.log("data in local variable");
   console.log(localData);
-  return (
-    <div>
-      <Base>
-        <br />
-        <br />
-        <br />
-        <Container>
-          <Table hover responsive size="" striped className="">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-                {/* <th>symptoms</th> */}
-                <th>Gender</th>
-                <th>Contact</th>
-                <th>bloodGroup</th>
-              </tr>
-            </thead>
+  // ---------------------------------------------------------------------
 
-            <tbody>
-              {localData?.map((patient) => {
-                return (
-                  <tr key={patient?.id}>
-                    <th scope="row">{patient?.id}</th>
-                    <td>{patient?.firstName}</td>
-                    <td>{patient?.gender}</td>
-                    <td>{patient?.mobileNo}</td>
-                    <td>{patient?.bloodGroup}</td>
-                    
-                    <Button
-                        outline 
-                        color="primary"
-                        className="my-1"
-                        tag={Link}
-                        to={`/user/update/patient/${patient.id}`}//
-                      >
-                        Update
-                      </Button>
-                    
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </Container>
-      </Base>
-    </div>
+  const [name, setName] = useState("");
+  const [admitStatus, setAdmitStatus] = useState(false);
+
+  const [value, setValue] = useState({
+    admitStatus: false,
+    health_history: [],
+  });
+
+  const [health_history, setHealth_history] = useState({
+    diseases: "",
+    prescriptionInstruction: "",
+  });
+
+  const [id, setId] = useState();
+
+  const updateValue = (patientId) => {
+    setId(patientId);
+    setModal(!modal);
+    console.log(id);
+  };
+
+  // console.log
+
+  useEffect(() => {
+    getPatientDetails(id).then((servervalue) => {
+      setName(servervalue.user.firstName);
+    });
+  }, []);
+
+  const handleChange = (event, field) => {
+    setHealth_history({ ...health_history, [field]: event.target.value });
+  };
+
+  //   console.log(health_history);
+  // console.log(value.admitStatus);
+
+  const handleFormSubmit = () => {
+    console.log("Inside server call");
+    // setValue((value) => ({
+    //   ...value,
+    //   health_history: [...value.health_history, health_history],
+    //   admitStatus,
+    // }));
+
+    updatePatientStatus(id, value).then((servervalue) => {
+      console.log("value from server");
+      console.log(servervalue);
+      toast.success("Updated the Patient");
+    });
+
+    console.log(value);
+  };
+
+  useEffect(() => {
+    setValue((value) => ({
+      ...value,
+      health_history: [...value.health_history, health_history],
+      admitStatus,
+    }));
+  }, [admitStatus]);
+
+  // ---------------------------------------------------------------------
+
+  return (
+    <Container>
+      <Table hover responsive size="" striped className="">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            {/* <th>symptoms</th> */}
+            <th>Gender</th>
+            <th>Contact</th>
+            <th>bloodGroup</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {localData?.map((patient) => {
+            return (
+              <tr key={patient?.id}>
+                <th scope="row">{patient?.id}</th>
+                <td>{patient?.firstName}</td>
+                <td>{patient?.gender}</td>
+                <td>{patient?.mobileNo}</td>
+                <td>{patient?.bloodGroup}</td>
+
+                <Button
+                  outline
+                  color="primary"
+                  className="my-1"
+                  onClick={() => {
+                    updateValue(patient.id);
+                  }}
+                  // tag={Link}
+                >
+                  Update
+                </Button>
+              </tr>
+            );
+          })}
+          {/* to={`/user/update/patient/${patient.id}`} */}
+        </tbody>
+      </Table>
+
+      {/* ------------------------------------------------------------------- */}
+
+      <Modal isOpen={modal} toggle={toggle} {...args}>
+        <ModalHeader toggle={toggle}>Update Patient</ModalHeader>
+        <ModalBody>
+          <Form onSubmit={handleFormSubmit}>
+            <FormGroup>
+              <Label for="name">Patient Name</Label>
+              <Input id="name" value={name} disabled />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="diseases">Enter Diseases</Label>
+              <Input
+                type="text"
+                id="diseases"
+                //   value={loginDetail.username}
+                onChange={(e) => handleChange(e, "diseases")}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="prescriptionInstruction">
+                Enter Prescription Instruction
+              </Label>
+              <Input
+                type="text"
+                id="prescriptionInstruction"
+                //   value={loginDetail.password}
+                onChange={(e) => handleChange(e, "prescriptionInstruction")}
+              />
+            </FormGroup>
+
+            <FormGroup className="text-center">
+              <Label>Admit Patient</Label>
+              <ButtonGroup>
+                <Button
+                  color="primary"
+                  outline
+                  onClick={() => setAdmitStatus(true)}
+                  active={admitStatus === true}
+                  className="ms-5"
+                >
+                  Yes
+                </Button>
+                <Button
+                  color="primary"
+                  outline
+                  onClick={() => setAdmitStatus(false)}
+                  active={admitStatus === false}
+                >
+                  No
+                </Button>
+              </ButtonGroup>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Container className="text-center ">
+            <Button outline color="primary" onClick={() => handleFormSubmit()}>
+              Update
+            </Button>
+            <Button
+              outline
+              color="secondary"
+              className="ms-2"
+              //   onClick={handleReset}
+            >
+              Clear
+            </Button>
+          </Container>
+        </ModalFooter>
+      </Modal>
+    </Container>
   );
 }
 
