@@ -48,7 +48,7 @@ public class HealthHistoryController {
 		return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ACCOUNTANT')")
+	@PreAuthorize("hasAnyRole('ACCOUNTANT','RECEPTIONIST')")
 	@GetMapping("/patient/{patientId}/healthhistory/accountant")
 	public @ResponseBody ResponseEntity<HealthHistoryDto> getHealthHistoryByAccountant(@PathVariable Integer patientId) {
 		HealthHistoryDto healths = this.healthservice.getHealthHistoryByAccountant(patientId);

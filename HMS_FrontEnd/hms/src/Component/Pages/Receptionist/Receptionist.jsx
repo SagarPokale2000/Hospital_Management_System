@@ -18,7 +18,7 @@ function Receptionist() {
       <Nav vertical>
   <NavItem>
     <NavLink href='AppointmentList'>
-           AppointmentList
+    AppointmentList
           </NavLink>
           {/* <NavLink href='HealthHistory'>
             Health History

@@ -62,7 +62,8 @@ public class DoctorController {
 	}
 
 	// get all
-	@GetMapping("/doctor")
+	@PreAuthorize("hasRole('RECEPTIONIST')")
+	@GetMapping("/doctors")
 	public ResponseEntity<List<DoctorDto>> getDoctor() {
 		List<DoctorDto> doctor = this.doctorService.getDoctor();
 		return ResponseEntity.ok(doctor);
