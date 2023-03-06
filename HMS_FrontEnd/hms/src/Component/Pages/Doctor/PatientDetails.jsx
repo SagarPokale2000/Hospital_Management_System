@@ -1,18 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Form,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Container,
-  FormGroup,
-  Label,
-  Row,
-  Input,
-  Button,
-  ButtonGroup,
-} from "reactstrap";
+import {Form,Card,CardBody,CardHeader,Col,Container,FormGroup,Label,Row,Input,Button,ButtonGroup,} from "reactstrap";
 import { useParams } from "react-router-dom";
 import { getPatientDetails, updatePatientStatus } from "../../../ServerCall/Doctor/DoctoAxios";
 import Base from "../../Base/Base";

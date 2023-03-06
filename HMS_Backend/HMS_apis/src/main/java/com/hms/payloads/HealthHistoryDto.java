@@ -33,6 +33,8 @@ public class HealthHistoryDto {
 
 	private LocalTime appointmentTime;
 
+	private Boolean paymentStatus;
+	
 	private String allocatedBed;
 	
 	private double paidAmount;

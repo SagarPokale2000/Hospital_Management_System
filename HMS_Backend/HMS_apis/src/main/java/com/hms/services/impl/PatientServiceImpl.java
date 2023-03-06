@@ -2,7 +2,11 @@ package com.hms.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +20,20 @@ import org.springframework.stereotype.Service;
 import com.hms.config.AppConstants;
 import com.hms.entities.Address;
 import com.hms.entities.Doctor;
+import com.hms.entities.Health_History;
 import com.hms.entities.Patient;
 import com.hms.entities.Role;
 import com.hms.entities.User;
 import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.AddressDto;
+import com.hms.payloads.HealthHistoryDto;
 import com.hms.payloads.PatientDto;
 import com.hms.payloads.PatientResponse;
 import com.hms.payloads.UserDto;
 import com.hms.repository.AddressRepo;
 import com.hms.repository.DoctorRepo;
+import com.hms.repository.HealthHistoryRepo;
 import com.hms.repository.PatientRepo;
 import com.hms.repository.RoleRepo;
 import com.hms.repository.UserRepo;
@@ -59,6 +66,11 @@ public class PatientServiceImpl implements PatientService {
 
 	@Autowired
 	private RoleRepo roleRepo;
+
+	private List<HealthHistoryDto> health_history;
+	
+	@Autowired
+	private HealthHistoryRepo healthRepo;
 
 //send user details in json format to create patient
 	@Override
@@ -98,19 +110,22 @@ public class PatientServiceImpl implements PatientService {
 
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
-
-		patient.setCurrentStatus(patientDto.getCurrentStatus());
-		patient.setAdmitStatus(patientDto.getAdmitStatus());
-		patient.setPaymentStatus(patientDto.getPaymentStatus());
+		
+		System.out.println("---------------------------------------------------");
+		System.out.println(patientDto.getCurrentStatus());
+		System.out.println(patientDto.getAdmitStatus());
+		
 		patient.setCurrentStatus(false);
-
+		patient.setAdmitStatus(patientDto.getAdmitStatus());
+		System.out.println("---------------------------------------------------");
+//		this.healthRepo.findby
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}
 
 	// appoint doctor to patient
 	@Override
-	public PatientDto updatePatientDoctor(PatientDto patientDto, Integer patientId, Integer doctorId) {
+	public PatientDto updatePatientDoctor(Integer patientId, Integer doctorId) {
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
 
@@ -189,7 +204,7 @@ public class PatientServiceImpl implements PatientService {
 		List<Patient> temp = new ArrayList<Patient>();
 		List<PatientDto> patientDtos=null;
 		for (Patient pat : allPatients) {
-			if (pat.getCurrentStatus().equals(true) && pat.getPaymentStatus().equals(false)) {
+			if (pat.getCurrentStatus().equals(true)) {
 				temp.add(pat);
 			}
 		}
@@ -254,6 +269,39 @@ public class PatientServiceImpl implements PatientService {
 		User user = patient.getUser();
 
 		this.userRepo.delete(user);
+	}
+
+	@Override
+	public PatientResponse getAllPatientForReceptionist(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir) {
+		Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+
+		Page<Patient> pagePatient = this.patientRepo.findAll(p);
+
+		List<Patient> allPatients = pagePatient.getContent();
+		List<Patient> temp = new ArrayList<Patient>();
+		List<PatientDto> patientDtos=null;
+		for (Patient pat : allPatients) {
+			if (pat.getCurrentStatus().equals(true) && Objects.isNull(pat.getDoctor())) {
+				temp.add(pat);
+			}
+		}
+		patientDtos = temp.stream()
+				.map((patient) -> this.modelMapper.map(patient, PatientDto.class)).collect(Collectors.toList());
+
+		PatientResponse patientResponse = new PatientResponse();
+
+		patientResponse.setContent(patientDtos);
+		patientResponse.setPageNumber(pagePatient.getNumber());
+		patientResponse.setPageSize(pagePatient.getSize());
+		patientResponse.setTotalElements(pagePatient.getTotalElements());
+
+		patientResponse.setTotalPages(pagePatient.getTotalPages());
+		patientResponse.setLastPage(pagePatient.isLast());
+
+		return patientResponse;
 	}
 	
 

@@ -39,11 +39,11 @@ public class PatientController {
 	}
 
 	// appoint doctor to patient
-//	@PreAuthorize("hasRole('RECEPTIONIST')")
+	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@PutMapping("/patients/{patientId}/doctor/{doctorId}")
-	public ResponseEntity<PatientDto> updatePatientDoctor(@RequestBody PatientDto patientDto,
+	public ResponseEntity<PatientDto> updatePatientDoctor(
 			@PathVariable Integer patientId, @PathVariable Integer doctorId) {
-		PatientDto updatePatient = this.patientService.updatePatientDoctor(patientDto, patientId, doctorId);
+		PatientDto updatePatient = this.patientService.updatePatientDoctor( patientId, doctorId);
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
 
@@ -54,7 +54,8 @@ public class PatientController {
 		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
 	}
 	
-	// get patients by Id
+	// get patients by Id ( used for accountant )
+//	@PreAuthorize("hasRole('ACCOUNTANT')")
 	@GetMapping("/patients/{patientId}")
 	public ResponseEntity<PatientDto> getPatientsById(@PathVariable Integer patientId) {
 		PatientDto patientDto = this.patientService.getPatientById(patientId);
@@ -90,6 +91,17 @@ public class PatientController {
 			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
 
 		PatientResponse patientResponse = this.patientService.getAllPatientForAccountant(pageNumber, pageSize, sortBy, sortDir);
+		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
+	}
+	@PreAuthorize("hasRole('RECEPTIONIST')")
+	@GetMapping("/receptionist/patients")
+	public ResponseEntity<PatientResponse> getAllPatientForReceptonist(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+
+		PatientResponse patientResponse = this.patientService.getAllPatientForReceptionist(pageNumber, pageSize, sortBy, sortDir);
 		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
 	}
 

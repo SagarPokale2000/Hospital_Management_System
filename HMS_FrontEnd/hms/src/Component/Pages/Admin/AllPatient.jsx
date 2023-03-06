@@ -19,7 +19,6 @@ function AllPatient() {
     loadAllPatient()
       .then((serverData) => {
         setData({
-          // Concatinent the pageContent with new data -> new data with existing data
           content: [...data.content, ...serverData.content],
           totalPages: serverData.totalPages,
           totalElements: serverData.totalElements,
@@ -27,10 +26,6 @@ function AllPatient() {
           lastPage: serverData.lastPage,
           pageNumber: serverData.pageNumber,
         });
-
-        // console.log(serverData);
-        // setData(serverData);
-        // debugger;
       })
       .catch((error) => {
         console.log(error);
@@ -38,7 +33,9 @@ function AllPatient() {
       });
   }, []);
 
-  console.log(data?.content[0]?.admitStatus);
+  console.log(";;;;;;;;;;;;;;;;;;;")
+  console.log(data?.content[0]?.admitStatus)
+  console.log(data);
   // debugger
   const user = data?.content;
   // debugger;
@@ -65,13 +62,13 @@ function AllPatient() {
               data && data?.content?.map((user) => {
                 return (
                   <tr key={user?.user.id}>
-                    <th scope="row">{user?.user.id}</th>
+                    <th scope="row">{user?.id}</th>
                     <td>{user?.user.firstName}</td>
                     <td>{user?.user.gender}</td>
                     <td>{user?.user.dob}</td>
                     <td>{user?.user.mobileNo}</td>
                     <td>{user?.user.email}</td>
-                    <td>{user?.user.admitStatus}</td>
+                    <td>{ user.admitStatus ?  "Yes" : "No"}  </td>
                   </tr>
                 );
               })}

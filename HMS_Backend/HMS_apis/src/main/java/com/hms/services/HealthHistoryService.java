@@ -23,12 +23,15 @@ public interface HealthHistoryService {
 			//update 
 			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
 			
+			HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt);
+			
 			//get all medicine
 			HealthHistoryResponse getAllHealthHistory(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
 			
 			//get single medicine
 			HealthHistoryDto getHealthHistoryById(Integer healthId);
 			
+			HealthHistoryDto getHealthHistoryByAccountant(Integer patientId);
 			
 			//search posts
 			List<HealthHistoryDto> searchHealthHistory(String keyword);

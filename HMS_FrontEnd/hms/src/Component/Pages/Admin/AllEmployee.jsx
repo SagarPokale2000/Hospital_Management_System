@@ -65,7 +65,7 @@ function AllEmployee() {
                 data?.content?.map((user) => {
                   return (
                     <tr key={user?.user.id}>
-                      <th scope="row">{user?.user.id}</th>
+                      <th scope="row">{user?.id}</th>
                       <td>{user?.user.firstName}</td>
                       <td>{user?.user.roles[0].name}</td>
                       <td>{user?.user.gender}</td>
