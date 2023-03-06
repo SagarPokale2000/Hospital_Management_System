@@ -48,7 +48,8 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		patient.setCurrentStatus(true);
 		Patient updatedPatient = this.patientRepo.save(patient);
 		healths.setPatient(updatedPatient);
-
+		healths.setPaymentStatus(true);
+		healths.setMedicines(null);
 		Health_History newHealths = this.healthRepo.save(healths);
 
 		return this.modelMapper.map(newHealths, HealthHistoryDto.class);
