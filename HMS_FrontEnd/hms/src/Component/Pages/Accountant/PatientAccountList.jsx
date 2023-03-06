@@ -55,18 +55,18 @@ function PatientAccountList() {
   
   const user = data?.content;
 
-  const resetData = () => {
-      setPat({id:"",
-      paidAmount: "",
-      TotalAmount: "",
-      RemainingAmount: "",
-      days:"",
-      doctorFee: "",
-      medicineCharges: "",
-      wardCharges: "",
-      pay:0})
-    
-  };
+    const resetData = () => {
+      pat.id = "";
+      pat.paidAmount = "";
+      pat.TotalAmount = "";
+      pat.RemainingAmount = "";
+      pat.days = "";
+      pat.doctorFee = "";
+      pat.medicineCharges = "";
+      pat.wardCharges = "";
+      pat.pay = 0;
+      setPat({})
+    };
 
   const getHealthHistory = (id) => {
     PrivateAxios.get(`patient/`+ id+`/healthhistory/accountant`).then((response) => {
@@ -100,7 +100,7 @@ function PatientAccountList() {
     PrivateAxios.put(`healthhistory/` +pat.id+`/amount/`+ pat.pay).then((response) => {
        debugger;
       var result = response.data;
-      resetData();
+      //resetData();
       toggle();
       toast.success("Payment Done Successfully");
      })
