@@ -19,17 +19,20 @@ import org.springframework.stereotype.Service;
 import com.hms.config.AppConstants;
 import com.hms.entities.Address;
 import com.hms.entities.Doctor;
+import com.hms.entities.Health_History;
 import com.hms.entities.Patient;
 import com.hms.entities.Role;
 import com.hms.entities.User;
 import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.AddressDto;
+import com.hms.payloads.HealthHistoryDto;
 import com.hms.payloads.PatientDto;
 import com.hms.payloads.PatientResponse;
 import com.hms.payloads.UserDto;
 import com.hms.repository.AddressRepo;
 import com.hms.repository.DoctorRepo;
+import com.hms.repository.HealthHistoryRepo;
 import com.hms.repository.PatientRepo;
 import com.hms.repository.RoleRepo;
 import com.hms.repository.UserRepo;
@@ -62,6 +65,11 @@ public class PatientServiceImpl implements PatientService {
 
 	@Autowired
 	private RoleRepo roleRepo;
+
+	private List<HealthHistoryDto> health_history;
+	
+	@Autowired
+	private HealthHistoryRepo healthRepo;
 
 //send user details in json format to create patient
 	@Override
@@ -101,10 +109,15 @@ public class PatientServiceImpl implements PatientService {
 
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
-
-		patient.setCurrentStatus(patientDto.getCurrentStatus());
+		
+		System.out.println("---------------------------------------------------");
+		System.out.println(patientDto.getCurrentStatus());
+		System.out.println(patientDto.getAdmitStatus());
+		
+		patient.setCurrentStatus(false);
 		patient.setAdmitStatus(patientDto.getAdmitStatus());
-
+		System.out.println("---------------------------------------------------");
+//		this.healthRepo.findby
 		Patient updatedPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}

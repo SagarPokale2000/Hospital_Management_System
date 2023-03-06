@@ -14,7 +14,11 @@ import {
   NavbarText,
 } from "reactstrap";
 import { Navigate, NavLink as ReactLink, useNavigate } from "react-router-dom";
-import { doLogout, getCurrentUserDetail, isLoggedIn } from "../../Authentication/auth";
+import {
+  doLogout,
+  getCurrentUserDetail,
+  isLoggedIn,
+} from "../../Authentication/auth";
 
 function CustomeNavBar(args) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,8 +32,9 @@ function CustomeNavBar(args) {
   useEffect(() => {
     setLogin(isLoggedIn());
     setUser(getCurrentUserDetail());
+    console.log(getCurrentUserDetail());
+    console.log(user?.roles[0].name);
   }, [login]);
-
 
   const Logout = () => {
     doLogout(() => {
@@ -41,9 +46,9 @@ function CustomeNavBar(args) {
       //     login : false
       //   }
       // )
-    })
-    Navigate('/')
-  }
+    });
+    Navigate("/");
+  };
   return (
     <div>
       <Navbar
@@ -78,13 +83,16 @@ function CustomeNavBar(args) {
 
             {login && (
               <>
-                {/* <NavItem>
-                  <NavLink tag={ReactLink} to="/user/dashboard">
-                    {user.email}
-                  </NavLink>
-                </NavItem> */}
                 <NavItem>
-                  <NavLink onClick={Logout} tag={ReactLink} to="/">Logout</NavLink>
+                  <NavLink>{user?.roles[0].name.substr(5)}</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink>{user.email}</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={Logout} tag={ReactLink} to="/">
+                    Logout
+                  </NavLink>
                 </NavItem>
               </>
             )}

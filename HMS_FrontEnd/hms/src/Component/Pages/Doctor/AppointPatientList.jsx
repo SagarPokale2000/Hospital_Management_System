@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   GetAppointmentList,
@@ -23,7 +22,6 @@ import {
   Button,
   ButtonGroup,
 } from "reactstrap";
-import PatientDetails from "./PatientDetails";
 
 function AppointPatientList(args) {
   const [modal, setModal] = useState(false);
@@ -36,7 +34,6 @@ function AppointPatientList(args) {
       firstName: "",
       gender: "",
       admitStatus: false,
-      action: false,
       mobileNo: "",
       bloodGroup: "",
     },
@@ -47,12 +44,12 @@ function AppointPatientList(args) {
       .then((serverData) => {
         console.log("Server Data");
         console.log(serverData);
+
         const temp = serverData.map((data) => ({
           id: data.id,
           firstName: data.user.firstName,
           gender: data.user.gender,
           admitStatus: data.admitStatus,
-          action: data.action,
           mobileNo: data.user.mobileNo,
           bloodGroup: data.user.bloodGroup,
         }));
@@ -67,15 +64,14 @@ function AppointPatientList(args) {
       });
   }, []);
 
-  // debugger
-  console.log("data in local variable");
-  console.log(localData);
   // ---------------------------------------------------------------------
 
   const [name, setName] = useState("");
+
   const [admitStatus, setAdmitStatus] = useState(false);
 
   const [value, setValue] = useState({
+    current_status: false,
     admitStatus: false,
     health_history: [],
   });
@@ -90,31 +86,23 @@ function AppointPatientList(args) {
   const updateValue = (patientId) => {
     setId(patientId);
     setModal(!modal);
-    console.log(id);
+    console.log(patientId);
   };
-
-  // console.log
 
   useEffect(() => {
     getPatientDetails(id).then((servervalue) => {
-      setName(servervalue.user.firstName);
+      setName(servervalue.user.firstName + " " + servervalue.user.lastName);
     });
-  }, []);
+  }, [id]);
 
   const handleChange = (event, field) => {
     setHealth_history({ ...health_history, [field]: event.target.value });
-  };
 
-  //   console.log(health_history);
-  // console.log(value.admitStatus);
+    console.log(health_history);
+  };
 
   const handleFormSubmit = () => {
     console.log("Inside server call");
-    // setValue((value) => ({
-    //   ...value,
-    //   health_history: [...value.health_history, health_history],
-    //   admitStatus,
-    // }));
 
     updatePatientStatus(id, value).then((servervalue) => {
       console.log("value from server");
@@ -129,7 +117,7 @@ function AppointPatientList(args) {
     setValue((value) => ({
       ...value,
       health_history: [...value.health_history, health_history],
-      admitStatus,
+      admitStatus : admitStatus
     }));
   }, [admitStatus]);
 
@@ -193,7 +181,7 @@ function AppointPatientList(args) {
               <Input
                 type="text"
                 id="diseases"
-                //   value={loginDetail.username}
+                value={health_history.diseases}
                 onChange={(e) => handleChange(e, "diseases")}
               />
             </FormGroup>

@@ -14,8 +14,6 @@ import {
   Button,
 } from "reactstrap";
 import { addDoctor, addEmployee } from "../../../ServerCall/Admin/Admin";
-import { singup } from "../../../ServerCall/User/SignUp_LogIn";
-import Base from "../../Base/Base";
 
 function AddEmployee() {
   const [user, setUser] = useState({
