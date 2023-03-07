@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Button, Container, Table } from "reactstrap";
+import { Button, Container, Table,Modal,
+  ModalHeader,
+  ModalBody } from "reactstrap";
 import { GetAllAppintmentHistory } from "../../../ServerCall/Patient/PatientAxios";
 import Base from "../../Base/Base";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
@@ -9,57 +11,55 @@ function AppintmentHistory(args) {
   const [data, setData] = useState({
     content: [],
   });
+
+  const [res, setRes] = useState({
+    id: ""
+  });
   
   useEffect(() => {
     // load post of postId
-    GetAllAppintmentHistory()
+    GetAllAppintmentHistory(JSON.parse(localStorage.data).user.patient.id)
       .then((serverData) => {
-      console.log(serverData)
+        console.log(serverData)
       setData({
         // Concatinent the pageContent with new data -> new data with existing data
         content: [...data.content, ...serverData]
       });
-
-      // console.log(serverData);
-      // setData(serverData);
-      // debugger;
     })
     .catch((error) => {
       console.log(error);
       toast.error("Error in loading");
     });
   }, []);
-  const [message, setMessage] = useState([]);
-  const chooseMessage = (message) => {
-    setMessage(message);
+
+  const resetData = () => {
+    setRes({
+      id:"",
+    })
   };
 
-  const getAppointmentHistory = (id) => {
-
-    PrivateAxios.get(`/patient/`+id+`/healthhistory`).then((response) => {
-      //const result = response.data
-      setData(response.data);//logic issue
-      toast.success("Appointment Deleted Successfully");
-  })
-  }
-
-    const cancelAppointment = (id) => {
-        PrivateAxios.delete(`/healthhistory/`+id).then((response) => {
+  const cancelAppointment = () => {
+    debugger;
+        PrivateAxios.delete(`/healthhistory/`+res.id).then((response) => {
             const result = response.data
-            //debugger;
-              if (result.success === true) {
-                // reload the screen
-                getAppointmentHistory(JSON.parse(localStorage.data).user.patient.id);
-                  //navigate('/user/AppintmentHistory')
-                //toast.success("Appointment Deleted Successfully");
-              } else {
-                toast.error(result['error'])
-              }
-            })
-  }
+          if (result.success === true) {
+              toggle();
+              resetData();
+              toast.success("Appointment Deleted Successfully");
+            } else {
+              toast.error(result['error'])
+            }
+          })
+    }
 
+  const [modal, setModal] = useState(false);
+  const toggle = (i) => {
+   // debugger;
+    res.id = i;
+    //setRes({ ...res,"id": i })
+    setModal(!modal);
+  };
 
-  console.log(data?.content);
   const healthhistory = data?.content;
 
   return (
@@ -69,15 +69,14 @@ function AppintmentHistory(args) {
         <br />
               <br />
               <Container>
-              
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>
               <tr>
-                <th>id</th>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Appintment Date</th>
                 <th>Appintment Time</th>
-                              <th>symptoms</th>
+                              <th>Symptoms</th>
                               <th>Cancel Appointment</th>
               </tr>
             </thead>
@@ -93,7 +92,7 @@ function AppintmentHistory(args) {
                       <td>{healthhistory.appointmentTime}</td>
                           <td>{healthhistory.symptoms}</td>
                           <td>   <Button
-                    onClick={() => cancelAppointment(healthhistory.id)}
+                        onClick={() => { toggle(healthhistory?.id) }}
                     style={styles.button}
                     className='btn btn-sm btn-danger'>
                     Cancel
@@ -104,6 +103,23 @@ function AppintmentHistory(args) {
             </tbody>
           </Table>
         </Container>
+        <Modal
+        isOpen={modal}
+        toggle={toggle}
+        centered={true}
+        scrollable={true}
+        size={"sm"}
+      >
+        <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
+        <ModalBody>
+          <Button outline color="primary" className="ms-3" onClick={() => cancelAppointment()}>
+            Yes
+          </Button>
+          <Button outline color="danger" className="ms-3" onClick={toggle}>
+            No
+          </Button>
+        </ModalBody>
+      </Modal>
       </Base>
     </div>
   );

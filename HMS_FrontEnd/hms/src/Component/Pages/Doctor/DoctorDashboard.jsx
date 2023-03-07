@@ -81,10 +81,8 @@ export default function DoctorDashboard() {
                 <MDBTabsPane show={verticalActive === "CheckResources"}>
                   <GetResources/>
                 </MDBTabsPane>
-
                 <MDBTabsPane show={verticalActive === "Schedule"}>
                   <Schedule/>
-                  sc
                 </MDBTabsPane>
               </MDBTabsContent>
             </Base>

@@ -9,16 +9,18 @@ public interface HealthHistoryService {
 
 			//add appointment ( create )
 			HealthHistoryDto addAppointment(HealthHistoryDto healthDto,Integer patientId);
-
-			//get all medicine of health history by patient
-			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
 			
+			// get Appointment History
 			List<HealthHistoryDto> getAppointmentHistoryBypatient(Integer patientId);
+
+			//get health history by patient
+			List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId);
+
+			// delete( cancel health history )
+			void deleteHealthHistory(Integer healthId);
+			
 			
 			HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto,Integer wardId);
-			
-			// delete
-			void deleteHealthHistory(Integer healthId);
 
 			//update 
 			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
