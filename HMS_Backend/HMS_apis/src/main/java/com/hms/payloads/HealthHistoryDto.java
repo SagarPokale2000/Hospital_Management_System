@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-@JsonInclude(value = Include.NON_NULL)
+//@JsonInclude(value = Include.NON_NULL)
 public class HealthHistoryDto {
 
 	private int id;

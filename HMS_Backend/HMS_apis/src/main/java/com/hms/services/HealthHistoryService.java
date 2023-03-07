@@ -15,7 +15,7 @@ public interface HealthHistoryService {
 			
 			List<HealthHistoryDto> getAppointmentHistoryBypatient(Integer patientId);
 			
-			HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto,Integer healthId,Integer wardId);
+			HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto,Integer wardId);
 			
 			// delete
 			void deleteHealthHistory(Integer healthId);
@@ -31,7 +31,7 @@ public interface HealthHistoryService {
 			//get single medicine
 			HealthHistoryDto getHealthHistoryById(Integer healthId);
 			
-			HealthHistoryDto getHealthHistoryByAccountant(Integer patientId);
+			HealthHistoryDto getHealthHistoryByPaymentStatus(Integer patientId);
 			
 			//search posts
 			List<HealthHistoryDto> searchHealthHistory(String keyword);

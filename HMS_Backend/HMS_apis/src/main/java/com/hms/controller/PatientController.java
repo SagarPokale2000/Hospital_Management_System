@@ -9,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,14 +82,14 @@ public class PatientController {
 	}
 	
 	@PreAuthorize("hasRole('ACCOUNTANT')")
-	@GetMapping("/accountant/patients")
-	public ResponseEntity<PatientResponse> getAllPatientForAccountant(
+	@GetMapping("/appointment/patients")
+	public ResponseEntity<PatientResponse> getAllPatientAfterAppointment(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
 			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
 			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
 
-		PatientResponse patientResponse = this.patientService.getAllPatientForAccountant(pageNumber, pageSize, sortBy, sortDir);
+		PatientResponse patientResponse = this.patientService.getAllPatientAfterAppointment(pageNumber, pageSize, sortBy, sortDir);
 		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
 	}
 	@PreAuthorize("hasRole('RECEPTIONIST')")
@@ -102,6 +101,18 @@ public class PatientController {
 			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
 
 		PatientResponse patientResponse = this.patientService.getAllPatientForReceptionist(pageNumber, pageSize, sortBy, sortDir);
+		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
+	}
+//get patient for admit	
+	@PreAuthorize("hasRole('RECEPTIONIST')")
+	@GetMapping("/receptionist/patients/admit")
+	public ResponseEntity<PatientResponse> getAllPatientForAdmitStatus(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+
+		PatientResponse patientResponse = this.patientService.getAllPatientForAdmitStatus(pageNumber, pageSize, sortBy, sortDir);
 		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
 	}
 
@@ -120,13 +131,5 @@ public class PatientController {
 		List<PatientDto> result = this.patientService.searchPatientById(keywords);
 		return new ResponseEntity<List<PatientDto>>(result, HttpStatus.OK);
 	}
-	
-	/*
-	// create patient
-	@PostMapping("/user/{userId}/patients")
-	public ResponseEntity<PatientDto> createPatientO(@RequestBody PatientDto patientDto, @PathVariable Integer userId) {
-		PatientDto createPatient = this.patientService.createPatient(patientDto, userId);
-		return new ResponseEntity<PatientDto>(createPatient, HttpStatus.CREATED);
-	}
-*/
+
 }

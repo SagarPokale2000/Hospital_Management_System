@@ -97,31 +97,4 @@ public class EmployeeController {
 		EmployeeResponse employeeResponse = this.employeeService.getAllEmployees(pageNumber, pageSize, sortBy, sortDir);
 		return new ResponseEntity<EmployeeResponse>(employeeResponse, HttpStatus.OK);
 	}
-	
-/*
-	// create
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/user/{userId}/employee")
-	public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto,
-			@PathVariable Integer userId) {
-		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto, userId);
-		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
-	}
-
-	//create Recptionist
-	@PostMapping("/user/{userId}/employee/receptionist")
-	public ResponseEntity<EmployeeDto> createReceptionist(@Valid @RequestBody EmployeeDto employeeDto,
-			@PathVariable Integer userId) {
-		EmployeeDto createEmployee = this.employeeService.createReceptionistO(employeeDto, userId);
-		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
-	}
-	
-	//create Accountant
-	@PostMapping("/user/{userId}/employee/accountant")
-	public ResponseEntity<EmployeeDto> createAccountant(@Valid @RequestBody EmployeeDto employeeDto,
-			@PathVariable Integer userId) {
-		EmployeeDto createEmployee = this.employeeService.createAccountantO(employeeDto, userId);
-		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
-	}
-*/
 }

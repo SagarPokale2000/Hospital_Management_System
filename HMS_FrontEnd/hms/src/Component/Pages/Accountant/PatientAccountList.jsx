@@ -69,7 +69,7 @@ function PatientAccountList() {
     };
 
   const getHealthHistory = (id) => {
-    PrivateAxios.get(`patient/`+ id+`/healthhistory/accountant`).then((response) => {
+    PrivateAxios.get(`patient/`+ id+`/healthhistory/paymentstatus`).then((response) => {
       var result = response.data;
       debugger;
       pat.id = result.id;

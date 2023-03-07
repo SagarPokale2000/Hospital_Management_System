@@ -18,6 +18,8 @@ import PatientAccountList from "./Component/Pages/Accountant/PatientAccountList"
 import PatientDashboard from "./Component/Pages/Patient/PatientDashboard";
 import DoctorDashboard from "./Component/Pages/Doctor/DoctorDashboard";
 import AppointmentList from "./Component/Pages/Receptionist/AppointmentList";
+import AdmitPatient from "./Component/Pages/Receptionist/AdmitPatient";
+
 function App() {
   return (
     <div className="App">
@@ -52,6 +54,7 @@ function App() {
               <Route path="accountant" element={<Accountant />}></Route>
               <Route path="admin" element={<Admin />}></Route>
               <Route path="AppointmentList" element={<AppointmentList />}></Route>
+              <Route path="AdmitPatient" element={<AdmitPatient />}></Route>
               <Route path="update/patient/:id" element={<PatientDetails />}></Route>
             </Route>
             <Route path="/AddResources" element={<AddResources />}></Route>

@@ -232,37 +232,4 @@ Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 		Employee addedEmp = this.employeeRepo.save(emp);
 		return this.modelMapper.map(addedEmp, EmployeeDto.class);
 	}
-/*
-	@Override
-	public EmployeeDto createReceptionistO(EmployeeDto employeeDto, Integer userId) {
-		User user = this.userRepo.findById(userId)
-				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
-
-		Role role = this.roleRepo.findById(AppConstants.ROLE_RECEPTIONIST)
-				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
-		
-		user.addRole(role);
-				
-		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
-		emp.setUser(user);
-		Employee addedEmp = this.employeeRepo.save(emp);
-		return this.modelMapper.map(addedEmp, EmployeeDto.class);
-	}
-
-	@Override
-	public EmployeeDto createAccountantO(EmployeeDto employeeDto, Integer userId) {
-		User user = this.userRepo.findById(userId)
-				.orElseThrow((() -> new ResourceNotFoundException("User", "User id", userId)));
-
-		Role role = this.roleRepo.findById(AppConstants.ROLE_ACCOUNTANT)
-				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
-		
-		user.addRole(role);
-
-		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
-		emp.setUser(user);
-		Employee addedEmp = this.employeeRepo.save(emp);
-		return this.modelMapper.map(addedEmp, EmployeeDto.class);
-	}
-*/
 }

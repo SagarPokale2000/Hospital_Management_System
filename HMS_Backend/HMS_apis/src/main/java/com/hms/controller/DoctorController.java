@@ -59,15 +59,7 @@ public class DoctorController {
 	public ResponseEntity<ApiResponse> deleteEmployee(@PathVariable Integer Id) {
 		this.doctorService.deleteDoctor(Id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Doctor is deleted successfully !!", true), HttpStatus.OK);
-	}*/
-
-	// get
-	@GetMapping("/doctor/{docId}")
-	public ResponseEntity<DoctorDto> getDoctor(@PathVariable Integer docId) {
-		DoctorDto doctorDto = this.doctorService.getDoctor(docId);
-		return new ResponseEntity<DoctorDto>(doctorDto, HttpStatus.OK);
-	}
-
+*/
 	// get all
 	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@GetMapping("/doctors")
@@ -75,13 +67,4 @@ public class DoctorController {
 		List<DoctorDto> doctor = this.doctorService.getDoctor();
 		return ResponseEntity.ok(doctor);
 	}
-	
-	/*
-	// create (old way)
-	@PostMapping("/employee/{empId}/doctor")
-	public ResponseEntity<DoctorDto> createDoctorO(@Valid @RequestBody DoctorDto doctorDto,@PathVariable Integer empId) {
-		DoctorDto createDoctor = this.doctorService.createDoctor(doctorDto,empId);
-		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
-	}
-*/
 }
