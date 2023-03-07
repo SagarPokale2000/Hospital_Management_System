@@ -10,6 +10,10 @@ public interface WardService {
 		// create
 		WardDto createWard(WardDto wardDto);
 
+		// get All
+		List<WardDto> getward();
+		
+		
 		// update
 		WardDto updateWard(WardDto wardDto, Integer wardId);
 
@@ -18,7 +22,4 @@ public interface WardService {
 
 		// get
 		WardDto getWard(Integer wardId);
-
-		// get All
-		List<WardDto> getward();
 }

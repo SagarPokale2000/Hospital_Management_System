@@ -9,25 +9,28 @@ public interface PatientService {
 	// create patient ( Sign Up )
 	PatientDto createPatient(PatientDto patientDto);
 
+	PatientResponse getAllPatientForReceptionist(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+	PatientResponse getAllPatientForAdmitStatus(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+	PatientResponse getAllPatientForDischarge(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+	
+	// update patient Doctor
+	PatientDto updatePatientDoctor(Integer patientId, Integer doctorId);
+	
 	
 	// update patient details
 	PatientDto updatePatient(PatientDto patientDto, Integer patientId);
 
-	// update patient Doctor
-	PatientDto updatePatientDoctor(Integer patientId, Integer doctorId);
-
 	// update patient Ward
-	//PatientDto updatePatientWard(PatientDto patientDto, Integer patientId, Integer wardId);
+	// PatientDto updatePatientWard(PatientDto patientDto, Integer patientId,
+	// Integer wardId);
 
 	// get all patients (pagination)
 	PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
-	
+
 	// get all patients for accountant (pagination)
 	PatientResponse getAllPatientAfterAppointment(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
-	
-	PatientResponse getAllPatientForReceptionist(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
-	
-	PatientResponse getAllPatientForAdmitStatus(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
 	// get single patient
 	PatientDto getPatientById(Integer patientId);
@@ -37,7 +40,7 @@ public interface PatientService {
 
 	// get all patients by ward Id
 	List<PatientDto> getPatientsByWard(Integer wardId);
-	
+
 	void deletePatient(Integer patientId);
 
 	// search patients

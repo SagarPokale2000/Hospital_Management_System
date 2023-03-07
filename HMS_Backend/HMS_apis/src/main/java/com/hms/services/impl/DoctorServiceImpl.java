@@ -83,18 +83,19 @@ public class DoctorServiceImpl implements DoctorService {
 		doc.setDoctorFee(100.00);
 		doc.setStartTime(LocalTime.NOON);
 		doc.setEndTime(LocalTime.NOON);
-		doc.setDays("{\"sunday\":false,\"monday\":false,\"tuesday\":false,\"wednesday\":false,\"thursday\":false,\"friday\":false,\"saturday\":false}");
+		doc.setDays(
+				"{\"sunday\":false,\"monday\":false,\"tuesday\":false,\"wednesday\":false,\"thursday\":false,\"friday\":false,\"saturday\":false}");
 		Doctor addedDoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 	}
-	
-	//------------------------------------------------------------------------------------------
-	
+
+	// ------------------------------------------------------------------------------------------------
+
 	@Override
-	public DoctorDto selectSchedule(DoctorDto doctorDto, Integer doctorId,String days) {
+	public DoctorDto selectSchedule(DoctorDto doctorDto, Integer doctorId, String days) {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
-		
+
 		doc.setStartTime(doctorDto.getStartTime());
 		doc.setEndTime(doctorDto.getEndTime());
 		doc.setDays(days);
@@ -102,6 +103,17 @@ public class DoctorServiceImpl implements DoctorService {
 		return this.modelMapper.map(updateddoc, DoctorDto.class);
 	}
 
+	// ---------------------------------------------------------------------------------------------------
+
+	@Override
+	public List<DoctorDto> getDoctor() {
+		List<Doctor> doctors = this.doctorRepo.findAll();
+		List<DoctorDto> docDtos = doctors.stream().map((doc) -> this.modelMapper.map(doc, DoctorDto.class))
+				.collect(Collectors.toList());
+		return docDtos;
+	}
+
+	// -------------------------------------------------------------------------------------------------------
 
 	@Override
 	public DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId) {
@@ -109,8 +121,8 @@ public class DoctorServiceImpl implements DoctorService {
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
 
 		EmployeeDto employeeDto = doctorDto.getEmployee();
-		Employee emp=doc.getEmployee();
-		
+		Employee emp = doc.getEmployee();
+
 		UserDto userDto = employeeDto.getUser();
 		User user = this.modelMapper.map(userDto, User.class);
 
@@ -119,7 +131,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		//user.setEmail(userDto.getEmail());
+		// user.setEmail(userDto.getEmail());
 		user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
 		user.setGender(userDto.getGender());
 		user.setMobileNo(userDto.getMobileNo());
@@ -163,14 +175,6 @@ public class DoctorServiceImpl implements DoctorService {
 		Doctor doc = this.doctorRepo.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", doctorId));
 		return this.modelMapper.map(doc, DoctorDto.class);
-	}
-
-	@Override
-	public List<DoctorDto> getDoctor() {
-		List<Doctor> doctors = this.doctorRepo.findAll();
-		List<DoctorDto> docDtos = doctors.stream().map((doc) -> this.modelMapper.map(doc, DoctorDto.class))
-				.collect(Collectors.toList());
-		return docDtos;
 	}
 
 	public DoctorDto createDoctorO(DoctorDto doctorDto, Integer empId) {

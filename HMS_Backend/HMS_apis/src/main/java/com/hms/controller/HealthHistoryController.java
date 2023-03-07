@@ -69,7 +69,7 @@ public class HealthHistoryController {
 	}
 
 	// --------------------------------------------------------------------------------------------------------------
-	
+
 	// get single active health history
 	@PreAuthorize("hasAnyRole('ACCOUNTANT','RECEPTIONIST')")
 	@GetMapping("/patient/{patientId}/healthhistory/paymentstatus")
@@ -78,6 +78,8 @@ public class HealthHistoryController {
 		HealthHistoryDto healths = this.healthservice.getHealthHistoryByPaymentStatus(patientId);
 		return new ResponseEntity<HealthHistoryDto>(healths, HttpStatus.OK);
 	}
+
+	// -------------------------------------------------------------------------------------------------------------------
 
 	// allocate ward and bed (admit patient)
 	@PreAuthorize("hasRole('RECEPTIONIST')")
@@ -88,12 +90,16 @@ public class HealthHistoryController {
 		return new ResponseEntity<HealthHistoryDto>(updatePatient, HttpStatus.OK);
 	}
 
+	// --------------------------------------------------------------------------------------------------------------------
+
 	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@PutMapping("/healthhistory/{Id}/discharge")
 	public ResponseEntity<HealthHistoryDto> dischargePatient(@PathVariable Integer Id) {
 		HealthHistoryDto updatePatient = this.healthservice.dischargePatient(Id);
 		return new ResponseEntity<HealthHistoryDto>(updatePatient, HttpStatus.OK);
 	}
+
+	// --------------------------------------------------------------------------------------------------------------------
 
 	@PreAuthorize("hasRole('DOCTOR')")
 	@PutMapping("/healthhistory/{Id}")

@@ -26,7 +26,7 @@ public class DoctorController {
 
 	@Autowired
 	private DoctorService doctorService;
-	
+
 	// create doctor
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/doctor")
@@ -34,8 +34,18 @@ public class DoctorController {
 		DoctorDto createDoctor = this.doctorService.createDoctorN(empDto);
 		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
 	}
-	
-	//------------------------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------------------------
+
+	// get all
+	@PreAuthorize("hasRole('RECEPTIONIST')")
+	@GetMapping("/doctors")
+	public ResponseEntity<List<DoctorDto>> getDoctor() {
+		List<DoctorDto> doctor = this.doctorService.getDoctor();
+		return ResponseEntity.ok(doctor);
+	}
+
+	// ----------------------------------------------------------------------------------------------
 	
 	// update - pass json
 	@PreAuthorize("hasRole('ADMIN')")
@@ -45,28 +55,25 @@ public class DoctorController {
 		DoctorDto updatedDoctor = this.doctorService.updateDoctor(doctorDto, docId);
 		return new ResponseEntity<DoctorDto>(updatedDoctor, HttpStatus.OK);
 	}
-	
+
 	@PreAuthorize("hasRole('DOCTOR')")
 	@PutMapping("/doctor/{docId}/schedule/{days}")
 	public ResponseEntity<DoctorDto> selectSchedule(@Valid @RequestBody DoctorDto doctorDto,
 			@PathVariable Integer docId, @PathVariable String days) {
-		
-		DoctorDto updatedDoctor = this.doctorService.selectSchedule(doctorDto, docId,days);
+
+		DoctorDto updatedDoctor = this.doctorService.selectSchedule(doctorDto, docId, days);
 		return new ResponseEntity<DoctorDto>(updatedDoctor, HttpStatus.OK);
 	}
 	/*
-	// delete
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/doctor/{Id}")
-	public ResponseEntity<ApiResponse> deleteEmployee(@PathVariable Integer Id) {
-		this.doctorService.deleteDoctor(Id);
-		return new ResponseEntity<ApiResponse>(new ApiResponse("Doctor is deleted successfully !!", true), HttpStatus.OK);
-*/
-	// get all
-	@PreAuthorize("hasRole('RECEPTIONIST')")
-	@GetMapping("/doctors")
-	public ResponseEntity<List<DoctorDto>> getDoctor() {
-		List<DoctorDto> doctor = this.doctorService.getDoctor();
-		return ResponseEntity.ok(doctor);
-	}
+	 * // delete
+	 * 
+	 * @PreAuthorize("hasRole('ADMIN')")
+	 * 
+	 * @DeleteMapping("/doctor/{Id}") public ResponseEntity<ApiResponse>
+	 * deleteEmployee(@PathVariable Integer Id) {
+	 * this.doctorService.deleteDoctor(Id); return new
+	 * ResponseEntity<ApiResponse>(new
+	 * ApiResponse("Doctor is deleted successfully !!", true), HttpStatus.OK);
+	 */
+
 }

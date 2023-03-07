@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Container,
@@ -34,7 +33,6 @@ function AppointmentList() {
 
   const [doctor, setDoctor] = useState([]);
 
-  const navigate = useNavigate();
   useEffect(() => {
     // load post of postId
     GetAllAppointmentList()
@@ -55,6 +53,7 @@ function AppointmentList() {
         toast.error("Error in loading");
       });
   }, []);
+
   const [modal, setModal] = useState(false);
   const toggle = () => {
     setModal(!modal);
@@ -73,12 +72,11 @@ function AppointmentList() {
   const getHealthHistory = (id) => {
     resetData();
     pat.id = id;
-    PrivateAxios.get(`patient/` + id + `/healthhistory/accountant`).then(
+    PrivateAxios.get(`patient/` + id + `/healthhistory/paymentstatus`).then(
       (response) => {
         var result = response.data;
         pat.appointmentDate = result.appointmentDate;
         pat.appointmentTime = result.appointmentTime;
-        pat.symptoms = result.symptoms;
         setPat({ ...pat, symptoms: result.symptoms });
       }
     );
@@ -109,15 +107,8 @@ function AppointmentList() {
     pat.doctorId = event.target.value;
   };
 
-  const dash = () => {
-    navigate("/user/Receptionist");
-  };
-
   return (
     <div>
-      <Button onClick={dash} className="btn btn-sm btn-info">
-        Back
-      </Button>
       <Container>
         <Table hover responsive size="" striped className="w-100  p-3">
           <thead>

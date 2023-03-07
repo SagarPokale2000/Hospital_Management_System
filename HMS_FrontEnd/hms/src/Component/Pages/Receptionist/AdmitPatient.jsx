@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Container, Table,Button,Modal, ModalHeader, ModalBody,Input,Label } from "reactstrap";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
@@ -23,8 +22,6 @@ function AdmitPatient() {
   const [health, setHealth] = useState({});
     
   const [ward, setWard] = useState([]);
-
-    const navigate = useNavigate();
 
   useEffect(() => {
     // load post of postId
@@ -92,21 +89,11 @@ function AdmitPatient() {
     pat.wardid = event.target.value;
   }
 
-  const dash = () => {
-    navigate('/user/Receptionist')
-}
   const user = data?.content;
 
   return (
     <div>
       <Base>
-        <br />
-        <br />
-        <br /> <Button
-                    onClick={dash}
-                    className='btn btn-sm btn-info'>
-                    Back
-                  </Button>
         <Container>
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>

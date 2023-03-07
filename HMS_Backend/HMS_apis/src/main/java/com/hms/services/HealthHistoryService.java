@@ -18,22 +18,25 @@ public interface HealthHistoryService {
 
 			// delete( cancel health history )
 			void deleteHealthHistory(Integer healthId);
+
+			//get single medicine
+			HealthHistoryDto getHealthHistoryById(Integer healthId);
 			
-			
+			//allocate ward and bed
 			HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto,Integer wardId);
 
+			//Discharge Patient
+			HealthHistoryDto dischargePatient(Integer healthId);
+			
+			
 			//update 
 			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
-			
-			HealthHistoryDto dischargePatient(Integer healthId);
 			
 			HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt);
 			
 			//get all medicine
 			HealthHistoryResponse getAllHealthHistory(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
 			
-			//get single medicine
-			HealthHistoryDto getHealthHistoryById(Integer healthId);
 			
 			HealthHistoryDto getHealthHistoryByPaymentStatus(Integer patientId);
 			

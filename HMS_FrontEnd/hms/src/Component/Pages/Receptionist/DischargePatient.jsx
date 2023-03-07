@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Container, Table,Button,Modal, ModalHeader, ModalBody } from "reactstrap";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
-import { GetPatientForAdmit } from "../../../ServerCall/Receiptionist/ReceptionistAxios";
+import { GetPatientForDischarge } from "../../../ServerCall/Receiptionist/ReceptionistAxios";
 import Base from "../../Base/Base";
 
 function DischargePatient() {
@@ -18,11 +17,9 @@ function DischargePatient() {
 
   const [health, setHealth] = useState({});
 
-    const navigate = useNavigate();
-
   useEffect(() => {
     // load post of postId
-    GetPatientForAdmit()
+    GetPatientForDischarge()
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
@@ -68,20 +65,9 @@ function DischargePatient() {
     resetData();
   }
 
-  const dash = () => {
-    navigate('/user/Receptionist')
-}
-
 return (
     <div>
       <Base>
-        <br />
-        <br />
-        <br /> <Button
-                    onClick={dash}
-                    className='btn btn-sm btn-info'>
-                    Back
-                  </Button>
         <Container>
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>
@@ -92,7 +78,7 @@ return (
                 <th>DOB</th>
                 <th>Contact</th>
                 <th>E-Mail</th>
-                <th>Allocate Ward</th>
+                <th>Discharge</th>
               </tr>
             </thead>
 
