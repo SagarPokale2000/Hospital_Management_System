@@ -1,23 +1,22 @@
 import { getCurrentUserDetail } from "../../Authentication/auth";
 import { MYAXIOIS } from "../Axios/AxiosHelper";
 import { PrivateAxios } from "../Axios/AxiosHelper";
-export const AddAppoinment = (patient) => {
+
+export const AddAppoinment = (patient,id) => {
   return PrivateAxios.post(
-    `/patients/${JSON.parse(localStorage.data).user.patient.id}/healthHistory`,
+    `/patients/`+id+`/healthHistory`,
     patient
   ).then((response) => response.data);
 };
 
-export const GetAllHealthHistory = (patient) => {
+export const GetAllHealthHistory = (id) => {
   return PrivateAxios.get(
-    `/patient/${JSON.parse(localStorage.data).user.patient.id}/healthhistory`,
-    patient
+    `/patient/`+id+`/healthhistory`
   ).then((response) => response.data);
 };
 
-export const GetAllAppintmentHistory = () => {
-  const id = getCurrentUserDetail().patient.id;
-  return PrivateAxios.get(`/patient/${id}/appointmenthistory`).then(
+export const GetAllAppintmentHistory = (id) => {
+  return PrivateAxios.get(`/patient/`+id+`/appointmenthistory`).then(
     (response) => response.data
   );
 };

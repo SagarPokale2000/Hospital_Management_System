@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Form,
@@ -15,15 +14,12 @@ import {
   Button,
   Modal,
   ModalHeader,
-  ModalBody,
-  ModalFooter,
-  toggle,
+  ModalBody
 } from "reactstrap";
 import { AddAppoinment } from "../../../ServerCall/Patient/PatientAxios";
 import Base from "../../Base/Base";
 
 function Appointment() {
-  const navigate = useNavigate();
   const [data, setData] = useState({
     symptoms: "",
     appointmentDate: "",
@@ -57,34 +53,27 @@ function Appointment() {
     // Data validate
 
     // Call server API
-    AddAppoinment(data)
+    AddAppoinment(data,JSON.parse(localStorage.data).user.patient.id)
       .then((response) => {
         console.log(response);
-        //toast.success("Appointment Book Successfully");
         resetData();
         setModal(!modal);
-        toast.success("Apponintment Booked")
-        // navigate("/user/Patient");
+        toast.success("Apponintment Booked Successfully");
       })
       .catch((error) => {
         console.log(error);
         console.log("error log");
       });
   };
-  const dash = () => {
-    navigate('/user/Patient')
-  };
 
 
   return (
-    // <div>
       <Container className="mt-0"> 
         <Row>
           <Col sm={{ size: 6, offset: 3 }}>
-          {/* <Col > */}
             <Card outline color="dark">
               <CardHeader>
-                <h1>Welcome {localStorage.getItem("firstName")}</h1>
+                <h1>Welcome Patient</h1>
                 <h3>Book Appintment</h3>
               </CardHeader>
               <CardBody>
@@ -133,14 +122,6 @@ function Appointment() {
                       Book Appointment
                     </Button>
                     <Button
-                      onClick={dash}
-                      outline
-                      color="secondary"
-                      className="ms-3"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
                       onClick={resetData}
                       outline
                       color="danger"
@@ -172,7 +153,6 @@ function Appointment() {
         </ModalBody>
       </Modal>
       </Container>
-    // </div>
   );
 }
 

@@ -18,10 +18,9 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  toggle,ButtonGroup, Table
+  toggle,ButtonGroup
 } from "reactstrap";
 import { updateDoctorSchedule } from "../../../ServerCall/Doctor/DoctoAxios";
-import { getCurrentUserDetail } from "../../../Authentication/auth";
 
 function Schedule() {
     const navigate = useNavigate();
@@ -61,7 +60,6 @@ function Schedule() {
   
     const [modal, setModal] = useState(false);
     const toggle = () => {
-        //getCurrentUserDetail();
         setModal(!modal);
     };
     // Reset the form

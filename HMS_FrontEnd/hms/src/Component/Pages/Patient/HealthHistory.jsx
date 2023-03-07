@@ -14,7 +14,7 @@ function HealthHistory(args) {
 
   useEffect(() => {
     // load post of postId
-    GetAllHealthHistory()
+    GetAllHealthHistory(JSON.parse(localStorage.data).user.patient.id)
       .then((serverData) => {
       //console.log(serverData)
       setData({
@@ -56,16 +56,15 @@ const getMedicines = (id) => {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Patient Name</th>
-                <th>Appintment Date</th>
-                <th>Appintment Time</th>
-                <th>symptoms</th>
-                <th>doctor</th>
-                <th>diseases</th>
-                <th>admitDate</th>
-                <th>dischargeDate</th>
-                <th>prescriptions</th>
-                <th>allocatedBed</th>
+                <th>Name</th>
+                <th>Appintment Date and Time</th>
+                <th>Symptoms</th>
+                <th>Doctor</th>
+                <th>Diseases</th>
+                <th>AdmitDate</th>
+                <th>DischargeDate</th>
+                <th>Prescriptions</th>
+                <th>AllocatedBed</th>
                 <th>Medicines</th>
               </tr>
             </thead>
@@ -77,10 +76,9 @@ const getMedicines = (id) => {
                     <tr key={healthhistory?.healthhistory?.id}>
                       <th scope="row">{healthhistory.id}</th>
                       <td>{healthhistory.patient.user.firstName +" " + healthhistory.patient.user.lastName}</td>
-                      <td>{healthhistory.appointmentDate}</td>
-                      <td>{healthhistory.appointmentTime}</td>
+                      <td>{healthhistory.appointmentDate+" "+healthhistory.appointmentTime}</td>
                       <td>{healthhistory.symptoms}</td>
-                      <td>{healthhistory.patient.doctor.employee.user.firstName + " " + healthhistory.patient.doctor.employee.user.lastName}</td>
+                      <td>{healthhistory?.patient?.doctor?.employee?.user?.firstName + " " + healthhistory?.patient?.doctor?.employee?.user?.lastName}</td>
                       <td>{healthhistory.diseases}</td>
                       <td>{healthhistory.admitDate}</td>
                       <td>{healthhistory.dischargeDate}</td>
@@ -122,6 +120,5 @@ const getMedicines = (id) => {
     </div>
   );
 }
-
 
 export default HealthHistory;

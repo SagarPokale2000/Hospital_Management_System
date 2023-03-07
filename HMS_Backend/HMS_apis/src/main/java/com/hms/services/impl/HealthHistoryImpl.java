@@ -1,5 +1,6 @@
 package com.hms.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,10 +56,71 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		return this.modelMapper.map(newHealths, HealthHistoryDto.class);
 	}
 
+	// ---------------------------------------------------------------------------------------------------------
+
+	@SuppressWarnings("null")
+	@Override
+	public List<HealthHistoryDto> getAppointmentHistoryBypatient(Integer patientId) {
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
+
+		List<Health_History> healths = this.healthRepo.findByPatient(patient);
+
+		List<Health_History> temp = new ArrayList<Health_History>();
+
+		for (Health_History h : healths) {
+			if (patient.getAdmitStatus().equals(false) && patient.getCurrentStatus().equals(true)
+					&& h.getPaymentStatus().equals(true)) {
+				temp.add(h);
+			}
+		}
+
+		List<HealthHistoryDto> healthDtos = temp.stream()
+				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
+
+		return healthDtos;
+	}
+
+	// -------------------------------------------------------------------------------------------------------------
+
+	// get health history by patient
+	@SuppressWarnings("null")
+	@Override
+	public List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId) {
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
+		List<Health_History> healths = this.healthRepo.findByPatient(patient);
+
+		List<Health_History> temp = new ArrayList<Health_History>();
+
+		for (Health_History h : healths) {
+			if (h.getPaymentStatus().equals(false)) {
+				temp.add(h);
+			}
+		}
+
+		List<HealthHistoryDto> healthDtos = temp.stream()
+				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
+
+		return healthDtos;
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------
+
+	@Override
+	public void deleteHealthHistory(Integer healthId) {
+		Health_History health = this.healthRepo.findById(healthId)
+				.orElseThrow(() -> new ResourceNotFoundException("Health_History ", "health id", healthId));
+
+		this.healthRepo.delete(health);
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------------
+	
 	@Override
 	public HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto, Integer wardId) {
 		Health_History healths = this.modelMapper.map(healthDto, Health_History.class);
-		
+
 		Patient patient = healths.getPatient();
 
 		Ward ward = this.wardRepo.findById(wardId)
@@ -73,39 +135,38 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
-	
+
 	@Override
 	public HealthHistoryDto dischargePatient(Integer healthId) {
 		Health_History healths = this.healthRepo.findById(healthId)
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
-		
+
 		Patient patient = healths.getPatient();
-		
+
 		patient.setAdmitStatus(false);
 		patient.setCurrentStatus(false);
 		patient.setWard(null);
 		patient.setDoctor(null);
-		
+
 		@SuppressWarnings("unused")
 		Patient updatedPatient = this.patientRepo.save(patient);
-		
+
 		healths.setPaymentStatus(false);
-		
+
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
 
 	@Override
-	public HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt) {
+	public HealthHistoryDto updateHealthHistoryPayment(Integer Id, Double amt) {
 		Health_History healths = this.healthRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", Id));
-		double a=healths.getPaidAmount()+amt;
+		double a = healths.getPaidAmount() + amt;
 		healths.setPaidAmount(a);
-		
+
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
-
 
 	// update HH
 	@Override
@@ -136,27 +197,6 @@ public class HealthHistoryImpl implements HealthHistoryService {
 	}
 
 	@Override
-	public void deleteHealthHistory(Integer healthId) {
-		Health_History health = this.healthRepo.findById(healthId)
-				.orElseThrow(() -> new ResourceNotFoundException("Health_History ", "health id", healthId));
-
-		this.healthRepo.delete(health);
-	}
-
-	// get health history by patient
-	@Override
-	public List<HealthHistoryDto> getHealthHistoryBypatient(Integer patientId) {
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
-		List<Health_History> healths = this.healthRepo.findByPatient(patient);
-
-		List<HealthHistoryDto> healthDtos = healths.stream()
-				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
-
-		return healthDtos;
-	}
-
-	@Override
 	public HealthHistoryDto getHealthHistoryByPaymentStatus(Integer patientId) {
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
@@ -170,22 +210,6 @@ public class HealthHistoryImpl implements HealthHistoryService {
 			}
 		}
 		return h;
-	}
-
-	@Override
-	public List<HealthHistoryDto> getAppointmentHistoryBypatient(Integer patientId) {
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
-
-		List<Health_History> healths = this.healthRepo.findByPatient(patient);
-
-		List<HealthHistoryDto> healthDtos = null;
-
-		if (patient.getAdmitStatus().equals(false) && patient.getCurrentStatus().equals(true)) {
-			healthDtos = healths.stream().map((health) -> this.modelMapper.map(health, HealthHistoryDto.class))
-					.collect(Collectors.toList());
-		}
-		return healthDtos;
 	}
 
 //get all health history

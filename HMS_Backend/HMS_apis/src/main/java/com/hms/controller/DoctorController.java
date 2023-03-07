@@ -35,7 +35,7 @@ public class DoctorController {
 		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
 	}
 	
-	//--------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------
 	
 	// update - pass json
 	@PreAuthorize("hasRole('ADMIN')")
