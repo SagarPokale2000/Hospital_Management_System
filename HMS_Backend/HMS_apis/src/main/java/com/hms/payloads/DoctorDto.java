@@ -24,6 +24,8 @@ public class DoctorDto {
 	private LocalTime startTime;
 
 	private LocalTime endTime;
+	
+	private String days;
 
 	@JsonIgnoreProperties(value = "doctor")
 	private EmployeeDto employee;

@@ -48,7 +48,6 @@ function App() {
               <Route path="PatientAccountList"element={<PatientAccountList />}></Route>
 
               <Route path="doctor" element={<DoctorDashboard />}></Route>
-
               <Route path="receptionist" element={<Receptionist />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
               <Route path="admin" element={<Admin />}></Route>

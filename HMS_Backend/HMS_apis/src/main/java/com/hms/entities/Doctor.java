@@ -45,6 +45,8 @@ public class Doctor {
 	@Column(name = "scheduled_end_time")
 	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime endTime;
+
+	private String days;
 	
 	@OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Patient> patients= new ArrayList<>();

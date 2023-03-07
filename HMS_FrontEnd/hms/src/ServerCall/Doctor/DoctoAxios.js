@@ -17,3 +17,8 @@ export const updatePatientStatus = (id, data) =>
 {
   return PrivateAxios.put('/patients/'+id, data).then((response) => response.data)
 } 
+
+export const updateDoctorSchedule = (id,data,days) =>
+{
+  return PrivateAxios.put('/doctor/'+id+'/schedule/'+days, data).then((response) => response.data)
+} 

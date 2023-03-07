@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hms.payloads.ApiResponse;
 import com.hms.payloads.DoctorDto;
 import com.hms.payloads.EmployeeDto;
 import com.hms.services.DoctorService;
@@ -43,6 +41,15 @@ public class DoctorController {
 	public ResponseEntity<DoctorDto> updateDoctor(@Valid @RequestBody DoctorDto doctorDto,
 			@PathVariable Integer docId) {
 		DoctorDto updatedDoctor = this.doctorService.updateDoctor(doctorDto, docId);
+		return new ResponseEntity<DoctorDto>(updatedDoctor, HttpStatus.OK);
+	}
+	
+	@PreAuthorize("hasRole('DOCTOR')")
+	@PutMapping("/doctor/{docId}/schedule/{days}")
+	public ResponseEntity<DoctorDto> selectSchedule(@Valid @RequestBody DoctorDto doctorDto,
+			@PathVariable Integer docId, @PathVariable String days) {
+		
+		DoctorDto updatedDoctor = this.doctorService.selectSchedule(doctorDto, docId,days);
 		return new ResponseEntity<DoctorDto>(updatedDoctor, HttpStatus.OK);
 	}
 	/*

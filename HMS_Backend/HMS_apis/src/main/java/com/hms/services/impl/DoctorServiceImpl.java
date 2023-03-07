@@ -82,10 +82,24 @@ public class DoctorServiceImpl implements DoctorService {
 		Doctor doc = new Doctor();
 		doc.setEmployee(addedEmp);
 		doc.setPatients(null);
-
+		doc.setDays(null);
 		Doctor addedDoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 	}
+	
+	@Override
+	public DoctorDto selectSchedule(DoctorDto doctorDto, Integer doctorId,String days) {
+		Doctor doc = this.doctorRepo.findById(doctorId)
+				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
+		
+		doc.setStartTime(doctorDto.getStartTime());
+		doc.setEndTime(doctorDto.getEndTime());
+		doc.setDays(days);
+		
+		Doctor updateddoc = this.doctorRepo.save(doc);
+		return this.modelMapper.map(updateddoc, DoctorDto.class);
+	}
+
 
 	@Override
 	public DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId) {
@@ -122,6 +136,7 @@ public class DoctorServiceImpl implements DoctorService {
 		address.setPincode(addressDto.getPincode());
 		address.setUser(updatedUser);
 
+		@SuppressWarnings("unused")
 		Address updatedAddress = this.addressRepo.save(address);
 
 		emp.setQualificaton(employeeDto.getQualificaton());
@@ -173,5 +188,4 @@ public class DoctorServiceImpl implements DoctorService {
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 
 	}
-
 }
