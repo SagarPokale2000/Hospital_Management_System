@@ -27,13 +27,15 @@ public class DoctorController {
 	@Autowired
 	private DoctorService doctorService;
 	
-	// create doctor --send user details in json format to create doctor
+	// create doctor
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/doctor")
 	public ResponseEntity<DoctorDto> createDoctorN(@Valid @RequestBody EmployeeDto empDto) {
 		DoctorDto createDoctor = this.doctorService.createDoctorN(empDto);
 		return new ResponseEntity<DoctorDto>(createDoctor, HttpStatus.CREATED);
 	}
+	
+	//--------------------------------------------------------------------------
 	
 	// update - pass json
 	@PreAuthorize("hasRole('ADMIN')")

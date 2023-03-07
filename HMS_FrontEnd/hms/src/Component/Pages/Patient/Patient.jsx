@@ -11,10 +11,6 @@ import { Navigate, NavLink as ReactLink, Route, useNavigate } from "react-router
 function Patient() {
   return (
     <Base>
-      <hr></hr>
-      <hr></hr>
-      <hr></hr>
-      <hr></hr>
       <h1>Welcome Patient</h1>
      </Base>
   )

@@ -61,7 +61,7 @@ public class PatientServiceImpl implements PatientService {
 	@Autowired
 	private RoleRepo roleRepo;
 
-//send user details in json format to create patient
+//Create patient (Sign Up)
 	@Override
 	public PatientDto createPatient(PatientDto patientDto) {
 
@@ -92,7 +92,9 @@ public class PatientServiceImpl implements PatientService {
 		Patient newPatient = this.patientRepo.save(patient);
 		return this.modelMapper.map(newPatient, PatientDto.class);
 	}
-
+	
+//---------------------------------------------------------------------------------------------------
+	
 	// update patient details ( statuses )
 	@Override
 	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {

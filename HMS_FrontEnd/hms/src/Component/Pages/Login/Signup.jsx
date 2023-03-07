@@ -45,7 +45,6 @@ function Signup() {
   const [data, setData] = useState({
     admitStatus: false,
     currentStatus: false,
-    paymentStatus: false,
     user : {}
   });
 
@@ -93,7 +92,6 @@ function Signup() {
     setData({
       admitStatus: false,
       currentStatus: false,
-      paymentStatus: false,
     user : {}
   });
   };
@@ -102,12 +100,6 @@ function Signup() {
     // debugger
     event.preventDefault();
 
-    // if (error.isError) {
-    //     toast.error("Form data is Invalid !!!!!!!!!!")
-    //     setError({...error, isError:false})
-    //     return;
-    // }
-    
     console.log("Before send to Server");
     // Data validate
 
@@ -123,12 +115,6 @@ function Signup() {
       .catch((error) => {
         console.log(error);
         console.log("error log");
-
-        //Handling Error
-        // setError({
-        //     errors: error,
-        //     isError: true
-        // })
       });
   };
 

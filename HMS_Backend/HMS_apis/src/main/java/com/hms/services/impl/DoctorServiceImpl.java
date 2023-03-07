@@ -1,5 +1,6 @@
 package com.hms.services.impl;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,9 +53,6 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public DoctorDto createDoctorN(EmployeeDto employeeDto) {
-//		Doctor doc = this.modelMapper.map(doctorDto, Doctor.class);
-
-//		EmployeeDto employeeDto=doctorDto.getEmployee();
 
 		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 
@@ -82,10 +80,15 @@ public class DoctorServiceImpl implements DoctorService {
 		Doctor doc = new Doctor();
 		doc.setEmployee(addedEmp);
 		doc.setPatients(null);
-		doc.setDays(null);
+		doc.setDoctorFee(100.00);
+		doc.setStartTime(LocalTime.NOON);
+		doc.setEndTime(LocalTime.NOON);
+		doc.setDays("{\"sunday\":false,\"monday\":false,\"tuesday\":false,\"wednesday\":false,\"thursday\":false,\"friday\":false,\"saturday\":false}");
 		Doctor addedDoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(addedDoc, DoctorDto.class);
 	}
+	
+	//------------------------------------------------------------------------------------------
 	
 	@Override
 	public DoctorDto selectSchedule(DoctorDto doctorDto, Integer doctorId,String days) {
@@ -95,7 +98,6 @@ public class DoctorServiceImpl implements DoctorService {
 		doc.setStartTime(doctorDto.getStartTime());
 		doc.setEndTime(doctorDto.getEndTime());
 		doc.setDays(days);
-		
 		Doctor updateddoc = this.doctorRepo.save(doc);
 		return this.modelMapper.map(updateddoc, DoctorDto.class);
 	}
