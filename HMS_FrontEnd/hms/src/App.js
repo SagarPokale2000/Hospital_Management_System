@@ -20,6 +20,7 @@ import DoctorDashboard from "./Component/Pages/Doctor/DoctorDashboard";
 import AppointmentList from "./Component/Pages/Receptionist/AppointmentList";
 import AdmitPatient from "./Component/Pages/Receptionist/AdmitPatient";
 import DischargePatient from "./Component/Pages/Receptionist/DischargePatient";
+import ReceptionistDashboard from "./Component/Pages/Receptionist/ReceptionistDashboard";
 function App() {
   return (
     <div className="App">
@@ -51,20 +52,17 @@ function App() {
               <Route path="PatientAccountList"element={<PatientAccountList />}></Route>
 
               <Route path="doctor" element={<DoctorDashboard />}></Route>
-              <Route path="receptionist" element={<Receptionist />}></Route>
+              <Route path="receptionist" element={<ReceptionistDashboard />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
               <Route path="admin" element={<Admin />}></Route>
-              <Route path="AppointmentList" element={<AppointmentList />}></Route>
-              <Route path="AdmitPatient" element={<AdmitPatient />}></Route>
-              <Route path="DischargePatient" element={<DischargePatient />}></Route>
               <Route path="update/patient/:id" element={<PatientDetails />}></Route>
+              
             </Route>
+            
+            
             <Route path="/AddResources" element={<AddResources />}></Route>
             <Route path="/GetResources" element={<GetAllResources />}></Route>
-            <Route
-              path="/AdminGetResources"
-              element={<AdminGetResources />}
-            ></Route>
+            <Route path="/AdminGetResources" element={<AdminGetResources />}></Route>
 
             <Route path="/" element={<Home />}></Route>
           </Routes>
