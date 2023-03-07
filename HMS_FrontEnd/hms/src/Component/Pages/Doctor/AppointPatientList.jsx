@@ -138,7 +138,7 @@ function AppointPatientList(args) {
         </thead>
 
         <tbody>
-          {localData?.map((patient) => {
+          {/* {localData?.map((patient) => {
             return (
               <tr key={patient?.id}>
                 <th scope="row">{patient?.id}</th>
@@ -160,7 +160,7 @@ function AppointPatientList(args) {
                 </Button>
               </tr>
             );
-          })}
+          })} */}
           {/* to={`/user/update/patient/${patient.id}`} */}
         </tbody>
       </Table>

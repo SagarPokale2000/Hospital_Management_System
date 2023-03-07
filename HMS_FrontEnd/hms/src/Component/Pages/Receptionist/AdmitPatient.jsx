@@ -32,7 +32,7 @@ function AdmitPatient() {
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
-          content: [...data.content, ...serverData.content],
+          content: [...serverData.content],
           totalPages: serverData.totalPages,
           totalElements: serverData.totalElements,
           pageSize: serverData.pageSize,

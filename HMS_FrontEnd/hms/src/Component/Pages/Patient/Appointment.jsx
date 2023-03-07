@@ -17,7 +17,6 @@ import {
   ModalBody
 } from "reactstrap";
 import { AddAppoinment } from "../../../ServerCall/Patient/PatientAxios";
-import Base from "../../Base/Base";
 
 function Appointment() {
   const [data, setData] = useState({
@@ -29,7 +28,6 @@ function Appointment() {
   const handleChange = (event, property) => {
     // dynamic setting of values
     setData({ ...data, [property]: event.target.value });
-    console.log(data);
   };
 
   const [modal, setModal] = useState(false);

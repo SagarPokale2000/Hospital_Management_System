@@ -1,12 +1,6 @@
 import React from 'react'
 import Base from '../../Base/Base';
-import {
-  Nav,
-  NavItem,
-  NavLink,
-} from "reactstrap";
 
-import { Navigate, NavLink as ReactLink, Route, useNavigate } from "react-router-dom";
 
 function Patient() {
   return (

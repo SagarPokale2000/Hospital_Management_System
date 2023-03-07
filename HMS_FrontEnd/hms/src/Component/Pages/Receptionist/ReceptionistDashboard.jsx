@@ -8,12 +8,13 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
+import AppointmentList from "./AppointmentList";
 import { Container } from "reactstrap";
 import Base from "../../Base/Base";
-import Appointment from './Appointment'
-import AppintmentHistory from "./AppointmentHistory";
-import HealthHistory from "./HealthHistory";
-export default function PatientDashboard() {
+import AdmitPatient from "./AdmitPatient";
+import DischargePatient from "./DischargePatient";
+
+export default function ReceptionistDashboard() {
   const [verticalActive, setVerticalActive] = useState("Dashboard");
 
   const handleVerticalClick = (value) => {
@@ -26,10 +27,10 @@ export default function PatientDashboard() {
 
   return (
     <>
-    <br />
-    <br />
-    <br />
-    <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <MDBRow>
         <MDBCol size="3">
           <MDBTabs pills className="flex-column text-center">
@@ -43,27 +44,26 @@ export default function PatientDashboard() {
             </MDBTabsItem>
             <MDBTabsItem>
               <MDBTabsLink
-                onClick={() => handleVerticalClick("Appointment")}
-                active={verticalActive === "Appointment"}
+                onClick={() => handleVerticalClick("AppoList")}
+                active={verticalActive === "AppoList"}
               >
-                Book Appointment
+                Appointment List
               </MDBTabsLink>
             </MDBTabsItem>
             <MDBTabsItem>
               <MDBTabsLink
-                onClick={() => handleVerticalClick("AppintmentHistory")}
-                active={verticalActive === "AppintmentHistory"}
+                onClick={() => handleVerticalClick("AdmitList")}
+                active={verticalActive === "AdmitList"}
               >
-                Appintment History
+                Admit List
               </MDBTabsLink>
             </MDBTabsItem>
-
             <MDBTabsItem>
               <MDBTabsLink
-                onClick={() => handleVerticalClick("HealthHistory")}
-                active={verticalActive === "HealthHistory"}
+                onClick={() => handleVerticalClick("Discharge")}
+                active={verticalActive === "Discharge"}
               >
-                Health History
+                Discharge
               </MDBTabsLink>
             </MDBTabsItem>
           </MDBTabs>
@@ -73,16 +73,19 @@ export default function PatientDashboard() {
             <Base>
               <MDBTabsContent>
                 <MDBTabsPane show={verticalActive === "Dashboard"}>
-                  Patient Dashboard
+                  Home content
                 </MDBTabsPane>
-                <MDBTabsPane show={verticalActive === "Appointment"}>
-                  <Appointment />
+            
+                <MDBTabsPane show={verticalActive === "AppoList"}>
+                  <AppointmentList />
                 </MDBTabsPane>
-                <MDBTabsPane show={verticalActive === "AppintmentHistory"}>
-                  <AppintmentHistory />
+            
+                <MDBTabsPane show={verticalActive === "AdmitList"}>
+                  <AdmitPatient />
                 </MDBTabsPane>
-                <MDBTabsPane show={verticalActive === "HealthHistory"}>
-                  <HealthHistory />
+
+                <MDBTabsPane show={verticalActive === "Discharge"}>
+                  <DischargePatient />
                 </MDBTabsPane>
               </MDBTabsContent>
             </Base>

@@ -26,7 +26,7 @@ function DischargePatient() {
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
-          content: [...data.content, ...serverData.content],
+          content: [...serverData.content],
           totalPages: serverData.totalPages,
           totalElements: serverData.totalElements,
           pageSize: serverData.pageSize,
@@ -71,9 +71,8 @@ function DischargePatient() {
   const dash = () => {
     navigate('/user/Receptionist')
 }
-  const user = data?.content;
 
-  return (
+return (
     <div>
       <Base>
         <br />
