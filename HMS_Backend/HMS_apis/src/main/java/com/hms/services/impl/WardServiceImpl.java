@@ -59,7 +59,7 @@ public class WardServiceImpl implements WardService {
 
 		return this.modelMapper.map(ward, WardDto.class);
 	}
-
+//used for receptionist
 	@Override
 	public List<WardDto> getward() {
 		List<Ward> wards = this.wardRepo.findAll();

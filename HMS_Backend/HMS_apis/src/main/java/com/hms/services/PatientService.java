@@ -24,9 +24,11 @@ public interface PatientService {
 	PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 	
 	// get all patients for accountant (pagination)
-	PatientResponse getAllPatientForAccountant(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+	PatientResponse getAllPatientAfterAppointment(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 	
 	PatientResponse getAllPatientForReceptionist(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+	
+	PatientResponse getAllPatientForAdmitStatus(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
 	// get single patient
 	PatientDto getPatientById(Integer patientId);

@@ -11,12 +11,6 @@ public interface EmployeeService {
 
 	EmployeeDto createReceptionist(EmployeeDto employeeDto);
 
-//	EmployeeDto createAccountant(EmployeeDto employeeDto);
-
-//	EmployeeDto createReceptionistO(EmployeeDto employeeDto, Integer userId);
-
-	//EmployeeDto createAccountantO(EmployeeDto employeeDto, Integer userId);
-
 	// update
 	EmployeeDto updateEmployee(EmployeeDto employeeDto, Integer Id);
 

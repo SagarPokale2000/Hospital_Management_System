@@ -56,18 +56,15 @@ public class HealthHistoryImpl implements HealthHistoryService {
 	}
 
 	@Override
-	public HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto, Integer healthId, Integer wardId) {
-
-		Health_History healths = this.healthRepo.findById(healthId)
-				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
-
+	public HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto, Integer wardId) {
+		Health_History healths = this.modelMapper.map(healthDto, Health_History.class);
+		
 		Patient patient = healths.getPatient();
 
 		Ward ward = this.wardRepo.findById(wardId)
 				.orElseThrow(() -> new ResourceNotFoundException("Ward", "ward id ", wardId));
 
 		patient.setWard(ward);
-		// need to check bed logic allocatedBed
 		healths.setAllocatedBed(healthDto.getAllocatedBed());
 
 		@SuppressWarnings("unused")
@@ -140,7 +137,7 @@ public class HealthHistoryImpl implements HealthHistoryService {
 	}
 
 	@Override
-	public HealthHistoryDto getHealthHistoryByAccountant(Integer patientId) {
+	public HealthHistoryDto getHealthHistoryByPaymentStatus(Integer patientId) {
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
 		List<Health_History> healths = this.healthRepo.findByPatient(patient);

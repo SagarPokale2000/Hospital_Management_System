@@ -7,7 +7,7 @@ import com.hms.payloads.WardDto;
 
 
 public interface WardService {
-	// create
+		// create
 		WardDto createWard(WardDto wardDto);
 
 		// update
@@ -20,6 +20,5 @@ public interface WardService {
 		WardDto getWard(Integer wardId);
 
 		// get All
-
 		List<WardDto> getward();
 }

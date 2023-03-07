@@ -60,6 +60,7 @@ public class WardController {
 	}
 
 	// get all
+	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@GetMapping("/")
 	public ResponseEntity<List<WardDto>> getWard() {
 		List<WardDto> wards = this.wardService.getward();

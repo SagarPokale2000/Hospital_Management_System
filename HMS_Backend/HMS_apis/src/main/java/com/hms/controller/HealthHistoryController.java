@@ -49,9 +49,9 @@ public class HealthHistoryController {
 	}
 	
 	@PreAuthorize("hasAnyRole('ACCOUNTANT','RECEPTIONIST')")
-	@GetMapping("/patient/{patientId}/healthhistory/accountant")
-	public @ResponseBody ResponseEntity<HealthHistoryDto> getHealthHistoryByAccountant(@PathVariable Integer patientId) {
-		HealthHistoryDto healths = this.healthservice.getHealthHistoryByAccountant(patientId);
+	@GetMapping("/patient/{patientId}/healthhistory/paymentstatus")
+	public @ResponseBody ResponseEntity<HealthHistoryDto> getHealthHistoryByPaymentStatus(@PathVariable Integer patientId) {
+		HealthHistoryDto healths = this.healthservice.getHealthHistoryByPaymentStatus(patientId);
 		return new ResponseEntity<HealthHistoryDto>(healths, HttpStatus.OK);
 	}
 	
@@ -63,12 +63,11 @@ public class HealthHistoryController {
 			return new ResponseEntity<List<HealthHistoryDto>>(healths, HttpStatus.OK);
 		}
 	
-	// allocate ward and bed
+	// allocate ward and bed (admit patient)
 		@PreAuthorize("hasRole('RECEPTIONIST')")
-		@PutMapping("/healthhistory/{healthId}/ward/{wardId}")
-		public ResponseEntity<HealthHistoryDto> updatePatientWard(@RequestBody HealthHistoryDto healthHistoryDto,
-				@PathVariable Integer healthId, @PathVariable Integer wardId) {
-			HealthHistoryDto updatePatient = this.healthservice.updatePatientWard(healthHistoryDto,healthId, wardId);
+		@PutMapping("/healthhistory/ward/{wardId}")
+		public ResponseEntity<HealthHistoryDto> updatePatientWard(@RequestBody HealthHistoryDto healthHistoryDto, @PathVariable Integer wardId) {
+			HealthHistoryDto updatePatient = this.healthservice.updatePatientWard(healthHistoryDto, wardId);
 			return new ResponseEntity<HealthHistoryDto>(updatePatient, HttpStatus.OK);
 		}
 		

@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Container, Table,Button,Modal, ModalHeader, ModalBody,Input,Label } from "reactstrap";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
-import { GetAllAppointmentList } from "../../../ServerCall/Receiptionist/ReceptionistAxios";
+import { GetPatientForAdmit } from "../../../ServerCall/Receiptionist/ReceptionistAxios";
 import Base from "../../Base/Base";
 
-function AppointmentList() {
+function AdmitPatient() {
   const [data, setData] = useState({
     content: [],
     totalPages: "",
@@ -17,19 +17,18 @@ function AppointmentList() {
   });
 
   const [pat, setPat] = useState({
-    id:"",
-    appointmentDate: "",
-    appointmentTime: "",
-    symptoms: "",
-    doctorId:""
+      wardid:""
   });
+    
+  const [health, setHealth] = useState({});
+    
+  const [ward, setWard] = useState([]);
 
-  const [doctor, setDoctor] = useState([]);
+    const navigate = useNavigate();
 
-  const navigate = useNavigate()
   useEffect(() => {
     // load post of postId
-    GetAllAppointmentList()
+    GetPatientForAdmit()
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
@@ -39,7 +38,6 @@ function AppointmentList() {
           pageSize: serverData.pageSize,
           lastPage: serverData.lastPage,
           pageNumber: serverData.pageNumber,
-          
         });
       })
       .catch((error) => {
@@ -47,54 +45,51 @@ function AppointmentList() {
         toast.error("Error in loading");
       });
   }, []);
+    
   const [modal, setModal] = useState(false);
   const toggle = () => {
       setModal(!modal);
   }
   
+    const handleChange = (event, property) => {
+        setHealth({ ...health, [property]: event.target.value });
+    };
+    
   const resetData = () => {
-    pat.id = "";
-    pat.appointmentDate = "";
-    pat.appointmentTime = "";
-    pat.symptoms = "";
-    pat.doctorId = "";
-    setPat({});
-    setDoctor([]);
+      pat.wardid = "";
+      setPat({});
+      setWard([]);
+      setHealth({});
   };
 
   const getHealthHistory = (id) => {
     resetData();
-    pat.id = id;
-    PrivateAxios.get(`patient/`+ id+`/healthhistory/accountant`).then((response) => {
-      var result = response.data;
-      pat.appointmentDate = result.appointmentDate;
-      pat.appointmentTime = result.appointmentTime;
-      pat.symptoms = result.symptoms;
-      setPat({...pat,"symptoms":result.symptoms});
+    PrivateAxios.get(`patient/`+ id+`/healthhistory/paymentstatus`).then((response) => {
+        var result = response.data;
+        setHealth(result);
     })
-    getAllDocotors();
+    getAllWards();
   }
 
-  const getAllDocotors= () => {
-    PrivateAxios.get(`doctors`).then((response) => {
+  const getAllWards= () => {
+    PrivateAxios.get(`wards/`).then((response) => {
       var result = response.data;
-      setDoctor(result);
+      setWard(result);
+      //debugger;
     })
     toggle();
   }
 
-  const confirmDoctor = () => {
-    debugger;
-    PrivateAxios.put(`patients/`+pat.id+`/doctor/`+pat.doctorId).then((response) => {
+  const confirm = () => {
+    PrivateAxios.put(`healthhistory/ward/`+pat.wardid,health).then((response) => {
       toggle();
-      toast.success("Doctor updated Successfully");
+      toast.success("Ward and Bed Allocated Successfully");
     })
     resetData();
   }
 
-  const AppointDoctor = (event) => {
-    debugger;
-    pat.doctorId = event.target.value;
+  const AllocateWard = (event) => {
+    pat.wardid = event.target.value;
   }
 
   const dash = () => {
@@ -118,11 +113,11 @@ function AppointmentList() {
               <tr>
                 <th>Patient Id</th>
                 <th>Name</th>
-                  <th>Gender</th>
-                  <th>DOB</th>
-                  <th>Contact</th>
-                  <th>E-Mail</th>
-                <th>Assign Doctor</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Contact</th>
+                <th>E-Mail</th>
+                <th>Allocate Ward</th>
               </tr>
             </thead>
 
@@ -141,7 +136,7 @@ function AppointmentList() {
                     onClick={() => { getHealthHistory(user?.id) }}
                     style={styles.button}
                     className='btn btn-sm btn-success'>
-                    Appoint Doctor
+                    Admit Patient
                   </Button></td>
                   </tr>
                 );
@@ -151,49 +146,51 @@ function AppointmentList() {
           </Table>
         </Container>
         <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"md"}>
-          <ModalHeader toggle={toggle}>Update Patient Payment</ModalHeader>
+          <ModalHeader toggle={toggle}>Allocate Bed and Ward</ModalHeader>
           <ModalBody>
               <>
                 <Table>
                   <tbody>
-                <tr>
-                    <th>Appointment Date  = </th>
-                    <td>{pat.appointmentDate}</td>
-                  </tr>
-                  <tr>
-                    <th>Appointment Time  = </th>
-                    <td>{pat.appointmentTime}</td>
-                    </tr>
-                    <tr>
-                    <th>Symptoms = </th>
-                    <td>{pat.symptoms}</td>
-                  </tr>
                   <tr>
                     <td>
-                    <Label for="doctor" >Select Doctor</Label>
+                    <Label for="ward" >Select Ward</Label>
                             <Input
                                 type="select"
-                                id="doctor"
+                                id="ward"
                                 placeholder="Enter here"
                                 className="rounded-0"
-                                name="id"
-                        onChange={(e) => { AppointDoctor(e) }}
+                                name="ward"
+                        onChange={(e) => { AllocateWard(e) }}
                                 defaultValue={0}
                             >
-                       <option disabled value={0} >--Select Docotor--</option>
+                       <option disabled value={0} >--Select Ward--</option>
                         {
-                          doctor.map((d) => (
+                          ward.map((d) => (
                             <option value={d?.id} key={d?.id}>
-                              {d.employee.user.firstName + " " + d.employee.user.lastName}
+                              {d.wardType+" "+"charges = "+d.wardCharges}
                             </option>
                           ))
                         }
                       </Input>
                     </td>
-                  </tr>
+                </tr>
+                <tr>
+                    <td>
+                    <Label for="allocatedBed">Enter Bed Number </Label>
+                      <Input
+                        type="text"
+                        placeholder="Enter Here"
+                        id="allocatedBed"
+                        onChange={(e) => {
+                          handleChange(e, "allocatedBed");
+                        }}
+                        value={user.allocatedBed}
+                      />             
+                    </td>
+                </tr>
                     <tr>
-                    <th><Button outline color="primary" onClick={() => { confirmDoctor() }}> 
-                  Allocate Doctor
+                    <th><Button outline color="primary" onClick={() => { confirm() }}> 
+                  Admit Patient
                       </Button></th>
                       <th></th>
                     </tr>
@@ -215,4 +212,4 @@ const styles = {
     marginRight: 10,
   },
 }
-export default AppointmentList;
+export default AdmitPatient;
