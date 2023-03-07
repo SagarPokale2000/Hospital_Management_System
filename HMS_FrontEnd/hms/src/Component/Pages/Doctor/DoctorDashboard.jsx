@@ -12,6 +12,7 @@ import { Container } from "reactstrap";
 import Base from "../../Base/Base";
 import AppointPatientList from "./AppointPatientList";
 import Schedule from "./Schedule";
+import GetResources from "../../Pages/HospitalResources/GetResources";
 export default function DoctorDashboard() {
   const [verticalActive, setVerticalActive] = useState("Dashboard");
 
@@ -78,11 +79,12 @@ export default function DoctorDashboard() {
                 <AppointPatientList/>
                 </MDBTabsPane>
                 <MDBTabsPane show={verticalActive === "CheckResources"}>
-                  Messages content
+                  <GetResources/>
                 </MDBTabsPane>
 
                 <MDBTabsPane show={verticalActive === "Schedule"}>
-                <Schedule/>
+                  <Schedule/>
+                  sc
                 </MDBTabsPane>
               </MDBTabsContent>
             </Base>

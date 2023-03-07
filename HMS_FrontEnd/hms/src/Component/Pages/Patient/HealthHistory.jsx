@@ -4,7 +4,6 @@ import { Container, Table } from "reactstrap";
 import { GetAllHealthHistory } from "../../../ServerCall/Patient/PatientAxios";
 import Base from "../../Base/Base";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter,toggle } from 'reactstrap';
-import { useNavigate } from "react-router-dom";
 import { MYAXIOIS } from "../../../ServerCall/Axios/AxiosHelper";
 
 function HealthHistory(args) {
@@ -12,7 +11,6 @@ function HealthHistory(args) {
     content: [],
   });
   const [med, setMedicine] = useState([]);
-  const navigate = useNavigate()
 
   useEffect(() => {
     // load post of postId
@@ -36,10 +34,6 @@ function HealthHistory(args) {
     setModal(!modal);
   }
 
-  const dash = () => {
-    navigate('/user/Patient')
-}
-
  // console.log(data?.content);
   const healthhistory = data?.content;
   
@@ -57,11 +51,6 @@ const getMedicines = (id) => {
         <br />
         <br />
         <br />
-        <Button
-                    onClick={dash}
-                    className='btn btn-sm btn-info'>
-                    Back
-                  </Button>
         <Container>
           <Table hover responsive size="" striped className="w-100  p-3">
             <thead>

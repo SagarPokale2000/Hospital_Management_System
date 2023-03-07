@@ -33,7 +33,6 @@ function AllPatient() {
       });
   }, []);
 
-  console.log(";;;;;;;;;;;;;;;;;;;")
   console.log(data?.content[0]?.admitStatus)
   console.log(data);
   // debugger
@@ -63,7 +62,7 @@ function AllPatient() {
                 return (
                   <tr key={user?.user.id}>
                     <th scope="row">{user?.id}</th>
-                    <td>{user?.user.firstName}</td>
+                    <td>{user?.user.firstName+" "+user?.user.lastName}</td>
                     <td>{user?.user.gender}</td>
                     <td>{user?.user.dob}</td>
                     <td>{user?.user.mobileNo}</td>
@@ -72,23 +71,6 @@ function AllPatient() {
                   </tr>
                 );
               })}
-
-              {/* {
-              postContent?.content?.map((post) => (
-                // <Post post={post} key={post.postId} deletePost={post} />
-                <Post post={post} key={post.postId} />
-              ))} */}
-{/* 
-              <tr>
-                <th scope="row">1</th>
-                <td>{user?.firstName}</td>
-                <td>{user?.roles[0]?.name}</td>
-                <td>{user?.gender}</td>
-                 <td>{data?.content[0]?.qualificaton}</td> 
-                <td>{user?.dob}</td>
-                <td>{user?.mobileNo}</td>
-                <td>{user?.email}</td>
-              </tr> */}
             </tbody>
           </Table>
         </Container>

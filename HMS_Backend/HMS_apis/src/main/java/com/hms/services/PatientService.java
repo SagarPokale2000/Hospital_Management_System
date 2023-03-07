@@ -6,11 +6,10 @@ import com.hms.payloads.PatientDto;
 import com.hms.payloads.PatientResponse;
 
 public interface PatientService {
-	// create patient
-	//PatientDto createPatientO(PatientDto patientDto, Integer userId);
-	
+	// create patient ( Sign Up )
 	PatientDto createPatient(PatientDto patientDto);
 
+	
 	// update patient details
 	PatientDto updatePatient(PatientDto patientDto, Integer patientId);
 

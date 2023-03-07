@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button, Container, Table } from "reactstrap";
 import { GetAllAppintmentHistory } from "../../../ServerCall/Patient/PatientAxios";
@@ -7,7 +6,6 @@ import Base from "../../Base/Base";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
 
 function AppintmentHistory(args) {
-    const navigate = useNavigate()
   const [data, setData] = useState({
     content: [],
   });
@@ -59,10 +57,7 @@ function AppintmentHistory(args) {
               }
             })
   }
-  
-    const dash = () => {
-        navigate('/user/Patient')
-  }
+
 
   console.log(data?.content);
   const healthhistory = data?.content;
@@ -73,11 +68,6 @@ function AppintmentHistory(args) {
         <br />
         <br />
               <br />
-              <Button
-                    onClick={dash}
-                    className='btn btn-sm btn-info'>
-                    Back
-                  </Button>
               <Container>
               
           <Table hover responsive size="" striped className="w-100  p-3">

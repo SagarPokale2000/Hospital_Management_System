@@ -11,9 +11,6 @@ import Accountant from "./Component/Pages/Accountant/Accountant";
 import Receptionist from "./Component/Pages/Receptionist/Receptionist";
 import PatientDetails from "./Component/Pages/Doctor/PatientDetails";
 import Admin from "./Component/CustomeNavBar/Admin/SideNavBar";
-import AddResources from "./Component/Pages/HospitalResources/AddResources";
-import { GetAllResources } from "./ServerCall/HospitalResources/Resources";
-import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
 import PatientAccountList from "./Component/Pages/Accountant/PatientAccountList";
 import PatientDashboard from "./Component/Pages/Patient/PatientDashboard";
 import DoctorDashboard from "./Component/Pages/Doctor/DoctorDashboard";
@@ -58,11 +55,6 @@ function App() {
               <Route path="update/patient/:id" element={<PatientDetails />}></Route>
               
             </Route>
-            
-            
-            <Route path="/AddResources" element={<AddResources />}></Route>
-            <Route path="/GetResources" element={<GetAllResources />}></Route>
-            <Route path="/AdminGetResources" element={<AdminGetResources />}></Route>
 
             <Route path="/" element={<Home />}></Route>
           </Routes>

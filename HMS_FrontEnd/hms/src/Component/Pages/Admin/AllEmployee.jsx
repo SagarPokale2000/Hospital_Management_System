@@ -27,10 +27,6 @@ function AllEmployee() {
           lastPage: serverData.lastPage,
           pageNumber: serverData.pageNumber,
         });
-
-        // console.log(serverData);
-        // setData(serverData);
-        // debugger;
       })
       .catch((error) => {
         console.log(error);
@@ -61,21 +57,21 @@ function AllEmployee() {
             </thead>
 
             <tbody>
-              {data &&
-                data?.content?.map((user) => {
-                  return (
-                    <tr key={user?.user.id}>
-                      <th scope="row">{user?.id}</th>
-                      <td>{user?.user.firstName}</td>
-                      <td>{user?.user.roles[0].name}</td>
-                      <td>{user?.user.gender}</td>
-                      <td>{user?.qualificaton}</td>
-                      <td>{user?.user.dob}</td>
-                      <td>{user?.user.mobileNo}</td>
-                      <td>{user?.user.email}</td>
-                    </tr>
-                  );
-                })}
+            {data &&
+              data?.content?.map((user) => {
+                return (
+                  <tr key={user?.user.id}>
+                    <th scope="row">{user?.id}</th>
+                    <td>{user?.user.firstName + " " + user?.user.lastName}</td>
+                    <td>{user?.user.roles[0].name}</td>
+                    <td>{user?.user.gender}</td>
+                    <td>{user?.qualificaton}</td>
+                    <td>{user?.user.dob}</td>
+                    <td>{user?.user.mobileNo}</td>
+                    <td>{user?.user.email}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </Container>

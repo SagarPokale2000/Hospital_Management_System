@@ -8,12 +8,14 @@ import com.hms.payloads.EmployeeDto;
 
 
 public interface DoctorService {
-
+		//create doctor
 		DoctorDto createDoctorN(EmployeeDto empDto);
+		
 		// update
 		DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId);
 		
 		DoctorDto selectSchedule(DoctorDto doctorDto, Integer doctorId,String days);
+		
 		// delete
 //		void deleteDoctor(Integer Id);
 		
