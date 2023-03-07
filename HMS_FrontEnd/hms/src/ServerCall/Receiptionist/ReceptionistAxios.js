@@ -18,3 +18,9 @@ export const GetPatientForAdmit = () => {
     "receptionist/patients/admit?pageNumber=0&pageSize=10"
   ).then((response) => response.data);
 };
+
+export const GetPatientForDischarge = () => {
+  return PrivateAxios.get(
+    "receptionist/patients/discharge?pageNumber=0&pageSize=10"
+  ).then((response) => response.data);
+};

@@ -1,5 +1,6 @@
 package com.hms.services.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -116,7 +117,16 @@ public class HealthHistoryImpl implements HealthHistoryService {
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------
-	
+
+	@Override
+	public HealthHistoryDto getHealthHistoryById(Integer healthId) {
+		Health_History healths = this.healthRepo.findById(healthId)
+				.orElseThrow(() -> new ResourceNotFoundException("Health_History", "health id", healthId));
+		return this.modelMapper.map(healths, HealthHistoryDto.class);
+	}
+
+	// ----------------------------------------------------------------------------------------------------------------------
+
 	@Override
 	public HealthHistoryDto updatePatientWard(HealthHistoryDto healthDto, Integer wardId) {
 		Health_History healths = this.modelMapper.map(healthDto, Health_History.class);
@@ -132,9 +142,13 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		@SuppressWarnings("unused")
 		Patient updatedPatient = this.patientRepo.save(patient);
 
+		healths.setAdmitDate(LocalDate.now());
+		
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
+
+	// --------------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public HealthHistoryDto dischargePatient(Integer healthId) {
@@ -152,10 +166,13 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		Patient updatedPatient = this.patientRepo.save(patient);
 
 		healths.setPaymentStatus(false);
-
+		healths.setDischargeDate(LocalDate.now());
+		
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
+
+	// --------------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public HealthHistoryDto updateHealthHistoryPayment(Integer Id, Double amt) {
@@ -238,13 +255,6 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		helathResponse.setLastPage(pageHealthHistory.isLast());
 
 		return helathResponse;
-	}
-
-	@Override
-	public HealthHistoryDto getHealthHistoryById(Integer healthId) {
-		Health_History healths = this.healthRepo.findById(healthId)
-				.orElseThrow(() -> new ResourceNotFoundException("Health_History", "health id", healthId));
-		return this.modelMapper.map(healths, HealthHistoryDto.class);
 	}
 
 	@Override

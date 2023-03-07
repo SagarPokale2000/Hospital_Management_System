@@ -10,6 +10,10 @@ import com.hms.payloads.EmployeeDto;
 public interface DoctorService {
 		//create doctor
 		DoctorDto createDoctorN(EmployeeDto empDto);
+
+		// get All
+		List<DoctorDto> getDoctor();
+		
 		
 		// update
 		DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId);
@@ -17,11 +21,8 @@ public interface DoctorService {
 		DoctorDto selectSchedule(DoctorDto doctorDto, Integer doctorId,String days);
 		
 		// delete
-//		void deleteDoctor(Integer Id);
+		//void deleteDoctor(Integer Id);
 		
 		// get
 		DoctorDto getDoctor(Integer doctorId);
-
-		// get All
-		List<DoctorDto> getDoctor();
 }

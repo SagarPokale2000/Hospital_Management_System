@@ -36,6 +36,18 @@ public class WardController {
 		return new ResponseEntity<WardDto>(createWard, HttpStatus.CREATED);
 	}
 
+	// ----------------------------------------------------------------------------------------------------------
+
+	// get all
+	@PreAuthorize("hasRole('RECEPTIONIST')")
+	@GetMapping("/")
+	public ResponseEntity<List<WardDto>> getWard() {
+		List<WardDto> wards = this.wardService.getward();
+		return ResponseEntity.ok(wards);
+	}
+	
+	//--------------------------------------------------------------------------------------------------------------
+	
 	// update
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/{wardId}")
@@ -59,11 +71,4 @@ public class WardController {
 		return new ResponseEntity<WardDto>(wardDto, HttpStatus.OK);
 	}
 
-	// get all
-	@PreAuthorize("hasRole('RECEPTIONIST')")
-	@GetMapping("/")
-	public ResponseEntity<List<WardDto>> getWard() {
-		List<WardDto> wards = this.wardService.getward();
-		return ResponseEntity.ok(wards);
-	}
 }
