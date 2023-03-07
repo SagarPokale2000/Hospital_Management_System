@@ -19,7 +19,6 @@ function App() {
     <div className="App">
       <UserProvider>
         <BrowserRouter>
-          {/* <ToastContainer position='bottom-center' /> */}
           <ToastContainer
             position="bottom-center"
             autoClose={5000}
@@ -34,24 +33,20 @@ function App() {
           />
 
           <Routes>
-            {/* <Temp /> */}
-            {/* <Home /> */}
             <Route path="/home" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signUp" element={<Signup />}></Route>
             <Route path="/user" element={<PrivateRoute />}>
               <Route path="Patient" element={<PatientDashboard />}></Route>
-              
               <Route path="PatientAccountList"element={<PatientAccountList />}></Route>
+              <Route path="update/patient/:id" element={<PatientDetails />}></Route>
 
               <Route path="doctor" element={<DoctorDashboard />}></Route>
               <Route path="receptionist" element={<ReceptionistDashboard />}></Route>
               <Route path="accountant" element={<Accountant />}></Route>
               <Route path="admin" element={<Admin />}></Route>
-              <Route path="update/patient/:id" element={<PatientDetails />}></Route>
               
             </Route>
-
             <Route path="/" element={<Home />}></Route>
           </Routes>
         </BrowserRouter>
