@@ -74,6 +74,26 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
 	
+	@Override
+	public HealthHistoryDto dischargePatient(Integer healthId) {
+		Health_History healths = this.healthRepo.findById(healthId)
+				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
+		
+		Patient patient = healths.getPatient();
+		
+		patient.setAdmitStatus(false);
+		patient.setCurrentStatus(false);
+		patient.setWard(null);
+		patient.setDoctor(null);
+		
+		@SuppressWarnings("unused")
+		Patient updatedPatient = this.patientRepo.save(patient);
+		
+		healths.setPaymentStatus(false);
+		
+		Health_History updatedHealth = this.healthRepo.save(healths);
+		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
+	}
 
 	@Override
 	public HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt) {
@@ -210,5 +230,4 @@ public class HealthHistoryImpl implements HealthHistoryService {
 				.map((health) -> this.modelMapper.map(health, HealthHistoryDto.class)).collect(Collectors.toList());
 		return healthDtos;
 	}
-
 }
