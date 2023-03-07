@@ -23,6 +23,8 @@ public interface HealthHistoryService {
 			//update 
 			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
 			
+			HealthHistoryDto dischargePatient(Integer healthId);
+			
 			HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt);
 			
 			//get all medicine

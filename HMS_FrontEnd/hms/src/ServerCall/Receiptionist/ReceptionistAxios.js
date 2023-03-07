@@ -15,3 +15,4 @@ export const GetPatientForAdmit = () => {
     (response) => response.data
   );
 };
+

@@ -22,12 +22,13 @@ function Receptionist() {
           </NavLink>
           <NavLink href='AdmitPatient'>
           Admit Patient
+            </NavLink>
+            <NavLink href='DischargePatient'>
+            Discharge Patient
     </NavLink>
   </NavItem>
       </Nav>
-        
         </Base>
-      
     </div>
   )
 }
