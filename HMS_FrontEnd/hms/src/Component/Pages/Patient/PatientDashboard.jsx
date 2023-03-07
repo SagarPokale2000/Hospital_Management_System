@@ -13,7 +13,6 @@ import Base from "../../Base/Base";
 import Appointment from './Appointment'
 import AppintmentHistory from "./AppointmentHistory";
 import HealthHistory from "./HealthHistory";
-import Patient from "./Patient";
 export default function PatientDashboard() {
   const [verticalActive, setVerticalActive] = useState("Dashboard");
 
@@ -74,7 +73,7 @@ export default function PatientDashboard() {
             <Base>
               <MDBTabsContent>
                 <MDBTabsPane show={verticalActive === "Dashboard"}>
-                  <Patient/>
+                  Patient Dashboard
                 </MDBTabsPane>
                 <MDBTabsPane show={verticalActive === "Appointment"}>
                   <Appointment />

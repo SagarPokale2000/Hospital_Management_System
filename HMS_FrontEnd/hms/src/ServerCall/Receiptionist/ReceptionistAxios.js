@@ -1,4 +1,3 @@
-import { MYAXIOIS } from "../Axios/AxiosHelper";
 import { PrivateAxios } from "../Axios/AxiosHelper";
 
 export const GetAllAppointmentList = () => {

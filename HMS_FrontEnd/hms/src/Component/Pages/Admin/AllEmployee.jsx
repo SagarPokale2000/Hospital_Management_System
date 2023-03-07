@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
 import { loadAllEmployee } from "../../../ServerCall/Admin/Admin";
-import Base from "../../Base/Base";
 
 function AllEmployee() {
   const [data, setData] = useState({
@@ -20,7 +19,7 @@ function AllEmployee() {
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
-          content: [...data.content, ...serverData.content],
+          content: [...serverData.content],
           totalPages: serverData.totalPages,
           totalElements: serverData.totalElements,
           pageSize: serverData.pageSize,
@@ -34,9 +33,6 @@ function AllEmployee() {
       });
   }, []);
 
-  console.log(data?.content);
-  const user = data?.content;
-  // debugger;
 
   return (
     <div>

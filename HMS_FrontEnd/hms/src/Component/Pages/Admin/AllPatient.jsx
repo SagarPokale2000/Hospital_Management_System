@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
-import { loadAllEmployee, loadAllPatient } from "../../../ServerCall/Admin/Admin";
-import Base from "../../Base/Base";
+import { loadAllPatient } from "../../../ServerCall/Admin/Admin";
 
 function AllPatient() {
   const [data, setData] = useState({
@@ -19,7 +18,7 @@ function AllPatient() {
     loadAllPatient()
       .then((serverData) => {
         setData({
-          content: [...data.content, ...serverData.content],
+          content: [ ...serverData.content],
           totalPages: serverData.totalPages,
           totalElements: serverData.totalElements,
           pageSize: serverData.pageSize,
@@ -33,11 +32,6 @@ function AllPatient() {
       });
   }, []);
 
-  console.log(data?.content[0]?.admitStatus)
-  console.log(data);
-  // debugger
-  const user = data?.content;
-  // debugger;
 
   return (
     <div>

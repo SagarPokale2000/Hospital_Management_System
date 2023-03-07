@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Table } from "reactstrap";
 import { GetAllResources } from "../../../ServerCall/HospitalResources/Resources";
-import Base from "../../Base/Base";
 
 function GetResources() {
   const [data, setData] = useState({
@@ -20,7 +19,7 @@ function GetResources() {
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
-          content: [...data.content, ...serverData.content],
+          content: [...serverData.content],
           totalPages: serverData.totalPages,
           totalElements: serverData.totalElements,
           pageSize: serverData.pageSize,

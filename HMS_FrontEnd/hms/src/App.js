@@ -5,18 +5,14 @@ import Home from "./Component/Home/Home";
 import Login from "./Component/Pages/Login/Login";
 import Signup from "./Component/Pages/Login/Signup";
 import UserProvider from "./Context/UserProvider";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./Component/Base/PrivateRoute";
 import Accountant from "./Component/Pages/Accountant/Accountant";
-import Receptionist from "./Component/Pages/Receptionist/Receptionist";
 import PatientDetails from "./Component/Pages/Doctor/PatientDetails";
 import Admin from "./Component/CustomeNavBar/Admin/SideNavBar";
 import PatientAccountList from "./Component/Pages/Accountant/PatientAccountList";
 import PatientDashboard from "./Component/Pages/Patient/PatientDashboard";
 import DoctorDashboard from "./Component/Pages/Doctor/DoctorDashboard";
-import AppointmentList from "./Component/Pages/Receptionist/AppointmentList";
-import AdmitPatient from "./Component/Pages/Receptionist/AdmitPatient";
-import DischargePatient from "./Component/Pages/Receptionist/DischargePatient";
 import ReceptionistDashboard from "./Component/Pages/Receptionist/ReceptionistDashboard";
 function App() {
   return (

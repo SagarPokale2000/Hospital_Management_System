@@ -13,7 +13,6 @@ import {
 } from "reactstrap";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
 import { GetAllAppointmentList } from "../../../ServerCall/Receiptionist/ReceptionistAxios";
-import Base from "../../Base/Base";
 
 function AppointmentList() {
   const [data, setData] = useState({
@@ -42,7 +41,7 @@ function AppointmentList() {
       .then((serverData) => {
         setData({
           // Concatinent the pageContent with new data -> new data with existing data
-          content: [...data.content, ...serverData.content],
+          content: [...serverData.content],
           totalPages: serverData.totalPages,
           totalElements: serverData.totalElements,
           pageSize: serverData.pageSize,
@@ -113,7 +112,6 @@ function AppointmentList() {
   const dash = () => {
     navigate("/user/Receptionist");
   };
-  const user = data?.content;
 
   return (
     <div>
