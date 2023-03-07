@@ -7,15 +7,18 @@ import {
   MDBTabsPane,
   MDBRow,
   MDBCol,
+  MDBTableBody,
+  MDBTableHead,
 } from "mdb-react-ui-kit";
 import AllEmployee from "../../Pages/Admin/AllEmployee";
 import AddEmployee from "../../Pages/Admin/AddEmployee";
 import AllPatient from "../../Pages/Admin/AllPatient";
 import RemoveEmployee from "../../Pages/Admin/RemoveEmployee";
 import AdminDashboard from "../../Pages/Admin/AdminDashboard";
-import Resources from "../../Pages/Admin/Resources";
 import Base from "../../Base/Base";
 import { Container } from "reactstrap";
+import AdminGetResources from "../../Pages/HospitalResources/AdminGetResources";
+import AddResources from "../../Pages/HospitalResources/AddResources";
 
 function Admin() {
   const [verticalActive, setVerticalActive] = useState("Dashboard");
@@ -83,12 +86,20 @@ function Admin() {
 
             <MDBTabsItem>
               <MDBTabsLink
-                onClick={() => handleVerticalClick("Resources")}
-                active={verticalActive === "Resources"}
+                onClick={() => handleVerticalClick("AdminGetResources")}
+                active={verticalActive === "AdminGetResources"}
               >
                 Check and Update Resources
               </MDBTabsLink>
             </MDBTabsItem>
+            <MDBTabsItem>
+              <MDBTabsLink
+                onClick={() => handleVerticalClick("AddResource")}
+                active={verticalActive === "AddResource"}
+              >
+                Add Resource
+              </MDBTabsLink></MDBTabsItem>
+
           </MDBTabs>
         </MDBCol>
         <MDBCol size="9">
@@ -115,9 +126,14 @@ function Admin() {
                   <RemoveEmployee />
                 </MDBTabsPane>
 
-                <MDBTabsPane show={verticalActive === "Resources"}>
-                  <Resources />
+                <MDBTabsPane show={verticalActive === "AdminGetResources"}>
+                  <AdminGetResources/>
                 </MDBTabsPane>
+
+                <MDBTabsPane show={verticalActive === "AddResource"}>
+                <AddResources/>
+                </MDBTabsPane>
+
               </MDBTabsContent>
             </Base>
           </Container>

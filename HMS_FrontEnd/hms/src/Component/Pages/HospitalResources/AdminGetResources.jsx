@@ -12,10 +12,8 @@ import { GetAllResources } from "../../../ServerCall/HospitalResources/Resources
 import Base from "../../Base/Base";
 import { RESOURCEAXIOS } from "../../../ServerCall/Axios/AxiosHelper";
 import { useNavigate } from 'react-router-dom'
-import axios from "axios";
 
 function AdminGetResources() {
-  const navigate = useNavigate()
   const [data, setData] = useState({
     content: [],
     totalPages: "",
@@ -72,60 +70,33 @@ function AdminGetResources() {
       remaining_quantity: ""
     });
   }
-  // console.log(data?.content);
   const resource = data?.content;
-  //console.log(resource)
-  //debugger;
-  
-  const getAdminGetResources = () => {
-    debugger;
-    RESOURCEAXIOS.get("/resources?pageNumber=0&pageSize=5").then((serverData) => {
-      //const result = response.data
-      setData({
-        // Concatinent the pageContent with new data -> new data with existing data
-        content: [...data.content, ...serverData.content],
-        totalPages: serverData.totalPages,
-        totalElements: serverData.totalElements,
-        pageSize: serverData.pageSize,
-        lastPage: serverData.lastPage,
-        pageNumber: serverData.pageNumber,
-      });
-     // setData(result['data'])
-    })
+
+  const [mo, setMo] = useState(false);
+  const tog = (i) => {
+    setRes({ ...res,"id": i })
+    setMo(!mo);
   }
 
-  const deleteResource = (id) => {
-    RESOURCEAXIOS.delete(`/resources/` + id, resource).then((response) => {
+  const deleteResource = () => {
+    RESOURCEAXIOS.delete(`/resources/` + res.id, resource).then((response) => {
       const result = response.data
       if (result.success === true) {
-        // reload the screen
-        getAdminGetResources()
-        //toast.success("Resource Deleted Successfully");
+        tog();
+        resetData();
+        toast.success("Resource Deleted Successfully");
       } else {
         toast.error(result['error'])
       }
     })
   }
-
     
   const [modal, setModal] = useState(false);
   const toggle = (i) => {
-    debugger;
-      //handleChange(i, "id")
-    //setRes( res.id=i );
     setRes({ ...res,"id": i })
 
     setModal(!modal);
   }
-  
-  const addResource = () => {
-    navigate('/AddResources')
-  }
-
-  // const back = () => {
-    
-  //   navigate('/AdminGetResources')
-  // }
 
   // Call server API,id
   const UpdateResource = () => {
@@ -135,7 +106,6 @@ function AdminGetResources() {
       debugger;
       resetData();
       toggle();
-      getAdminGetResources();
       toast.success("Resource updated Successfully");
     });
   }
@@ -144,12 +114,6 @@ function AdminGetResources() {
       <div>
         <br/><br/><br/>
         <Base>
-          <Button
-            onClick={addResource}
-            style={styles.button}
-            className='btn btn-sm btn-info'>
-            Add Resource
-          </Button>
           <Container>
             <Table hover responsive size="" striped className="w-100  p-3">
               <thead>
@@ -181,7 +145,7 @@ function AdminGetResources() {
                           Update
                         </button></td>
                         <td>   <button
-                          onClick={() => deleteResource(resource.id)}
+                          onClick={() => { tog(resource.id) }}
                           style={styles.button}
                           className='btn btn-sm btn-danger'>
                           Delete
@@ -280,6 +244,23 @@ function AdminGetResources() {
               </Container>
             </ModalFooter>
           </Modal>
+          <Modal
+        isOpen={mo}
+        toggle={tog}
+        centered={true}
+        scrollable={true}
+        size={"sm"}
+      >
+        <ModalHeader toggle={tog}>Are you sure?</ModalHeader>
+        <ModalBody>
+          <Button outline color="primary" className="ms-3" onClick={() => deleteResource()}>
+            Yes
+          </Button>
+          <Button outline color="danger" className="ms-3" onClick={tog}>
+            No
+          </Button>
+        </ModalBody>
+      </Modal>
         </Base>
       </div>
     );
@@ -293,6 +274,5 @@ const styles = {
     marginRight: 10,
   },
 }
-
 
 export default AdminGetResources;

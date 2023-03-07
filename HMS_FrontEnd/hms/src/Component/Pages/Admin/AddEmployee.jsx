@@ -85,12 +85,6 @@ function AddEmployee() {
       : role == "Doctor"
       ? addDoctorServer(employee)
       : addEmployeeServer(employee, 503);
-
-    // if (error.isError) {
-    //     toast.error("Form data is Invalid !!!!!!!!!!")
-    //     setError({...error, isError:false})
-    //     return;
-    // }
   };
   // Call server API
 
@@ -102,7 +96,7 @@ function AddEmployee() {
         console.log("Success LOG");
         console.log("After receiving to Server response");
         toast.success("User Registred as " + response.user.roles[0].name);
-        // resetData();
+        resetData();
       })
       .catch((error) => {
         console.log(error);
@@ -129,12 +123,6 @@ function AddEmployee() {
         console.log("error log");
       });
   };
-
-  //Handling Error
-  // setError({
-  //     errors: error,
-  //     isError: true
-  // })
 
   return (
     <div>
