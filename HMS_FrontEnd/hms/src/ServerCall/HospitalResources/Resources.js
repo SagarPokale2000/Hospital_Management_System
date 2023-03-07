@@ -9,5 +9,5 @@ export const UpdateResources = (data, id) => {
 }
 
 export const GetAllResources = (resource) => {
-    return RESOURCEAXIOS.get("/resources?pageNumber=0&pageSize=5",resource).then((response) => response.data);
+    return RESOURCEAXIOS.get("/resources?pageNumber=0&pageSize=10",resource).then((response) => response.data);
 }

@@ -15,19 +15,7 @@ function Patient() {
       <hr></hr>
       <hr></hr>
       <hr></hr>
-      <Nav vertical>
-  <NavItem>
-    <NavLink href='AddAppoinment'>
-            AddAppoinment
-          </NavLink>
-          <NavLink href='AppintmentHistory'>
-          Appintment History
-    </NavLink>
-          <NavLink href='HealthHistory'>
-            Health History
-    </NavLink>
-  </NavItem>
-      </Nav>
+      <h1>Welcome Patient</h1>
      </Base>
   )
 }

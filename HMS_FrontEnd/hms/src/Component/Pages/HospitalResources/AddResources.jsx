@@ -15,10 +15,8 @@ import {
 import { AddResource } from "../../../ServerCall/HospitalResources/Resources";
 import Base from "../../Base/Base";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 function AddResources() {
-  const navigate = useNavigate()
   const [data, setData] = useState({
     resource_name: "",
     total_quantity: "",
@@ -39,11 +37,11 @@ function AddResources() {
     const resetData = () => {
         setData({
             resource_name: "",
-    total_quantity: "",
-      occupy_quantity: "",
-      remaining_quantity:""
-  });
-  }
+            total_quantity: "",
+            occupy_quantity: "",
+            remaining_quantity:""
+        });
+      }
   const submitForm = (event) => {
     // debugger
     event.preventDefault();
@@ -58,17 +56,14 @@ function AddResources() {
           console.log(response)
          toast.success("Resource Added Successfully");
           resetData();
-          navigate('/AdminGetResources');
+          toggle();
       })
       .catch((error) => {
         console.log(error);
         console.log("error log");
       });
   };
-  const dash = () => {
-    navigate('/AdminGetResources')
-}
-//const firstName=localStorage.getItem("firstName")
+
   return (
       <div>
       <Base>
@@ -79,7 +74,7 @@ function AddResources() {
               <Card outline color="dark">
                 <CardHeader>
                   
-                  <h1>Welcome</h1>
+                  <h1>Welcome Admin</h1>
                   <h3>Add Hospital Resource</h3>
                               </CardHeader>
                               <CardBody>
@@ -141,13 +136,6 @@ function AddResources() {
                       <Button outline color="primary" onClick={toggle}>
                         Add Resource
                       </Button>
-                      <Button
-                    onClick={dash}
-                    outline
-                        color="secondary"
-                        className="ms-3">
-                    Cancel
-                  </Button>
                       <Button
                         onClick={resetData}
                         outline

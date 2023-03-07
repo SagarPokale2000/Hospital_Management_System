@@ -10,10 +10,10 @@ import {
 } from "mdb-react-ui-kit";
 import { Container } from "reactstrap";
 import Base from "../../Base/Base";
-import Appointment from './AddAppointment'
+import Appointment from './Appointment'
 import AppintmentHistory from "./AppointmentHistory";
 import HealthHistory from "./HealthHistory";
-
+import Patient from "./Patient";
 export default function PatientDashboard() {
   const [verticalActive, setVerticalActive] = useState("Dashboard");
 
@@ -74,7 +74,7 @@ export default function PatientDashboard() {
             <Base>
               <MDBTabsContent>
                 <MDBTabsPane show={verticalActive === "Dashboard"}>
-                  Home content
+                  <Patient/>
                 </MDBTabsPane>
                 <MDBTabsPane show={verticalActive === "Appointment"}>
                   <Appointment />
@@ -82,7 +82,6 @@ export default function PatientDashboard() {
                 <MDBTabsPane show={verticalActive === "AppintmentHistory"}>
                   <AppintmentHistory />
                 </MDBTabsPane>
-
                 <MDBTabsPane show={verticalActive === "HealthHistory"}>
                   <HealthHistory />
                 </MDBTabsPane>
