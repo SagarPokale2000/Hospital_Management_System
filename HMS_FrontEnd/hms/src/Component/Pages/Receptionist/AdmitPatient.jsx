@@ -79,9 +79,9 @@ function AdmitPatient() {
 
   const confirm = () => {
     PrivateAxios.put(`healthhistory/ward/`+pat.wardid,health).then((response) => {
-      toggle();
       toast.success("Ward and Bed Allocated Successfully");
     })
+    toggle();
     resetData();
   }
 

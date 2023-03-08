@@ -17,6 +17,12 @@ public interface PatientService {
 	
 	// update patient Doctor
 	PatientDto updatePatientDoctor(Integer patientId, Integer doctorId);
+
+	// get all patients for accountant (pagination)
+	PatientResponse getAllPatientAfterAppointment(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+	// get single patient
+	PatientDto getPatientById(Integer patientId);
 	
 	
 	// update patient details
@@ -29,11 +35,6 @@ public interface PatientService {
 	// get all patients (pagination)
 	PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
-	// get all patients for accountant (pagination)
-	PatientResponse getAllPatientAfterAppointment(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
-
-	// get single patient
-	PatientDto getPatientById(Integer patientId);
 
 	// get all patients by doctor Id
 	List<PatientDto> getPatientsByDoctor(Integer doctorId);

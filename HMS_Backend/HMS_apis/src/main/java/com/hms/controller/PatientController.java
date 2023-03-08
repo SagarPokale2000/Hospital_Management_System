@@ -57,9 +57,9 @@ public class PatientController {
 				sortDir);
 		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
 	}
-	
-	//---------------------------------------------------------------------------------------------------------------------
-	
+
+	// ---------------------------------------------------------------------------------------------------------------------
+
 	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@GetMapping("/receptionist/patients/discharge")
 	public ResponseEntity<PatientResponse> getAllPatientForDischarge(
@@ -86,6 +86,31 @@ public class PatientController {
 
 	// --------------------------------------------------------------------------------------------------------------------
 
+	@PreAuthorize("hasRole('ACCOUNTANT')")
+	@GetMapping("/appointment/patients")
+	public ResponseEntity<PatientResponse> getAllPatientAfterAppointment(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+
+		PatientResponse patientResponse = this.patientService.getAllPatientAfterAppointment(pageNumber, pageSize,
+				sortBy, sortDir);
+		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
+	}
+
+	// --------------------------------------------------------------------------------------------------------------------
+
+	// get patients by Id ( used for accountant )
+	@PreAuthorize("hasRole('ACCOUNTANT')")
+	@GetMapping("/patients/{patientId}")
+	public ResponseEntity<PatientDto> getPatientsById(@PathVariable Integer patientId) {
+		PatientDto patientDto = this.patientService.getPatientById(patientId);
+		return new ResponseEntity<PatientDto>(patientDto, HttpStatus.OK);
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------------
+
 	// update patient details
 //	@PreAuthorize("hasRole('PATIENT')")
 	@PutMapping("/patients/{patientId}")
@@ -100,14 +125,6 @@ public class PatientController {
 	public ResponseEntity<List<PatientDto>> getPatientsByDoctor(@PathVariable Integer doctorId) {
 		List<PatientDto> patients = this.patientService.getPatientsByDoctor(doctorId);
 		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
-	}
-
-	// get patients by Id ( used for accountant )
-//	@PreAuthorize("hasRole('ACCOUNTANT')")
-	@GetMapping("/patients/{patientId}")
-	public ResponseEntity<PatientDto> getPatientsById(@PathVariable Integer patientId) {
-		PatientDto patientDto = this.patientService.getPatientById(patientId);
-		return new ResponseEntity<PatientDto>(patientDto, HttpStatus.OK);
 	}
 
 	// get patients by ward
@@ -127,19 +144,6 @@ public class PatientController {
 			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
 
 		PatientResponse patientResponse = this.patientService.getAllPatient(pageNumber, pageSize, sortBy, sortDir);
-		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
-	}
-
-	@PreAuthorize("hasRole('ACCOUNTANT')")
-	@GetMapping("/appointment/patients")
-	public ResponseEntity<PatientResponse> getAllPatientAfterAppointment(
-			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
-			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
-			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
-
-		PatientResponse patientResponse = this.patientService.getAllPatientAfterAppointment(pageNumber, pageSize,
-				sortBy, sortDir);
 		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
 	}
 

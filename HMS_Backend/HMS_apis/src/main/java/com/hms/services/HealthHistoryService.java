@@ -27,12 +27,14 @@ public interface HealthHistoryService {
 
 			//Discharge Patient
 			HealthHistoryDto dischargePatient(Integer healthId);
+
+			// update payment by accountant
+			HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt);
 			
 			
 			//update 
 			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
 			
-			HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt);
 			
 			//get all medicine
 			HealthHistoryResponse getAllHealthHistory(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);

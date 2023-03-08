@@ -223,60 +223,6 @@ public class PatientServiceImpl implements PatientService {
 
 	// ------------------------------------------------------------------------------------------------------------
 
-	// update patient details ( statuses )
-	@Override
-	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
-
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
-
-		System.out.println("---------------------------------------------------");
-		System.out.println(patientDto.getCurrentStatus());
-		System.out.println(patientDto.getAdmitStatus());
-
-		patient.setCurrentStatus(false);
-		patient.setAdmitStatus(patientDto.getAdmitStatus());
-		System.out.println("---------------------------------------------------");
-//		this.healthRepo.findby
-		Patient updatedPatient = this.patientRepo.save(patient);
-		return this.modelMapper.map(updatedPatient, PatientDto.class);
-	}
-
-	@Override
-	public PatientDto getPatientById(Integer patientId) {
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
-		return this.modelMapper.map(patient, PatientDto.class);
-	}
-
-	// get all patients
-	@Override
-	public PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
-
-		Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-
-		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
-
-		Page<Patient> pagePatient = this.patientRepo.findAll(p);
-
-		List<Patient> allPatients = pagePatient.getContent();
-
-		List<PatientDto> patientDtos = allPatients.stream()
-				.map((patient) -> this.modelMapper.map(patient, PatientDto.class)).collect(Collectors.toList());
-
-		PatientResponse patientResponse = new PatientResponse();
-
-		patientResponse.setContent(patientDtos);
-		patientResponse.setPageNumber(pagePatient.getNumber());
-		patientResponse.setPageSize(pagePatient.getSize());
-		patientResponse.setTotalElements(pagePatient.getTotalElements());
-
-		patientResponse.setTotalPages(pagePatient.getTotalPages());
-		patientResponse.setLastPage(pagePatient.isLast());
-
-		return patientResponse;
-	}
-
 	@Override
 	public PatientResponse getAllPatientAfterAppointment(Integer pageNumber, Integer pageSize, String sortBy,
 			String sortDir) {
@@ -296,6 +242,64 @@ public class PatientServiceImpl implements PatientService {
 		}
 		patientDtos = temp.stream().map((patient) -> this.modelMapper.map(patient, PatientDto.class))
 				.collect(Collectors.toList());
+
+		PatientResponse patientResponse = new PatientResponse();
+
+		patientResponse.setContent(patientDtos);
+		patientResponse.setPageNumber(pagePatient.getNumber());
+		patientResponse.setPageSize(pagePatient.getSize());
+		patientResponse.setTotalElements(pagePatient.getTotalElements());
+
+		patientResponse.setTotalPages(pagePatient.getTotalPages());
+		patientResponse.setLastPage(pagePatient.isLast());
+
+		return patientResponse;
+	}
+
+	// ------------------------------------------------------------------------------------------------------------
+
+	@Override
+	public PatientDto getPatientById(Integer patientId) {
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
+		return this.modelMapper.map(patient, PatientDto.class);
+	}
+
+	// ------------------------------------------------------------------------------------------------------------
+
+	// update patient details ( statuses )
+	@Override
+	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
+
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
+
+		System.out.println("---------------------------------------------------");
+		System.out.println(patientDto.getCurrentStatus());
+		System.out.println(patientDto.getAdmitStatus());
+
+		patient.setCurrentStatus(false);
+		patient.setAdmitStatus(patientDto.getAdmitStatus());
+		System.out.println("---------------------------------------------------");
+//		this.healthRepo.findby
+		Patient updatedPatient = this.patientRepo.save(patient);
+		return this.modelMapper.map(updatedPatient, PatientDto.class);
+	}
+
+	// get all patients
+	@Override
+	public PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+
+		Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+
+		Page<Patient> pagePatient = this.patientRepo.findAll(p);
+
+		List<Patient> allPatients = pagePatient.getContent();
+
+		List<PatientDto> patientDtos = allPatients.stream()
+				.map((patient) -> this.modelMapper.map(patient, PatientDto.class)).collect(Collectors.toList());
 
 		PatientResponse patientResponse = new PatientResponse();
 

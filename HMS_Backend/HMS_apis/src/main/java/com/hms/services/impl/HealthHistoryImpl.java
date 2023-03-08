@@ -143,7 +143,7 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		Patient updatedPatient = this.patientRepo.save(patient);
 
 		healths.setAdmitDate(LocalDate.now());
-		
+
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
@@ -167,7 +167,7 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 		healths.setPaymentStatus(false);
 		healths.setDischargeDate(LocalDate.now());
-		
+
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
@@ -184,6 +184,8 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
+
+	// --------------------------------------------------------------------------------------------------------------------
 
 	// update HH
 	@Override

@@ -101,19 +101,21 @@ public class HealthHistoryController {
 
 	// --------------------------------------------------------------------------------------------------------------------
 
+	@PreAuthorize("hasRole('ACCOUNTANT')")
+	@PutMapping("/healthhistory/{Id}/amount/{amt}")
+	public ResponseEntity<HealthHistoryDto> updatePayment(@PathVariable Integer Id, @PathVariable Double amt) {
+		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistoryPayment(Id, amt);
+		return new ResponseEntity<HealthHistoryDto>(updateHealthHistory, HttpStatus.OK);
+	}
+
+	// --------------------------------------------------------------------------------------------------------------------
+
 	@PreAuthorize("hasRole('DOCTOR')")
 	@PutMapping("/healthhistory/{Id}")
 	public ResponseEntity<HealthHistoryDto> updateHealthHistory(@RequestBody HealthHistoryDto healthDto,
 			@PathVariable Integer Id) {
 
 		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistory(healthDto, Id);
-		return new ResponseEntity<HealthHistoryDto>(updateHealthHistory, HttpStatus.OK);
-	}
-
-	@PreAuthorize("hasRole('ACCOUNTANT')")
-	@PutMapping("/healthhistory/{Id}/amount/{amt}")
-	public ResponseEntity<HealthHistoryDto> updatePayment(@PathVariable Integer Id, @PathVariable Double amt) {
-		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistoryPayment(Id, amt);
 		return new ResponseEntity<HealthHistoryDto>(updateHealthHistory, HttpStatus.OK);
 	}
 
