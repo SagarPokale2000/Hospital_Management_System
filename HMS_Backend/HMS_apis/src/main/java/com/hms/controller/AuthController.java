@@ -77,6 +77,8 @@ public class AuthController {
 		}
 	}
 
+	// --------------------------------------------------------------------------------------------------------------------
+
 	// register patient
 	@PostMapping("/register")
 	public ResponseEntity<PatientDto> registerPatient(@RequestBody PatientDto patientDto) {

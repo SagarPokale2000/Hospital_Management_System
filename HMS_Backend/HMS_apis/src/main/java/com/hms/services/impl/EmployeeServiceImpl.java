@@ -39,129 +39,78 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private RoleRepo roleRepo;
-	
+
 	@Autowired
 	private AddressRepo addressRepo;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
 
 	@Override
 	public EmployeeDto createAdmin(EmployeeDto employeeDto) {
-Employee emp = this.modelMapper.map(employeeDto, Employee.class);
-		
-		UserDto userDto = employeeDto.getUser();User user = this.modelMapper.map(userDto, User.class);
+		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
+
+		UserDto userDto = employeeDto.getUser();
+		User user = this.modelMapper.map(userDto, User.class);
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user.setAddress(null);
 		Role role = this.roleRepo.findById(AppConstants.ROLE_ADMIN)
 				.orElseThrow((() -> new ResourceNotFoundException("Role", "Role id", 0)));
-		
+
 		user.addRole(role);
 		User addedUser = this.userRepo.save(user);
 
 		AddressDto addressDto = userDto.getAddress();
 		Address address = this.modelMapper.map(addressDto, Address.class);
-		
-		
+
 		address.setUser(addedUser);
 		Address addedAddress = this.addressRepo.save(address);
-		
-		User userAddedAddress=addedAddress.getUser();
-	
+
+		User userAddedAddress = addedAddress.getUser();
+
 		emp.setUser(userAddedAddress);
 		Employee addedEmp = this.employeeRepo.save(emp);
 		return this.modelMapper.map(addedEmp, EmployeeDto.class);
 	}
-	
-	//--------------------------------------------------------------------------------------------------------------
-	
-	//create employee
+
+	// --------------------------------------------------------------------------------------------------------------
+
+	// create employee
 	@SuppressWarnings("unused")
 	@Override
 	public EmployeeDto createEmployee(EmployeeDto employeeDto) {
 		Employee emp = this.modelMapper.map(employeeDto, Employee.class);
-		
+
 		UserDto userDto = employeeDto.getUser();
 		User user = this.modelMapper.map(userDto, User.class);
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user.setAddress(null);
 		User addedUser = this.userRepo.save(user);
-		
+
 		AddressDto addressDto = userDto.getAddress();
 		Address address = this.modelMapper.map(addressDto, Address.class);
-		
+
 		address.setUser(addedUser);
 		Address addedAddress = this.addressRepo.save(address);
-		
+
 		emp.setUser(user);
 		Employee addedEmp = this.employeeRepo.save(emp);
 		return this.modelMapper.map(addedEmp, EmployeeDto.class);
 	}
 
-	//--------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public EmployeeDto updateEmployee(EmployeeDto employeeDto, Integer Id) {
-
-		Employee emp = this.employeeRepo.findById(Id)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee ", "employee Id", Id));
-		
-		UserDto userDto = employeeDto.getUser();
-		User user = emp.getUser();
-		
-		AddressDto addressDto = userDto.getAddress();
-		Address address = user.getAddress();
-		
-		user.setFirstName(userDto.getFirstName());
-		user.setLastName(userDto.getLastName());
-		//user.setEmail(userDto.getEmail());
-		
-		user.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
-		
-		user.setGender(userDto.getGender());
-		user.setMobileNo(userDto.getMobileNo());
-		user.setDob(userDto.getDob());
-		user.setBloodGroup(userDto.getBloodGroup());
-		user.setAddress(null);
-		
-		User updatedUser = this.userRepo.save(user);
-		
-		address.setPlotNo(addressDto.getPlotNo());
-		address.setBuildingName(addressDto.getBuildingName());
-		address.setAreaName(addressDto.getAreaName());
-		address.setCity(addressDto.getCity());
-		address.setState(addressDto.getState());
-		address.setCountry(addressDto.getCountry());
-		address.setPincode(addressDto.getPincode());
-		address.setUser(updatedUser);
-		
-		@SuppressWarnings("unused")
-		Address updatedAddress = this.addressRepo.save(address);
-
-		emp.setQualificaton(employeeDto.getQualificaton());
-		emp.setSalary(employeeDto.getSalary());
-		emp.setHiredate(employeeDto.getHiredate());
-		emp.setStatus(employeeDto.getStatus());
-		emp.setUser(updatedUser);
-
-		Employee updatedEmp = this.employeeRepo.save(emp);
-		return this.modelMapper.map(updatedEmp, EmployeeDto.class);
-	}
-
-
-	@Override
-	public void deleteEmployee(Integer Id) {
+	public EmployeeDto getEmployee(Integer Id) {
 		Employee emp = this.employeeRepo.findById(Id)
 				.orElseThrow(() -> new ResourceNotFoundException("Employee", "employee id", Id));
-
-		User user = emp.getUser();
-		user.getRoles().clear();
-		this.userRepo.delete(user);
+		return this.modelMapper.map(emp, EmployeeDto.class);
 	}
+
+	// --------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public EmployeeResponse getAllEmployees(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
@@ -188,6 +137,18 @@ Employee emp = this.modelMapper.map(employeeDto, Employee.class);
 
 		return employeeResponse;
 	}
-	
 
+	// --------------------------------------------------------------------------------------------------------------
+
+	@Override
+	public void deleteEmployee(Integer Id) {
+		Employee emp = this.employeeRepo.findById(Id)
+				.orElseThrow(() -> new ResourceNotFoundException("Employee", "employee id", Id));
+
+		User user = emp.getUser();
+		user.getRoles().clear();
+		this.userRepo.delete(user);
+	}
+
+	// --------------------------------------------------------------------------------------------------------------
 }

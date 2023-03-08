@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="doctor")
+@Table(name = "doctor")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -34,23 +34,23 @@ public class Doctor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "doctor_Id")
 	private int id;
-	
-	@Column(name="doctor_fee",nullable = false, length = 100)
+
+	@Column(name = "doctor_fee", nullable = false, length = 100)
 	private double doctorFee;
-	
+
 	@Column(name = "scheduled_start_time")
 	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime startTime;
-	
+
 	@Column(name = "scheduled_end_time")
 	@JsonFormat(pattern = "HH:mm:ss")
 	private LocalTime endTime;
 
 	private String days;
-	
-	@OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private List<Patient> patients= new ArrayList<>();
-	
+
+	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Patient> patients = new ArrayList<>();
+
 	@OneToOne()
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;

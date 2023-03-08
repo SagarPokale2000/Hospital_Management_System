@@ -45,7 +45,7 @@ public class UserDto {
 
 	@NotEmpty
 	private String gender;
-	
+
 	@JsonInclude(value = Include.NON_NULL)
 	private Set<Role> roles;
 
@@ -62,12 +62,12 @@ public class UserDto {
 	private String bloodGroup;
 
 	private LocalDate dob;
-	
+
 	private AddressDto address;
-	
+
 	@JsonIgnoreProperties(value = "user")
 	private PatientDto patient;
-	
+
 	@JsonIgnoreProperties(value = "user")
 	private EmployeeDto employee;
 }

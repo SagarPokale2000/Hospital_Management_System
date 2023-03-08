@@ -41,5 +41,4 @@ public class AddressDto {
 	private String country;
 
 	private int pincode;
-
 }

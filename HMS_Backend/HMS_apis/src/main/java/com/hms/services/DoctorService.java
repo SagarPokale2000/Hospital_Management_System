@@ -14,14 +14,10 @@ public interface DoctorService {
 		// get All
 		List<DoctorDto> getDoctor();
 		
-		
 		// update
 		DoctorDto updateDoctor(DoctorDto doctorDto, Integer doctorId);
 		
 		DoctorDto selectSchedule(DoctorDto doctorDto, Integer doctorId,String days);
-		
-		// delete
-		//void deleteDoctor(Integer Id);
 		
 		// get
 		DoctorDto getDoctor(Integer doctorId);

@@ -70,5 +70,4 @@ public class WardController {
 		WardDto wardDto = this.wardService.getWard(wardId);
 		return new ResponseEntity<WardDto>(wardDto, HttpStatus.OK);
 	}
-
 }

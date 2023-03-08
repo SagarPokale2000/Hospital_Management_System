@@ -25,13 +25,17 @@ public class Medicine {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "medicine_Id")
 	private int id;
-	@Column(name = "medicine_name",length = 500)
+
+	@Column(name = "medicine_name", length = 500)
 	private String medicineName;
+
 	private String duration;
+
 	private int quantity;
+
 	@Column(name = "medicine_charges")
 	private double medicineCharges;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "health_history_Id", nullable = false)
 	private Health_History healthHistory;

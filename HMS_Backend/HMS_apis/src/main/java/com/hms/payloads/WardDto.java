@@ -16,13 +16,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonInclude(value = Include.NON_NULL)
 public class WardDto {
-	
+
 	private Integer id;
-	
+
 	private String wardType;
-	
+
 	private Double wardCharges;
-	
+
 	@JsonIgnoreProperties(value = "ward")
-	private Set<PatientDto> patients= new HashSet<>();
+	private Set<PatientDto> patients = new HashSet<>();
 }

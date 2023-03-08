@@ -10,14 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MedicineResponse {
-
-	
 	private List<MedicineDto> content;
 	private int pageNumber;
 	private int pageSize;
 	private long totalElements;
-	private int totalPages;	
+	private int totalPages;
 	private boolean lastPage;
-	
-	
 }

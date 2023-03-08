@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.hms.payloads.ApiResponse;
 
-
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -35,7 +33,6 @@ public class GlobalExceptionHandler {
 
 		return new ResponseEntity<Map<String, String>>(resp, HttpStatus.BAD_REQUEST);
 	}
-	
 
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<ApiResponse> handleApiException(ApiException ex) {
@@ -43,6 +40,4 @@ public class GlobalExceptionHandler {
 		ApiResponse apiResponse = new ApiResponse(message, true);
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
-
-
 }

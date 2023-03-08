@@ -15,12 +15,10 @@ public class Role {
 	private String name;
 
 	public Role() {
-
 	}
 
 	public Role(int rolePatient, String name) {
 		this.id = rolePatient;
 		this.name = name;
 	}
-
 }
