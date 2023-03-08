@@ -10,8 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,11 +32,11 @@ public class HealthHistoryDto {
 	private LocalTime appointmentTime;
 
 	private Boolean paymentStatus;
-	
+
 	private String allocatedBed;
-	
+
 	private double paidAmount;
-	
+
 	@NotEmpty
 	@Size(min = 5, message = "firstname must be min of 5 characters")
 	private String symptoms;

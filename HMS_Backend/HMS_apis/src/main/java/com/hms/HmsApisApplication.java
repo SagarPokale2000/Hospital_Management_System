@@ -19,16 +19,15 @@ public class HmsApisApplication implements CommandLineRunner {
 	@Autowired
 	private RoleRepo roleRepo;
 
-	
 	public static void main(String[] args) {
 		SpringApplication.run(HmsApisApplication.class, args);
 	}
+
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-	
-	
+
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -48,12 +47,12 @@ public class HmsApisApplication implements CommandLineRunner {
 			Role role3 = new Role();
 			role3.setId(AppConstants.ROLE_RECEPTIONIST);
 			role3.setName("ROLE_RECEPTIONIST");
-			
+
 			Role role4 = new Role();
 			role4.setId(AppConstants.ROLE_ADMIN);
 			role4.setName("ROLE_ADMIN");
 
-			List<Role> roles = List.of(role, role1, role2,role3,role4);
+			List<Role> roles = List.of(role, role1, role2, role3, role4);
 
 			List<Role> result = this.roleRepo.saveAll(roles);
 
@@ -63,6 +62,5 @@ public class HmsApisApplication implements CommandLineRunner {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
 	}
 }

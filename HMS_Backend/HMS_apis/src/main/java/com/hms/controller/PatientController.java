@@ -75,6 +75,21 @@ public class PatientController {
 
 	// ---------------------------------------------------------------------------------------------------------------------
 
+	// get all patients
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/patients")
+	public ResponseEntity<PatientResponse> getAllPatient(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+
+		PatientResponse patientResponse = this.patientService.getAllPatient(pageNumber, pageSize, sortBy, sortDir);
+		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------------
+
 	// appoint doctor to patient
 	@PreAuthorize("hasRole('RECEPTIONIST')")
 	@PutMapping("/patients/{patientId}/doctor/{doctorId}")
@@ -120,32 +135,6 @@ public class PatientController {
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
 
-	// get patients by doctor ( Appointment list )
-	@GetMapping("/doctor/{doctorId}/patients")
-	public ResponseEntity<List<PatientDto>> getPatientsByDoctor(@PathVariable Integer doctorId) {
-		List<PatientDto> patients = this.patientService.getPatientsByDoctor(doctorId);
-		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
-	}
-
-	// get patients by ward
-	@GetMapping("/ward/{wardId}/patients")
-	public ResponseEntity<List<PatientDto>> getPatientsByWard(@PathVariable Integer wardId) {
-		List<PatientDto> patients = this.patientService.getPatientsByWard(wardId);
-		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
-	}
-
-	// get all patients
-	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/patients")
-	public ResponseEntity<PatientResponse> getAllPatient(
-			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
-			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
-			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
-
-		PatientResponse patientResponse = this.patientService.getAllPatient(pageNumber, pageSize, sortBy, sortDir);
-		return new ResponseEntity<PatientResponse>(patientResponse, HttpStatus.OK);
-	}
 
 	// delete patient
 	@PreAuthorize("hasRole('ADMIN')")

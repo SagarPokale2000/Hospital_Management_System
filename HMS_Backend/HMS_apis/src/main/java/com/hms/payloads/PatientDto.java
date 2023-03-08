@@ -21,7 +21,6 @@ public class PatientDto {
 
 	private Boolean currentStatus;
 
-
 	@JsonIgnoreProperties(value = "patient")
 	private UserDto user;
 

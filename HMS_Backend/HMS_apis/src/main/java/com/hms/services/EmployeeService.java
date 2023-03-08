@@ -9,14 +9,12 @@ public interface EmployeeService {
 	
 	EmployeeDto createAdmin(EmployeeDto employeeDto);
 
+	// get
+	EmployeeDto getEmployee(Integer Id);
 	
-	// update
-	EmployeeDto updateEmployee(EmployeeDto employeeDto, Integer Id);
-
-	// delete
-	void deleteEmployee(Integer Id);
-
 	// get all Employees
 	EmployeeResponse getAllEmployees(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
+	// delete
+	void deleteEmployee(Integer Id);
 }

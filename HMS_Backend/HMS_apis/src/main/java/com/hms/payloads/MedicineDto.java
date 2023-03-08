@@ -16,13 +16,15 @@ import lombok.Setter;
 @JsonInclude(value = Include.NON_NULL)
 public class MedicineDto {
 	private int id;
-	
+
 	private String medicineName;
+
 	private String duration;
+
 	private Integer quantity;
-	
+
 	private Double medicineCharges;
-	
+
 	@JsonIgnoreProperties(value = "medicines")
 	private HealthHistoryDto healthHistory;
 }

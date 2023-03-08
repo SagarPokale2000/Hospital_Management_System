@@ -20,7 +20,6 @@ import com.hms.entities.Doctor;
 import com.hms.entities.Patient;
 import com.hms.entities.Role;
 import com.hms.entities.User;
-import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
 import com.hms.payloads.AddressDto;
 import com.hms.payloads.PatientDto;
@@ -31,7 +30,6 @@ import com.hms.repository.DoctorRepo;
 import com.hms.repository.PatientRepo;
 import com.hms.repository.RoleRepo;
 import com.hms.repository.UserRepo;
-import com.hms.repository.WardRepo;
 import com.hms.services.PatientService;
 
 @Service
@@ -54,9 +52,6 @@ public class PatientServiceImpl implements PatientService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private WardRepo wardRepo;
 
 	@Autowired
 	private RoleRepo roleRepo;
@@ -267,25 +262,6 @@ public class PatientServiceImpl implements PatientService {
 
 	// ------------------------------------------------------------------------------------------------------------
 
-	// update patient details ( statuses )
-	@Override
-	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
-
-		Patient patient = this.patientRepo.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
-
-		System.out.println("---------------------------------------------------");
-		System.out.println(patientDto.getCurrentStatus());
-		System.out.println(patientDto.getAdmitStatus());
-
-		patient.setCurrentStatus(false);
-		patient.setAdmitStatus(patientDto.getAdmitStatus());
-		System.out.println("---------------------------------------------------");
-//		this.healthRepo.findby
-		Patient updatedPatient = this.patientRepo.save(patient);
-		return this.modelMapper.map(updatedPatient, PatientDto.class);
-	}
-
 	// get all patients
 	@Override
 	public PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
@@ -314,32 +290,25 @@ public class PatientServiceImpl implements PatientService {
 		return patientResponse;
 	}
 
+	// ------------------------------------------------------------------------------------------------------------
+
+	// update patient details ( statuses )
 	@Override
-	public List<PatientDto> getPatientsByDoctor(Integer doctorId) {
-		Doctor doc = this.doctorRepo.findById(doctorId)
-				.orElseThrow(() -> new ResourceNotFoundException("Doctor", "doctor id", doctorId));
-		List<Patient> patients = this.patientRepo.findByDoctor(doc);
-		List<PatientDto> patientDtos = null;
-		for (Patient p : patients) {
-			if (p.getCurrentStatus().equals(true)) {
-				patientDtos = patients.stream().map((patient) -> this.modelMapper.map(patient, PatientDto.class))
-						.collect(Collectors.toList());
-			}
-		}
+	public PatientDto updatePatient(PatientDto patientDto, Integer patientId) {
 
-		return patientDtos;
-	}
+		Patient patient = this.patientRepo.findById(patientId)
+				.orElseThrow(() -> new ResourceNotFoundException("Patient ", "Patient id", patientId));
 
-	@Override
-	public List<PatientDto> getPatientsByWard(Integer wardId) {
-		Ward ward = this.wardRepo.findById(wardId)
-				.orElseThrow(() -> new ResourceNotFoundException("Ward ", "wardId ", wardId));
-		List<Patient> patients = this.patientRepo.findByWard(ward);
+		System.out.println("---------------------------------------------------");
+		System.out.println(patientDto.getCurrentStatus());
+		System.out.println(patientDto.getAdmitStatus());
 
-		List<PatientDto> postDtos = patients.stream().map((patient) -> this.modelMapper.map(patient, PatientDto.class))
-				.collect(Collectors.toList());
-
-		return postDtos;
+		patient.setCurrentStatus(false);
+		patient.setAdmitStatus(patientDto.getAdmitStatus());
+		System.out.println("---------------------------------------------------");
+//			this.healthRepo.findby
+		Patient updatedPatient = this.patientRepo.save(patient);
+		return this.modelMapper.map(updatedPatient, PatientDto.class);
 	}
 
 	@Override

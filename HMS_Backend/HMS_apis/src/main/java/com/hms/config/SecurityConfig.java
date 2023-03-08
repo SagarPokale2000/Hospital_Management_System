@@ -29,7 +29,7 @@ import com.hms.security.JwtAuthenticationFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	public static final String[] PUBLIC_URLS = { "/api/v1/auth/**" ,"/api/employee/admin"};
+	public static final String[] PUBLIC_URLS = { "/api/v1/auth/**", "/api/employee/admin" };
 
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
@@ -68,32 +68,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	@Bean
-    public FilterRegistrationBean coresFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.addAllowedOriginPattern("*");
-        corsConfiguration.addAllowedHeader("authorization");
-        corsConfiguration.addAllowedHeader("Content-Type");
-        corsConfiguration.addAllowedHeader("Accept");
-        corsConfiguration.addAllowedMethod("POST");
-        corsConfiguration.addAllowedMethod("GET");
-        corsConfiguration.addAllowedMethod("DELETE");
-        corsConfiguration.addAllowedMethod("PUT");
-        corsConfiguration.addAllowedMethod("OPTIONS");
-        corsConfiguration.setMaxAge(3600L);
+	public FilterRegistrationBean coresFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", corsConfiguration);
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.addAllowedOriginPattern("*");
+		corsConfiguration.addAllowedHeader("authorization");
+		corsConfiguration.addAllowedHeader("Content-Type");
+		corsConfiguration.addAllowedHeader("Accept");
+		corsConfiguration.addAllowedMethod("POST");
+		corsConfiguration.addAllowedMethod("GET");
+		corsConfiguration.addAllowedMethod("DELETE");
+		corsConfiguration.addAllowedMethod("PUT");
+		corsConfiguration.addAllowedMethod("OPTIONS");
+		corsConfiguration.setMaxAge(3600L);
 
-        @SuppressWarnings("unchecked")
+		source.registerCorsConfiguration("/**", corsConfiguration);
+
+		@SuppressWarnings("unchecked")
 		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 
-        bean.setOrder(-110);
+		bean.setOrder(-110);
 
-        return bean;
-    }
+		return bean;
+	}
 }

@@ -28,11 +28,13 @@ public class Ward {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ward_Id")
 	private int id;
-	@Column(name = "ward_type",length = 45)
+
+	@Column(name = "ward_type", length = 45)
 	private String wardType;
+
 	@Column(name = "ward_charges")
 	private double wardCharges;
-	
+
 	@OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
-	private Set<Patient> patients= new HashSet<>();
+	private Set<Patient> patients = new HashSet<>();
 }

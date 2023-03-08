@@ -27,18 +27,25 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_Id")
 	private int id;
+
 	@Column(name = "plot_no", length = 45)
 	private String plotNo;
+
 	@Column(name = "building_name", length = 45)
 	private String buildingName;
+
 	@Column(name = "area_name", length = 45)
 	private String areaName;
+
 	@Column(length = 45)
 	private String city;
+
 	@Column(length = 45)
 	private String state;
+
 	@Column(length = 45)
 	private String country;
+
 	@Column(length = 20)
 	private int pincode;
 

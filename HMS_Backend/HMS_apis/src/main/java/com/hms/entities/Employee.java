@@ -40,13 +40,13 @@ public class Employee {
 	@Column(name = "hire_date")
 	private LocalDate hiredate;
 
-	@Column(columnDefinition="boolean default false")
+	@Column(columnDefinition = "boolean default false")
 	private boolean status;
 
 	@OneToOne()
 	@JoinColumn(name = "user_Id", nullable = false)
 	private User user;
-	
-	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Doctor doctor;
-} 
+}
