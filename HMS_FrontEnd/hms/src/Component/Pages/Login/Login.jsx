@@ -57,11 +57,11 @@ function Login() {
 
           // debugger
           data.user.roles[0].id == 500
-            ? navigate("/user/admin")
+            ? navigate("/user/admin/dashboard")
             : data.user.roles[0].id == 501
             ? navigate("/user/doctor")
             : data.user.roles[0].id == 502
-            ? navigate("/user/patient")
+            ? navigate("/user/patient/dashboard")
             : data.user.roles[0].id == 503
             ? navigate("/user/receptionist")
             : data.user.roles[0].id == 504
