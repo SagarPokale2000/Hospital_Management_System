@@ -28,38 +28,23 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	// create admin --send user details in json format to create admin
+	// create admin 
 	@PostMapping("/employee/admin")
 	public ResponseEntity<EmployeeDto> createAdmin(@Valid @RequestBody EmployeeDto employeeDto) {
 		EmployeeDto createEmployee = this.employeeService.createAdmin(employeeDto);
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 	
-	// create Recptionist --send user details in json format to create Recptionist
+	//-------------------------------------------------------------------------------------------------------------------------
+	
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/employee/receptionist")
-	public ResponseEntity<EmployeeDto> createReceptionistN(@Valid @RequestBody EmployeeDto employeeDto) {
-		EmployeeDto createEmployee = this.employeeService.createReceptionist(employeeDto);
+	@PostMapping("/employee/create")
+	public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
+		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto);
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 	
-//	// create Accountant --send user details in json format to create Accountant
-//	@PreAuthorize("hasRole('ADMIN')")
-//	@PostMapping("/employee/accountant")
-//	public ResponseEntity<EmployeeDto> createAccountantN(@Valid @RequestBody EmployeeDto employeeDto) {
-//		EmployeeDto createEmployee = this.employeeService.createAccountant(employeeDto);
-//		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
-//	}
-	
-	
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/employee/create/{Id}")
-	public ResponseEntity<EmployeeDto> createAccountantN(@Valid @RequestBody EmployeeDto employeeDto, @PathVariable Integer Id) {
-		EmployeeDto createEmployee = this.employeeService.createAccountant(employeeDto, Id);
-		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
-	}
-	
-	
+	//-------------------------------------------------------------------------------------------------------------------------
 
 	// update
 	@PreAuthorize("hasRole('ADMIN')")
@@ -78,13 +63,6 @@ public class EmployeeController {
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Employee is deleted successfully !!", true), HttpStatus.OK);
 	}
 
-	// get
-	@GetMapping("/employee/{Id}")
-	public ResponseEntity<EmployeeDto> getEmpoyee(@PathVariable Integer Id) {
-		EmployeeDto employeeDto = this.employeeService.getEmployee(Id);
-		return new ResponseEntity<EmployeeDto>(employeeDto, HttpStatus.OK);
-	}
-	
 	//get all - pagination
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/employee")

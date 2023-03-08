@@ -16,6 +16,17 @@ import {
 import { addDoctor, addEmployee } from "../../../ServerCall/Admin/Admin";
 
 function AddEmployee() {
+
+  const [address, setAddress] = useState({
+    plotNo: "",
+    buildingName: "",
+    areaName: "",
+    city: "",
+    state: "",
+    country: "",
+    pincode: ""
+  })
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -43,10 +54,19 @@ function AddEmployee() {
 
   // ------------------------------------------------------
 
+  const addressHandleChange = (event, property) => {
+    setAddress({ ...address, [property]: event.target.value });
+    setUser({ ...user, address });
+    setData({ ...employee, user });
+  };
+
   const handleChange = (event, property) => {
     setUser({ ...user, [property]: event.target.value });
     setData({ ...employee, user });
-    console.log({ employee });
+  };
+
+  const empHandleChange = (event, property) => {
+    setData({ ...employee, [property]: event.target.value });
   };
 
   const [roleLocal, setRole] = useState("initial");
@@ -57,8 +77,20 @@ function AddEmployee() {
 
   var role = roleLocal;
 
+  // ------------------------------------------------------
+
   const resetData = () => {
-    setData({
+    setAddress({
+      plotNo: "",
+      buildingName: "",
+      areaName: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: ""
+    })
+
+    setUser({
       firstName: "",
       lastName: "",
       email: "",
@@ -69,8 +101,20 @@ function AddEmployee() {
       mobileNo: "",
       bloodGroup: "",
       dob: "",
-    });
+      address: {},
+      roles: [],
+    })
+
+    setData({
+    qualificaton: "",
+    salary: "",
+    status: false,
+    hiredate: "",
+    user: {},
+    })
   };
+
+  // ------------------------------------------------------
 
   const submitForm = (event) => {
     // debugger
@@ -88,13 +132,10 @@ function AddEmployee() {
   };
   // Call server API
 
-  const addEmployeeServer = (employee, id) => {
-    console.log("here In addEmployee Method with id " + id);
-    addEmployee(employee, id)
+  const addEmployeeServer = (employee) => {
+    addEmployee(employee)
       .then((response) => {
         console.log(response);
-        console.log("Success LOG");
-        console.log("After receiving to Server response");
         toast.success("User Registred as " + response.user.roles[0].name);
         resetData();
       })
@@ -111,8 +152,6 @@ function AddEmployee() {
     addDoctor(localData)
       .then((response) => {
         console.log(response);
-        console.log("Success LOG");
-        console.log("After receiving to Server response");
         toast.success(
           "User Registred as " + response.employee.user.roles[0].name
         );
@@ -127,7 +166,6 @@ function AddEmployee() {
   return (
     <div>
           <Row>
-            {/* {JSON.stringify(employee)} */}
             <Col sm={{ size: 6, offset: 3 }}>
               <Card outline color="dark">
                 <CardHeader>
@@ -228,6 +266,19 @@ function AddEmployee() {
                     </FormGroup>
 
                     <FormGroup>
+                      <Label for="qualificaton">Enter Qualification</Label>
+                      <Input
+                        type="text"
+                        placeholder="Enter Here"
+                        id="qualificaton"
+                        onChange={(e) => {
+                          empHandleChange(e, "qualificaton");
+                        }}
+                        value={employee.qualificaton}
+                      />
+                </FormGroup>
+                
+                    <FormGroup>
                       <Label for="securityQue">
                         Enter Your Security Question
                       </Label>
@@ -295,6 +346,123 @@ function AddEmployee() {
                         value={user.dob}
                       />
                     </FormGroup>
+                
+                    <FormGroup>
+                      <Label for="salary">Enter Employee Salary</Label>
+                      <Input
+                        id="salary"
+                        placeholder="Enter Here"
+                        type="number"
+                        onChange={(e) => {
+                          empHandleChange(e, "salary");
+                        }}
+                        value={employee.salary}
+                      />
+                </FormGroup>
+                
+                <FormGroup>
+                      <Label for="hiredate">Enter Hire Date</Label>
+                      <Input
+                        id="hiredate"
+                        placeholder="Enter Here"
+                        type="date"
+                        onChange={(e) => {
+                          empHandleChange(e, "hiredate");
+                        }}
+                        value={employee.hiredate}
+                      />
+                    </FormGroup>
+                
+                    <FormGroup>
+                      <Label for="plotNo">plotNo</Label>
+                      <Input
+                        id="plotNo"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "plotNo");
+                        }}
+                        value={address.plotNo}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="buildingName">buildingName</Label>
+                      <Input
+                        id="buildingName"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "buildingName");
+                        }}
+                        value={address.buildingName}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="areaName">areaName</Label>
+                      <Input
+                        id="areaName"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "areaName");
+                        }}
+                        value={address.areaName}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="city">city</Label>
+                      <Input
+                        id="city"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "city");
+                        }}
+                        value={address.city}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="state">state</Label>
+                      <Input
+                        id="state"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "state");
+                        }}
+                        value={address.state}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="country">country</Label>
+                      <Input
+                        id="country"
+                        placeholder="Enter Here"
+                        type="text"
+                        onChange={(e) => {
+                          addressHandleChange(e, "country");
+                        }}
+                        value={address.country}
+                      />
+                      </FormGroup>
+
+                      <FormGroup>
+                      <Label for="pincode">pincode</Label>
+                      <Input
+                        id="pincode"
+                        placeholder="Enter Here"
+                        type="number"
+                        onChange={(e) => {
+                          addressHandleChange(e, "pincode");
+                        }}
+                        value={address.pincode}
+                      />
+                      </FormGroup>
 
                     <Container className="text-center">
                       <Button outline color="primary">
