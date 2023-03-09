@@ -1,17 +1,23 @@
 import React from "react";
-import { Container } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import Base from "../../Base/Base";
-import SideNavBar from "../../CustomeNavBar/Admin/SideNavBar";
+import VerticalNavbarAdmin from "./VerticalNavbarAdmin";
 
 function AdminDashboard() {
   return (
-    <div>
-      <Base>
-        <Container>
-          Admin Dashboard
-        </Container>
-      </Base>
-    </div>
+    <Base>
+      <br />
+      <br />
+      <br />
+      <Row>
+        <Col sm={{ size: 3 }}>
+          <VerticalNavbarAdmin />
+        </Col>
+        <Col sm={{ size: 6, offset: 1 }}>
+          <h1>Dashboard</h1>
+        </Col>
+      </Row>
+    </Base>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink as ReactLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Form,
@@ -14,9 +15,14 @@ import {
   Button,
   Modal,
   ModalHeader,
-  ModalBody
+  ModalBody,
+  Nav,
+  NavItem,
+  NavLink,
 } from "reactstrap";
 import { AddAppoinment } from "../../../ServerCall/Patient/PatientAxios";
+import Base from "../../Base/Base";
+import VerticalNavbar from "./VerticalNavbarPatient";
 
 function Appointment() {
   const [data, setData] = useState({
@@ -25,6 +31,7 @@ function Appointment() {
     appointmentTime: "",
   });
 
+  console.log("Inside appointment");
   const handleChange = (event, property) => {
     // dynamic setting of values
     setData({ ...data, [property]: event.target.value });
@@ -51,7 +58,7 @@ function Appointment() {
     // Data validate
 
     // Call server API
-    AddAppoinment(data,JSON.parse(localStorage.data).user.patient.id)
+    AddAppoinment(data, JSON.parse(localStorage.data).user.patient.id)
       .then((response) => {
         console.log(response);
         resetData();
@@ -64,11 +71,16 @@ function Appointment() {
       });
   };
 
-
   return (
-      <Container className="mt-0"> 
-        <Row>
-          <Col sm={{ size: 6, offset: 3 }}>
+    <Base>
+      <br />
+      <br />
+      <br />
+      <Row>
+        <Col sm={{ size: 3 }} >
+          <VerticalNavbar />
+        </Col>
+          <Col sm={{ size:6, offset: 1 }} >
             <Card outline color="dark">
               <CardHeader>
                 <h1>Welcome Patient</h1>
@@ -133,24 +145,29 @@ function Appointment() {
             </Card>
           </Col>
         </Row>
-      <Modal
-        isOpen={modal}
-        toggle={toggle}
-        centered={true}
-        scrollable={true}
-        size={"sm"}
-      >
-        <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
-        <ModalBody>
-          <Button outline color="primary" className="ms-3" onClick={submitForm}>
-            Yes
-          </Button>
-          <Button outline color="danger" className="ms-3" onClick={toggle}>
-            No
-          </Button>
-        </ModalBody>
-      </Modal>
-      </Container>
+        <Modal
+          isOpen={modal}
+          toggle={toggle}
+          centered={true}
+          scrollable={true}
+          size={"sm"}
+        >
+          <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
+          <ModalBody>
+            <Button
+              outline
+              color="primary"
+              className="ms-3"
+              onClick={submitForm}
+            >
+              Yes
+            </Button>
+            <Button outline color="danger" className="ms-3" onClick={toggle}>
+              No
+            </Button>
+          </ModalBody>
+        </Modal>
+    </Base>
   );
 }
 

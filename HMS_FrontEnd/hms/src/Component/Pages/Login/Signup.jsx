@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   Form,
   Card,
@@ -16,6 +18,8 @@ import { singup } from "../../../ServerCall/User/SignUp_LogIn";
 import Base from "../../Base/Base";
 
 function Signup() {
+
+  const navigate =  useNavigate()
 
   const [address, setAddress] = useState({
     plotNo: "",
@@ -109,7 +113,8 @@ function Signup() {
         console.log(response);
         console.log("Success LOG");
         console.log("After receiving to Server response");
-        // toast.success("User Registred as " + response.id);
+        toast.success("User Registred as " + response.id);
+        navigate('/home')
         resetData();
       })
       .catch((error) => {

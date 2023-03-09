@@ -14,9 +14,10 @@ import {
   Button,Modal, ModalHeader, ModalBody, ModalFooter,toggle
 } from "reactstrap";
 import { addDoctor, addEmployee } from "../../../ServerCall/Admin/Admin";
+import Base from "../../Base/Base";
+import VerticalNavbarAdmin from "./VerticalNavbarAdmin";
 
 function AddEmployee() {
-
   const [address, setAddress] = useState({
     plotNo: "",
     buildingName: "",
@@ -24,8 +25,8 @@ function AddEmployee() {
     city: "",
     state: "",
     country: "",
-    pincode: ""
-  })
+    pincode: "",
+  });
 
   const [user, setUser] = useState({
     firstName: "",
@@ -92,8 +93,8 @@ function AddEmployee() {
       city: "",
       state: "",
       country: "",
-      pincode: ""
-    })
+      pincode: "",
+    });
 
     setUser({
       firstName: "",
@@ -108,7 +109,7 @@ function AddEmployee() {
       dob: "",
       address: {},
       roles: [],
-    })
+    });
 
     setData({
       qualificaton: "",
