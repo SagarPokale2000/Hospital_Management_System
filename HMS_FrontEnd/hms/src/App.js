@@ -10,7 +10,6 @@ import PrivateRoute from "./Component/Base/PrivateRoute";
 import PatientAccountList from "./Component/Pages/Accountant/PatientAccountList";
 import PatientDashboard from "./Component/Pages/Patient/PatientDashboard";
 import DoctorDashboard from "./Component/Pages/Doctor/DoctorDashboard";
-import ReceptionistDashboard from "./Component/Pages/Receptionist/ReceptionistDashboard";
 import Appointment from "./Component/Pages/Patient/Appointment";
 import AppintmentHistory from "./Component/Pages/Patient/AppointmentHistory";
 import HealthHistory from "./Component/Pages/Patient/HealthHistory";
@@ -22,6 +21,13 @@ import RemoveEmployee from "./Component/Pages/Admin/RemoveEmployee";
 import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
 import AddResources from "./Component/Pages/HospitalResources/AddResources";
 import AccountantDashboard from "./Component/Pages/Accountant/AccountantDashboard";
+import AppointPatientList from "./Component/Pages/Doctor/AppointPatientList";
+import GetResources from "./Component/Pages/HospitalResources/GetResources";
+import Schedule from "./Component/Pages/Doctor/Schedule";
+import ReceptionistDashboard from "./Component/Pages/Receptionist/ReceptionistDashboard";
+import AppointmentList from "./Component/Pages/Receptionist/AppointmentList";
+import AdmitPatient from "./Component/Pages/Receptionist/AdmitPatient";
+import DischargePatient from "./Component/Pages/Receptionist/DischargePatient";
 
 function App() {
   return (
@@ -60,10 +66,15 @@ function App() {
               <Route path="admin/resources" element={<AdminGetResources />}></Route>
               <Route path="admin/addResources" element={<AddResources />}></Route>
             
+              <Route path="doctor/dashboard" element={<DoctorDashboard />}></Route>
+              <Route path="doctor/appointmentList" element={<AppointPatientList/>}></Route>
+              <Route path="doctor/resources" element={<GetResources/>}></Route>
+              <Route path="doctor/selectSchedule" element={<Schedule/>}></Route>
               
-              {/* <Route path="update/patient/:id" element={<PatientDetails />}></Route> */}
-              <Route path="doctor" element={<DoctorDashboard />}></Route>
-              <Route path="receptionist" element={<ReceptionistDashboard />}></Route>
+              <Route path="receptionist/dashboard" element={<ReceptionistDashboard />}></Route>
+              <Route path="receptionist/appointmentList" element={<AppointmentList />}></Route>
+              <Route path="receptionist/admitList" element={<AdmitPatient />}></Route>
+              <Route path="receptionist/discharge" element={<DischargePatient />}></Route>
               
               <Route path="accountant/dashboard" element={<AccountantDashboard />}></Route>
               <Route path="accountant/PatientAccountList"element={<PatientAccountList />}></Route>

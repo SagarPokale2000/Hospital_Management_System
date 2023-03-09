@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Container, Table } from "reactstrap";
+import { Col, Container, Row, Table } from "reactstrap";
 import { GetAllResources } from "../../../ServerCall/HospitalResources/Resources";
+import Base from "../../Base/Base";
+import VerticalNavbarDoctor from "../Doctor/VerticalNavbarDoctor";
 
 function GetResources() {
   const [data, setData] = useState({
@@ -29,7 +31,7 @@ function GetResources() {
 
         console.log(serverData);
         // setData(serverData);
-         debugger;
+        debugger;
       })
       .catch((error) => {
         console.log(error);
@@ -37,42 +39,50 @@ function GetResources() {
       });
   }, []);
 
- // console.log(data?.content);
+  // console.log(data?.content);
   const resource = data?.content;
-  console.log(resource)
-   //debugger;
+  console.log(resource);
+  //debugger;
   return (
     <div>
-      {/* <Base> */}
-        <Container>
-          <Table hover responsive size="" striped className="w-100  p-3">
-            <thead>
-            <tr>
-            <th>id</th>
-                <th>resource_name</th>
-                <th>total_quantity</th>
-                <th>occupy_quantity</th>
-                <th>remaining_quantity</th>
-              </tr>
-            </thead>
+      <Base>
+        <br />
+        <br />
+        <br />
+        <Row>
+          <Col sm={{ size: 3 }}>
+            <VerticalNavbarDoctor />
+          </Col>
+          <Col sm={{ size: 9 }}>
+            <Table hover responsive size="" striped className="w-100  p-3">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>resource_name</th>
+                  <th>total_quantity</th>
+                  <th>occupy_quantity</th>
+                  <th>remaining_quantity</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {data &&
-                data?.content?.map((resource) => {
-                  return (
-                    <tr key={resource.id}>
-                      <th scope="row">{resource.id}</th>
-                      <td>{resource.resource_name}</td>
-                     <td>{resource.total_quantity}</td>
-                      <td>{resource.occupy_quantity}</td>
-                      <td>{resource.remaining_quantity}</td> 
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
-        </Container>
-      {/* </Base> */}
+              <tbody>
+                {data &&
+                  data?.content?.map((resource) => {
+                    return (
+                      <tr key={resource.id}>
+                        <th scope="row">{resource.id}</th>
+                        <td>{resource.resource_name}</td>
+                        <td>{resource.total_quantity}</td>
+                        <td>{resource.occupy_quantity}</td>
+                        <td>{resource.remaining_quantity}</td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+      </Base>
     </div>
   );
 }

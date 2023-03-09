@@ -59,11 +59,11 @@ function Login() {
           data.user.roles[0].id == 500
             ? navigate("/user/admin/dashboard")
             : data.user.roles[0].id == 501
-            ? navigate("/user/doctor")
+            ? navigate("/user/doctor/dashboard")
             : data.user.roles[0].id == 502
             ? navigate("/user/patient/dashboard")
             : data.user.roles[0].id == 503
-            ? navigate("/user/receptionist")
+            ? navigate("/user/receptionist/dashboard")
             : data.user.roles[0].id == 504
             ? navigate("/user/accountant/dashboard")
             : navigate("/");

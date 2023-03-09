@@ -9,9 +9,13 @@ import {
   ModalBody,
   Input,
   Label,
+  Row,
+  Col,
 } from "reactstrap";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
 import { GetAllAppointmentList } from "../../../ServerCall/Receiptionist/ReceptionistAxios";
+import Base from "../../Base/Base";
+import VerticalNavbarReceptionist from "./VerticalNavbarReceptionist";
 
 function AppointmentList() {
   const [data, setData] = useState({
@@ -109,50 +113,62 @@ function AppointmentList() {
 
   return (
     <div>
-      <Container>
-        <Table hover responsive size="" striped className="w-100  p-3">
-          <thead>
-            <tr>
-              <th>Patient Id</th>
-              <th>Name</th>
-              <th>Gender</th>
-              <th>DOB</th>
-              <th>Contact</th>
-              <th>E-Mail</th>
-              <th>Assign Doctor</th>
-            </tr>
-          </thead>
+      {/* <Container> */}
+      <Base>
+        <br />
+        <br />
+        <br />
+        <Row>
+          <Col sm={{ size: 3 }}>
+            <VerticalNavbarReceptionist />
+          </Col>
+          <Col sm={{ size: 9 }}>
+            <Table hover responsive size="" striped className="w-100  p-3">
+              <thead>
+                <tr>
+                  <th>Patient Id</th>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>DOB</th>
+                  <th>Contact</th>
+                  <th>E-Mail</th>
+                  <th>Assign Doctor</th>
+                </tr>
+              </thead>
 
-          <tbody>
-            {data &&
-              data?.content?.map((user) => {
-                return (
-                  <tr key={user?.user.id}>
-                    <th scope="row">{user?.id}</th>
-                    <td>
-                      {user?.user?.firstName + " " + user?.user?.lastName}
-                    </td>
-                    <td>{user?.user?.gender}</td>
-                    <td>{user?.user?.dob}</td>
-                    <td>{user?.user?.mobileNo}</td>
-                    <td>{user?.user?.email}</td>
-                    <td>
-                      <Button
-                        onClick={() => {
-                          getHealthHistory(user?.id);
-                        }}
-                        style={styles.button}
-                        className="btn btn-sm btn-success"
-                      >
-                        Appoint Doctor
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </Table>
-      </Container>
+              <tbody>
+                {data &&
+                  data?.content?.map((user) => {
+                    return (
+                      <tr key={user?.user.id}>
+                        <th scope="row">{user?.id}</th>
+                        <td>
+                          {user?.user?.firstName + " " + user?.user?.lastName}
+                        </td>
+                        <td>{user?.user?.gender}</td>
+                        <td>{user?.user?.dob}</td>
+                        <td>{user?.user?.mobileNo}</td>
+                        <td>{user?.user?.email}</td>
+                        <td>
+                          <Button
+                            onClick={() => {
+                              getHealthHistory(user?.id);
+                            }}
+                            style={styles.button}
+                            className="btn btn-sm btn-success"
+                          >
+                            Appoint Doctor
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+      </Base>
+      {/* </Container> */}
       <Modal
         isOpen={modal}
         toggle={toggle}
