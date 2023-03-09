@@ -7,7 +7,6 @@ import Signup from "./Component/Pages/Login/Signup";
 import UserProvider from "./Context/UserProvider";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./Component/Base/PrivateRoute";
-import Accountant from "./Component/Pages/Accountant/Accountant";
 import PatientAccountList from "./Component/Pages/Accountant/PatientAccountList";
 import PatientDashboard from "./Component/Pages/Patient/PatientDashboard";
 import DoctorDashboard from "./Component/Pages/Doctor/DoctorDashboard";
@@ -22,6 +21,8 @@ import AddEmployee from "./Component/Pages/Admin/AddEmployee";
 import RemoveEmployee from "./Component/Pages/Admin/RemoveEmployee";
 import AdminGetResources from "./Component/Pages/HospitalResources/AdminGetResources";
 import AddResources from "./Component/Pages/HospitalResources/AddResources";
+import AccountantDashboard from "./Component/Pages/Accountant/AccountantDashboard";
+
 function App() {
   return (
     <div className="App">
@@ -59,12 +60,13 @@ function App() {
               <Route path="admin/resources" element={<AdminGetResources />}></Route>
               <Route path="admin/addResources" element={<AddResources />}></Route>
             
-              <Route path="PatientAccountList"element={<PatientAccountList />}></Route>
               
               {/* <Route path="update/patient/:id" element={<PatientDetails />}></Route> */}
               <Route path="doctor" element={<DoctorDashboard />}></Route>
               <Route path="receptionist" element={<ReceptionistDashboard />}></Route>
-              <Route path="accountant" element={<Accountant />}></Route>
+              
+              <Route path="accountant/dashboard" element={<AccountantDashboard />}></Route>
+              <Route path="accountant/PatientAccountList"element={<PatientAccountList />}></Route>
               
               
             </Route>

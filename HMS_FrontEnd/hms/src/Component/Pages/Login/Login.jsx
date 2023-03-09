@@ -65,7 +65,7 @@ function Login() {
             : data.user.roles[0].id == 503
             ? navigate("/user/receptionist")
             : data.user.roles[0].id == 504
-            ? navigate("/user/accountant")
+            ? navigate("/user/accountant/dashboard")
             : navigate("/");
 
           // Save the Data to localStorage

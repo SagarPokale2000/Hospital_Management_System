@@ -8,15 +8,16 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  toggle,
   Input,
+  Row,
+  Col,
 } from "reactstrap";
 import { GetPatientForAccountant } from "../../../ServerCall/Accountant/AccountantAxios";
 import Base from "../../Base/Base";
 import { PrivateAxios } from "../../../ServerCall/Axios/AxiosHelper";
 import JsPDF from "jspdf";
-import { autoTable } from "jspdf-autotable";
+import VericalNavbarAccountant from "./VericalNavbarAccountant";
+
 function PatientAccountList() {
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -135,7 +136,7 @@ function PatientAccountList() {
     setPat({ ...pat, [property]: event.target.value });
   };
   const dash = () => {
-    navigate("/user/Accountant");
+    navigate("/user/accountant/dashboard");
   };
 
   const GenerateInvoice = () => {
@@ -167,51 +168,58 @@ function PatientAccountList() {
         <br />
         <br />
         <br />
-        <Button onClick={dash} className="btn btn-sm btn-info">
-          Back
-        </Button>
-        <Container>
-          <Table hover responsive size="" striped className="w-100  p-3">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>DOB</th>
-                <th>Contact</th>
-                <th>E-Mail</th>
-                <th>Update Payment / Generate Invoice</th>
-              </tr>
-            </thead>
+        <Row>
+          <Col sm={{ size: 3 }}>
+            <VericalNavbarAccountant />
+          </Col>
+          <Col sm={{ size: 9 }}>
+            <Button onClick={dash} className="btn btn-sm btn-info">
+              Back
+            </Button>
+            <Container>
+              <Table hover responsive size="" striped className="w-100  p-3">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th>Contact</th>
+                    <th>E-Mail</th>
+                    <th>Update Payment / Generate Invoice</th>
+                  </tr>
+                </thead>
 
-            <tbody>
-              {data &&
-                data?.content?.map((user) => {
-                  return (
-                    <tr key={user?.user.id}>
-                      <th scope="row">{user?.id}</th>
-                      <td>{user?.user.firstName}</td>
-                      <td>{user?.user.gender}</td>
-                      <td>{user?.user.dob}</td>
-                      <td>{user?.user.mobileNo}</td>
-                      <td>{user?.user.email}</td>
-                      <td>
-                        <Button
-                          onClick={() => {
-                            UpdatePayment(user.id);
-                          }}
-                          style={styles.button}
-                          className="btn btn-sm btn-success"
-                        >
-                          Update Payemnt
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
-        </Container>
+                <tbody>
+                  {data &&
+                    data?.content?.map((user) => {
+                      return (
+                        <tr key={user?.user.id}>
+                          <th scope="row">{user?.id}</th>
+                          <td>{user?.user.firstName}</td>
+                          <td>{user?.user.gender}</td>
+                          <td>{user?.user.dob}</td>
+                          <td>{user?.user.mobileNo}</td>
+                          <td>{user?.user.email}</td>
+                          <td>
+                            <Button
+                              onClick={() => {
+                                UpdatePayment(user.id);
+                              }}
+                              style={styles.button}
+                              className="btn btn-sm btn-success"
+                            >
+                              Update Payemnt
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </Table>
+            </Container>
+          </Col>
+        </Row>
         <Modal
           isOpen={modal}
           toggle={toggle}
