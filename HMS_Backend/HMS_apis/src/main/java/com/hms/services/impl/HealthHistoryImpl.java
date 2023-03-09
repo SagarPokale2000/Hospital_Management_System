@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.hms.entities.Health_History;
+import com.hms.entities.Medicine;
 import com.hms.entities.Patient;
 import com.hms.entities.Ward;
 import com.hms.exceptions.ResourceNotFoundException;
@@ -180,6 +181,7 @@ public class HealthHistoryImpl implements HealthHistoryService {
 				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", Id));
 		double a = healths.getPaidAmount() + amt;
 		healths.setPaidAmount(a);
+		healths.setPaymentDate(LocalDate.now());
 
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
@@ -187,34 +189,31 @@ public class HealthHistoryImpl implements HealthHistoryService {
 
 	// --------------------------------------------------------------------------------------------------------------------
 
-	// update HH
+	// update HH (Doctor)
 	@Override
-	public HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId) {
+	public HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Boolean admitStatus) {
 
-		Health_History healths = this.healthRepo.findById(healthId)
-				.orElseThrow(() -> new ResourceNotFoundException("HealthHistory ", "health id", healthId));
+		Health_History healths =  this.modelMapper.map(healthDto, Health_History.class);
+		
+		@SuppressWarnings("unused")
+		List<Medicine> med=healths.getMedicines();
+		
+		Patient pat = healths.getPatient();
+		pat.setAdmitStatus(admitStatus);
 
-//appointment
-		healths.setSymptoms(healthDto.getSymptoms());
-		healths.setAppointmentDate(healthDto.getAppointmentDate());
-		healths.setAppointmentTime(healthDto.getAppointmentTime());
-		healths.setPaidAmount(healthDto.getPaidAmount());
-
-//updated by doctor
+		@SuppressWarnings("unused")
+		Patient updatedPatient = this.patientRepo.save(pat);
+		
 		healths.setDiseases(healthDto.getDiseases());
 		healths.setPrescriptionInstruction(healthDto.getPrescriptionInstruction());
-
-//update by receptionist
-		healths.setAdmitDate(healthDto.getAdmitDate());
-		healths.setDischargeDate(healthDto.getDischargeDate());
-
-//creation time stamp
-		healths.setPaymentDate(healthDto.getPaymentDate());
-
+		healths.setMedicines(null);
+		
 		Health_History updatedHealth = this.healthRepo.save(healths);
 		return this.modelMapper.map(updatedHealth, HealthHistoryDto.class);
 	}
 
+	// --------------------------------------------------------------------------------------------------------------------
+	
 	@Override
 	public HealthHistoryDto getHealthHistoryByPaymentStatus(Integer patientId) {
 		Patient patient = this.patientRepo.findById(patientId)
@@ -230,6 +229,8 @@ public class HealthHistoryImpl implements HealthHistoryService {
 		}
 		return h;
 	}
+	
+	// --------------------------------------------------------------------------------------------------------------------
 
 //get all health history
 	@Override
