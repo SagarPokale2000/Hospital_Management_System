@@ -47,33 +47,6 @@ public class MedicineServiceImpl implements MedicineService {
 		return this.modelMapper.map(newMedicine, MedicineDto.class);
 	}
 
-	//update medicines ( not needed )
-	@Override
-	public MedicineDto updateMedicine(MedicineDto medicineDto, Integer medicineId) {
-		Medicine medicine = this.medicineRepo.findById(medicineId)
-				.orElseThrow(() -> new ResourceNotFoundException("Medicine ", "medicine id", medicineId));
-
-		//Health_History health = this.healthRepo.findById(medicineDto.getHealthHistory().getHealthId()).get();
-
-		medicine.setMedicineName(medicineDto.getMedicineName());
-		medicine.setDuration(medicineDto.getDuration());
-		medicine.setQuantity(medicineDto.getQuantity());
-		medicine.setMedicineCharges(medicineDto.getMedicineCharges());
-
-		//medicine.setHealthHistory(health);
-
-		Medicine updatedMedicine = this.medicineRepo.save(medicine);
-		return this.modelMapper.map(updatedMedicine, MedicineDto.class);
-	}
-
-	@Override
-	public void deleteMedicine(Integer medicineId) {
-		Medicine medicine = this.medicineRepo.findById(medicineId)
-				.orElseThrow(() -> new ResourceNotFoundException("Medicine ", "medicine id", medicineId));
-
-		this.medicineRepo.delete(medicine);
-	}
-
 	@Override
 	public MedicineResponse getAllMedicine(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
 		Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
@@ -116,14 +89,6 @@ public class MedicineServiceImpl implements MedicineService {
 		List<MedicineDto> medicineDtos = medicines.stream()
 				.map((medicine) -> this.modelMapper.map(medicine, MedicineDto.class)).collect(Collectors.toList());
 
-		return medicineDtos;
-	}
-
-	@Override
-	public List<MedicineDto> searchMedicine(String keyword) {
-		List<Medicine> medicines = this.medicineRepo.searchByMedicineId("%" + keyword + "%");
-		List<MedicineDto> medicineDtos = medicines.stream()
-				.map((medicine) -> this.modelMapper.map(medicine, MedicineDto.class)).collect(Collectors.toList());
 		return medicineDtos;
 	}
 }

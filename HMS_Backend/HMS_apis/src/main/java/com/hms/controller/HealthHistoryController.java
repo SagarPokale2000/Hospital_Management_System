@@ -71,7 +71,7 @@ public class HealthHistoryController {
 	// --------------------------------------------------------------------------------------------------------------
 
 	// get single active health history
-	@PreAuthorize("hasAnyRole('ACCOUNTANT','RECEPTIONIST')")
+	@PreAuthorize("hasAnyRole('ACCOUNTANT','RECEPTIONIST','DOCTOR')")
 	@GetMapping("/patient/{patientId}/healthhistory/paymentstatus")
 	public @ResponseBody ResponseEntity<HealthHistoryDto> getHealthHistoryByPaymentStatus(
 			@PathVariable Integer patientId) {
@@ -111,14 +111,17 @@ public class HealthHistoryController {
 	// --------------------------------------------------------------------------------------------------------------------
 
 	@PreAuthorize("hasRole('DOCTOR')")
-	@PutMapping("/healthhistory/{Id}")
-	public ResponseEntity<HealthHistoryDto> updateHealthHistory(@RequestBody HealthHistoryDto healthDto,
-			@PathVariable Integer Id) {
+	@PutMapping("/healthhistory/{admitStatus}")
+	public ResponseEntity<HealthHistoryDto> updateHealthHistory(@PathVariable Boolean admitStatus, @RequestBody HealthHistoryDto healthDto) {
 
-		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistory(healthDto, Id);
+		HealthHistoryDto updateHealthHistory = this.healthservice.updateHealthHistory(healthDto,admitStatus);
 		return new ResponseEntity<HealthHistoryDto>(updateHealthHistory, HttpStatus.OK);
 	}
 
+	// --------------------------------------------------------------------------------------------------------------------
+
+	
+	
 	// search
 	@GetMapping("/posts/search/{keywords}")
 	public ResponseEntity<List<HealthHistoryDto>> searchHealthHistory(@PathVariable("keywords") String keywords) {

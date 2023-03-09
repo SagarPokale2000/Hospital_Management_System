@@ -11,7 +11,7 @@ import {
   Label,
   Row,
   Input,
-  Button,
+  Button,Modal, ModalHeader, ModalBody, ModalFooter,toggle
 } from "reactstrap";
 import { addDoctor, addEmployee } from "../../../ServerCall/Admin/Admin";
 
@@ -69,6 +69,11 @@ function AddEmployee() {
     setData({ ...employee, [property]: event.target.value });
   };
 
+  const [modal, setModal] = useState(false);
+  const toggle = () => {
+    setModal(!modal);
+  }
+
   const [roleLocal, setRole] = useState("initial");
 
   const handleRoleChange = (event, property) => {
@@ -95,7 +100,7 @@ function AddEmployee() {
       lastName: "",
       email: "",
       password: "",
-      gender : "",
+      gender: "",
       securityQue: "",
       securityAns: "",
       mobileNo: "",
@@ -106,12 +111,14 @@ function AddEmployee() {
     })
 
     setData({
-    qualificaton: "",
-    salary: "",
-    status: false,
-    hiredate: "",
-    user: {},
-    })
+      qualificaton: "",
+      salary: "",
+      status: false,
+      hiredate: "",
+      user: {},
+    });
+
+    setRole("initial");
   };
 
   // ------------------------------------------------------
@@ -132,10 +139,14 @@ function AddEmployee() {
   };
   // Call server API
 
-  const addEmployeeServer = (employee) => {
-    addEmployee(employee)
+  const addEmployeeServer = (employee, id) => {
+    console.log("here In addEmployee Method with id " + id);
+    addEmployee(employee, id)
       .then((response) => {
         console.log(response);
+        console.log("Success LOG");
+        console.log("After receiving to Server response");
+        toggle();
         toast.success("User Registred as " + response.user.roles[0].name);
         resetData();
       })
@@ -145,13 +156,14 @@ function AddEmployee() {
       });
   };
 
-  const addDoctorServer = (localData) => {
+  const addDoctorServer = (employee) => {
     console.log("here In addMethodDoctor Method with id ");
-
-    console.log(localData);
-    addDoctor(localData)
+    debugger;
+    console.log(employee);
+    addDoctor(employee)
       .then((response) => {
         console.log(response);
+        toggle();
         toast.success(
           "User Registred as " + response.employee.user.roles[0].name
         );
@@ -174,7 +186,7 @@ function AddEmployee() {
                 </CardHeader>
 
                 <CardBody>
-                  <Form onSubmit={submitForm}>
+                  <Form>
                     <FormGroup>
                       <Label for="role">Select Role</Label>
                       <Input
@@ -465,7 +477,7 @@ function AddEmployee() {
                       </FormGroup>
 
                     <Container className="text-center">
-                      <Button outline color="primary">
+                      <Button outline color="primary" onClick={toggle}>
                         Add Employee
                       </Button>
                       <Button
@@ -479,10 +491,20 @@ function AddEmployee() {
                     </Container>
                   </Form>
                 </CardBody>
-          </Card>
-          
-            </Col>
-          </Row>
+            </Card>
+          </Col>
+      </Row>
+      <Modal isOpen={modal} toggle={toggle} centered={true} scrollable={true} size={"sm"}>
+          <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
+          <ModalBody>
+            <Button outline
+                        color="primary"
+                        className="ms-3" onClick={submitForm}>Yes</Button>
+            <Button outline
+                        color="danger"
+                        className="ms-3" onClick={toggle} >No</Button>
+            </ModalBody>            
+          </Modal>
     </div>
   );
 }

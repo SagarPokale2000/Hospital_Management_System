@@ -13,8 +13,8 @@ export const loadAllPatient = () => {
   );
 };
 
-export const addEmployee = (data) => {
-  return PrivateAxios.post("employee/create", data).then(
+export const addEmployee = (data, id) => {
+  return PrivateAxios.post("employee/create/" + id, data).then(
     (response) => response.data
   );
 };

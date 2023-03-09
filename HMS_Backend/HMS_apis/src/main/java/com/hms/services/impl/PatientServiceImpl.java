@@ -257,6 +257,7 @@ public class PatientServiceImpl implements PatientService {
 	public PatientDto getPatientById(Integer patientId) {
 		Patient patient = this.patientRepo.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient", "patient id", patientId));
+		
 		return this.modelMapper.map(patient, PatientDto.class);
 	}
 
@@ -288,6 +289,29 @@ public class PatientServiceImpl implements PatientService {
 		patientResponse.setLastPage(pagePatient.isLast());
 
 		return patientResponse;
+	}
+
+	// ------------------------------------------------------------------------------------------------------------
+
+	@Override
+	public List<PatientDto> getPatientsByDoctor(Integer doctorId) {
+		Doctor doc = this.doctorRepo.findById(doctorId)
+				.orElseThrow(() -> new ResourceNotFoundException("Doctor ", "Doctor Id", doctorId));
+		
+		List<Patient> patients= doc.getPatients();
+		
+		List<Patient> temp=new ArrayList<Patient>();
+		
+		for (Patient p : patients) {
+			if(p.getCurrentStatus().equals(true) && p.getAdmitStatus().equals(false)) {
+				temp.add(p);
+			}
+		}
+		
+		List<PatientDto> patientDtos = temp.stream()
+				.map((patient) -> this.modelMapper.map(patient, PatientDto.class)).collect(Collectors.toList());
+		
+		return patientDtos;
 	}
 
 	// ------------------------------------------------------------------------------------------------------------
@@ -329,4 +353,5 @@ public class PatientServiceImpl implements PatientService {
 
 		this.userRepo.delete(user);
 	}
+
 }

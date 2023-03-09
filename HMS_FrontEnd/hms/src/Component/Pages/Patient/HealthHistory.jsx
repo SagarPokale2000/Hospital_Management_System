@@ -59,7 +59,6 @@ const getMedicines = (id) => {
                 <th>Name</th>
                 <th>Appintment Date and Time</th>
                 <th>Symptoms</th>
-                <th>Doctor</th>
                 <th>Diseases</th>
                 <th>AdmitDate</th>
                 <th>DischargeDate</th>
@@ -78,7 +77,6 @@ const getMedicines = (id) => {
                       <td>{healthhistory.patient.user.firstName +" " + healthhistory.patient.user.lastName}</td>
                       <td>{healthhistory.appointmentDate+" "+healthhistory.appointmentTime}</td>
                       <td>{healthhistory.symptoms}</td>
-                      <td>{healthhistory?.patient?.doctor?.employee?.user?.firstName + " " + healthhistory?.patient?.doctor?.employee?.user?.lastName}</td>
                       <td>{healthhistory.diseases}</td>
                       <td>{healthhistory.admitDate}</td>
                       <td>{healthhistory.dischargeDate}</td>

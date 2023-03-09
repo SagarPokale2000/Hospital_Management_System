@@ -5,7 +5,7 @@ import com.hms.payloads.EmployeeResponse;
 
 public interface EmployeeService {
 	// create
-	EmployeeDto createEmployee(EmployeeDto employeeDto);
+	EmployeeDto createEmployee(EmployeeDto employeeDto, Integer Id);
 	
 	EmployeeDto createAdmin(EmployeeDto employeeDto);
 

@@ -31,17 +31,15 @@ public interface HealthHistoryService {
 			// update payment by accountant
 			HealthHistoryDto updateHealthHistoryPayment(Integer Id,Double amt);
 			
-			
-			//update 
-			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Integer healthId);
-			
-			
-			//get all medicine
-			HealthHistoryResponse getAllHealthHistory(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
-			
+			//update (doctor)
+			HealthHistoryDto updateHealthHistory(HealthHistoryDto healthDto, Boolean admitStatus);
 			
 			HealthHistoryDto getHealthHistoryByPaymentStatus(Integer patientId);
 			
+			
+
+			//get all medicine
+			HealthHistoryResponse getAllHealthHistory(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
 			//search posts
 			List<HealthHistoryDto> searchHealthHistory(String keyword);
 }

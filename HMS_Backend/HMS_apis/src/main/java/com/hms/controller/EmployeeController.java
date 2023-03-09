@@ -37,9 +37,9 @@ public class EmployeeController {
 	// -------------------------------------------------------------------------------------------------------------------------
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/employee/create")
-	public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
-		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto);
+	@PostMapping("/employee/create/{Id}")
+	public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto, @PathVariable Integer Id) {
+		EmployeeDto createEmployee = this.employeeService.createEmployee(employeeDto,Id);
 		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.CREATED);
 	}
 

@@ -126,6 +126,16 @@ public class PatientController {
 
 	// ---------------------------------------------------------------------------------------------------------------------
 
+	// get patients by doctor ( Appointment list )
+	@PreAuthorize("hasRole('DOCTOR')")
+	@GetMapping("/doctor/{doctorId}/patients")
+	public ResponseEntity<List<PatientDto>> getPatientsByDoctor(@PathVariable Integer doctorId) {
+		List<PatientDto> patients = this.patientService.getPatientsByDoctor(doctorId);
+		return new ResponseEntity<List<PatientDto>>(patients, HttpStatus.OK);
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------------
+
 	// update patient details
 //	@PreAuthorize("hasRole('PATIENT')")
 	@PutMapping("/patients/{patientId}")
@@ -134,7 +144,6 @@ public class PatientController {
 		PatientDto updatePatient = this.patientService.updatePatient(patientDto, patientId);
 		return new ResponseEntity<PatientDto>(updatePatient, HttpStatus.OK);
 	}
-
 
 	// delete patient
 	@PreAuthorize("hasRole('ADMIN')")

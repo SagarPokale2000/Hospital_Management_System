@@ -8,7 +8,6 @@ import UserProvider from "./Context/UserProvider";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./Component/Base/PrivateRoute";
 import Accountant from "./Component/Pages/Accountant/Accountant";
-import PatientDetails from "./Component/Pages/Doctor/PatientDetails";
 import Admin from "./Component/CustomeNavBar/Admin/SideNavBar";
 import PatientAccountList from "./Component/Pages/Accountant/PatientAccountList";
 import PatientDashboard from "./Component/Pages/Patient/PatientDashboard";
@@ -39,7 +38,6 @@ function App() {
             <Route path="/user" element={<PrivateRoute />}>
               <Route path="Patient" element={<PatientDashboard />}></Route>
               <Route path="PatientAccountList"element={<PatientAccountList />}></Route>
-              <Route path="update/patient/:id" element={<PatientDetails />}></Route>
 
               <Route path="doctor" element={<DoctorDashboard />}></Route>
               <Route path="receptionist" element={<ReceptionistDashboard />}></Route>

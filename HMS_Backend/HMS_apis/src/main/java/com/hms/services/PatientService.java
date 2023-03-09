@@ -27,6 +27,9 @@ public interface PatientService {
 	// get all patients (pagination)
 	PatientResponse getAllPatient(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
+	// get all patients by doctor Id
+	List<PatientDto> getPatientsByDoctor(Integer doctorId);
+	
 	
 	
 	// update patient details
