@@ -171,7 +171,7 @@ function AdmitPatient() {
                         onChange={(e) => {
                           handleChange(e, "allocatedBed");
                         }}
-                        value={user.allocatedBed}
+                        value={health.allocatedBed}
                       />             
                     </td>
                 </tr>
